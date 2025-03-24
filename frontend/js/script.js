@@ -1383,12 +1383,17 @@ async function loadCarouselData() {
         // Update carousel items with data from API
         const carouselItems = data.data;
         if (Array.isArray(carouselItems) && carouselItems.length > 0) {
-            updateCarouselContent(carouselItems);
+            updateHeroCarousel(carouselItems);
         } else {
-            console.log('No carousel items found');
+            console.log('No carousel items found, using fallback data');
+            // Use the fallback data defined at the top of the file
+            updateHeroCarousel(window.carouselItems || []);
         }
     } catch (error) {
         console.error('Error fetching carousel data:', error);
+        // Use fallback data on error
+        console.log('Using fallback carousel data due to error');
+        updateHeroCarousel(window.carouselItems || []);
     }
 }
 

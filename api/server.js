@@ -9,14 +9,18 @@ require('dotenv').config();
 const app = express();
 
 // Security middleware
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false
+}));
+
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
-        ? 'https://abhi-draft3-e9rr9a7mf-vinays-projects-e655e938.vercel.app'
+        ? ['https://abhi-draft3-a8y81juhx-vinays-projects-e655e938.vercel.app', 'https://abhi-draft3.vercel.app']
         : '*',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token']
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token', 'x-api-key']
 }));
 
 // Rate limiting
@@ -24,11 +28,33 @@ const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per windowMs
 });
-app.use(limiter);
+app.use('/api/', limiter);
 
-// Body parsing middleware
-app.use(express.json({ limit: '10mb' }));
+// Body parsing middleware with error handling
+app.use(express.json({ 
+    limit: '10mb',
+    verify: (req, res, buf) => {
+        try {
+            JSON.parse(buf);
+        } catch (e) {
+            res.status(400).json({ 
+                success: false, 
+                message: 'Invalid JSON payload' 
+            });
+            throw new Error('Invalid JSON');
+        }
+    }
+}));
+
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Add request logging in development
+if (process.env.NODE_ENV !== 'production') {
+    app.use((req, res, next) => {
+        console.log(`${req.method} ${req.url}`);
+        next();
+    });
+}
 
 // MongoDB connection with enhanced error handling
 const connectDB = async () => {
@@ -121,40 +147,37 @@ app.use((req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    
-    // Handle MongoDB connection errors
-    if (err.name === 'MongoError' || err.name === 'MongoServerError') {
-        return res.status(503).json({
-            success: false,
-            message: 'Database connection error',
-            error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    console.error('Error:', err);
+
+    // Handle specific error types
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        return res.status(400).json({ 
+            success: false, 
+            message: 'Invalid JSON payload' 
         });
     }
 
-    // Handle JWT errors
-    if (err.name === 'JsonWebTokenError') {
+    if (err.name === 'UnauthorizedError') {
         return res.status(401).json({
             success: false,
-            message: 'Invalid token',
-            error: process.env.NODE_ENV === 'development' ? err.message : undefined
+            message: 'Invalid or missing authentication token'
         });
     }
 
-    // Handle validation errors
     if (err.name === 'ValidationError') {
         return res.status(400).json({
             success: false,
             message: 'Validation error',
-            error: process.env.NODE_ENV === 'development' ? err.message : undefined
+            errors: Object.values(err.errors).map(e => e.message)
         });
     }
 
     // Default error response
-    res.status(500).json({
+    res.status(err.status || 500).json({
         success: false,
-        message: 'Internal Server Error',
-        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+        message: process.env.NODE_ENV === 'production' 
+            ? 'An unexpected error occurred' 
+            : err.message
     });
 });
 

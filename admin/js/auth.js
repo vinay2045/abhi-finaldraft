@@ -17,36 +17,35 @@ class AdminAuth {
      */
     static async login(username, password) {
         try {
-            const response = await fetch(`/api/auth/admin-login`, {
+            const response = await fetch('/api/auth/admin-login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
-                credentials: 'include',
                 body: JSON.stringify({ username, password })
             });
 
-            // First check if response is ok
+            // Handle non-OK responses first
             if (!response.ok) {
                 const errorText = await response.text();
                 let errorMessage;
                 try {
+                    // Try to parse error as JSON
                     const errorData = JSON.parse(errorText);
                     errorMessage = errorData.message || `Login failed (${response.status})`;
                 } catch (e) {
+                    // If not JSON, use status text
                     errorMessage = `Login failed: ${response.status} ${response.statusText}`;
                 }
                 throw new Error(errorMessage);
             }
 
-            // Now try to parse the successful response
-            let data;
-            try {
-                const text = await response.text();
-                data = JSON.parse(text);
-            } catch (parseError) {
-                console.error('Response parsing error:', parseError);
-                throw new Error('Unable to parse server response. Please try again.');
+            // For successful responses, parse JSON
+            const data = await response.json();
+            
+            if (!data.success) {
+                throw new Error(data.message || 'Login failed');
             }
 
             if (!data.token) {
@@ -60,6 +59,10 @@ class AdminAuth {
             return data.user;
         } catch (error) {
             console.error('Login error:', error);
+            // Rethrow with a more user-friendly message if it's a network error
+            if (error instanceof TypeError && error.message === 'Failed to fetch') {
+                throw new Error('Unable to connect to the server. Please check your internet connection.');
+            }
             throw error;
         }
     }
