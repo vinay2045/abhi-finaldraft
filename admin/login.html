@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Travel Agency</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin-style.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .login-header h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .login-header p {
+            margin: 10px 0 0;
+            opacity: 0.8;
+        }
+        
+        .login-body {
+            padding: 30px;
+        }
+        
+        .alert {
+            display: none;
+            margin-bottom: 20px;
+        }
+        
+        .login-footer {
+            padding: 20px 30px;
+            background-color: #f8f9fa;
+            text-align: center;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: var(--gray-600);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h3>Admin Panel</h3>
+            <p>Enter your credentials to access the admin area</p>
+        </div>
+        
+        <div class="login-body">
+            <div class="alert alert-danger" id="loginAlert"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="loginButton">
+                    <span>Login</span>
+                    <span id="loadingSpinner" class="loading-spinner" style="display: none;"></span>
+                </button>
+            </form>
+        </div>
+        
+        <div class="login-footer">
+            &copy; 2023 Travel Agency. All rights reserved.
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if we should redirect after login
+            const redirectPath = sessionStorage.getItem('redirect_after_login');
+            
+            // If already authenticated, redirect to dashboard
+            if (window.AdminAuth.isAuthenticated() && !window.AdminAuth.isTokenExpired()) {
+                window.location.href = redirectPath || 'dashboard.html';
+                return;
+            }
+            
+            const loginForm = document.getElementById('loginForm');
+            const loginAlert = document.getElementById('loginAlert');
+            const loginButton = document.getElementById('loginButton');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value.trim();
+                
+                // Basic validation
+                if (!username || !password) {
+                    showError('Please enter both username and password');
+                    return;
+                }
+                
+                // Show loading
+                setLoading(true);
+                
+                try {
+                    // Attempt login
+                    await window.AdminAuth.login(username, password);
+                    
+                    // Success - redirect
+                    window.location.href = redirectPath || 'dashboard.html';
+                } catch (error) {
+                    // Show error
+                    showError(error.message || 'Login failed. Please check your credentials.');
+                    setLoading(false);
+                }
+            });
+            
+            function showError(message) {
+                loginAlert.textContent = message;
+                loginAlert.style.display = 'block';
+            }
+            
+            function setLoading(isLoading) {
+                if (isLoading) {
+                    loginButton.querySelector('span:first-child').style.display = 'none';
+                    loadingSpinner.style.display = 'inline-block';
+                    loginButton.disabled = true;
+                } else {
+                    loginButton.querySelector('span:first-child').style.display = 'inline';
+                    loadingSpinner.style.display = 'none';
+                    loginButton.disabled = false;
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

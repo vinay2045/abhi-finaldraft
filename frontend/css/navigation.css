@@ -1,0 +1,105 @@
+/* Navigation CSS - clean version that works with JavaScript-generated menu */
+
+nav {
+    height: 70px;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1000;
+}
+
+/* Logo container */
+#nav-part2 img {
+    width: 200px;
+    height: 100px;
+    cursor: pointer;
+}
+
+/* Mobile menu button */
+#nav-part1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+}
+
+#nav-part1 i {
+    font-size: 20px;
+    border: 1.5px solid var(--text-color);
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+/* Base styles for nav links */
+nav h3 {
+    border: 1.5px solid var(--text-color);
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Responsive behavior - controlled primarily through JavaScript */
+@media (min-width: 1025px) {
+    #nav-part1 {
+        display: none !important;
+    }
+    
+    #nav-part3.desktop-menu {
+        display: flex !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    #nav-part1 {
+        display: flex !important;
+    }
+    
+    #nav-part3.desktop-menu {
+        display: none !important;
+    }
+}
+
+#nav-part4 h1{
+    font-size: rem;
+}
+
+nav h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    font-family: "JetBrains Mono", monospace;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+#nav-part3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 60%;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+#nav-part3 a i {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    font-weight: 900;
+    margin-left: .5rem;
+}
+
+#nav-part3 a h3 {
+    display: flex;
+    align-items: center;
+}
+

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domestic Tours - Abhi Tours & Travels</title>
+    
+    <!-- Advanced page loader script - must be at the top -->
+    <script src="../js/page-loader.js"></script>
+    
+    <!-- Theme handler script to prevent theme flash -->
+    <script src="../js/theme-handler.js"></script>
+    
+    <!-- Critical CSS - inlined for fastest rendering -->
+    <link rel="stylesheet" href="../css/critical.css">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="../css/main.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../css/domestic-tours.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../css/components.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../css/animation.css" media="print" onload="this.media='all'">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <!-- Fallback for browsers that don't support JS loading -->
+    <noscript>
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/domestic-tours.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    </noscript>
+    
+    <!-- Enhanced lazy loading script -->
+    <script src="../js/lazy-load.js" defer></script>
+    
+    <!-- Script loader for deferred JavaScript loading -->
+    <script src="../js/script-loader.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div id="nav-part1" style="display: none;">
+                <i class="ri-menu-3-line"></i>
+            </div>
+            <div id="nav-part2">
+                <img src="../images/WhatsApp_Image_2025-03-17_at_19.38.53_85a826c5-removebg-preview.png" alt="Abhi Tours & Travels Logo">
+            </div>
+            <div id="nav-part3">
+                <a href="index.html"><h3><span>Home</span> <span><i class='bx bxs-home-alt-2'></i></span></h3></a>
+                <a href="aboutus.html"><h3><span>About Us</span> <span><i class='bx bxs-invader'></i></span></h3></a>
+                <h3 id="ourservices"><span>Our Services</span> <span><i class='bx bxs-invader'></i></span></h3>
+                <h3 id="trips"><span>Trips</span> <span><i class='bx bxl-airbnb'></i></span></h3>
+                <a href="contactus.html"><h3>Contact Us <span><i class='bx bx-mail-send'></i></span></h3></a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" title="Toggles light & dark" aria-label="auto" aria-live="polite">
+                <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                    <mask class="moon" id="moon-mask">
+                        <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                        <circle cx="24" cy="10" r="6" fill="black" />
+                    </mask>
+                    <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
+                    <g class="sun-beams" stroke="currentColor">
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </g>
+                </svg>
+            </button>
+        </nav>
+        
+        <div class="domestic-hero" style="background-image: url('../images/img2.avif');">
+            <div class="domestic-hero-content">
+                <h1>Domestic Tours</h1>
+                <p>Explore the diverse beauty of India with our carefully crafted domestic tour packages.</p>
+                <button class="cta-btn" onclick="document.querySelector('#domestic-booking-inquiry').scrollIntoView({ behavior: 'smooth' });">Book now</button>
+            </div>
+            
+        </div>
+        
+        <div class="domestic-section">
+            <h2 class="domestic-title">Discover India</h2>
+            <p>At Abhi Tours & Travels, we offer a wide range of domestic tour packages that showcase the rich cultural heritage, breathtaking landscapes, and incredible diversity of India. Our expertly designed itineraries ensure you experience the best of each destination with comfort and convenience.</p>
+            
+            <div class="category-filter">
+                <button class="category-btn active" data-filter="all">All Destinations</button>
+                <button class="category-btn" data-filter="north">North India</button>
+                <button class="category-btn" data-filter="south">South India</button>
+                <button class="category-btn" data-filter="west">West India</button>
+                <button class="category-btn" data-filter="islands">Islands</button>
+                <button class="category-btn" data-filter="hill">Hill Stations</button>
+                <button class="category-btn" data-filter="beach">Beach Destinations</button>
+            </div>
+            
+            <div class="domestic-grid">
+                <div class="tour-card" data-category="south">
+                    <img src="../images/img3.avif" alt="Kerala Backwaters" class="tour-card-img">
+                    <div class="tour-card-body">
+                        <h3 class="tour-card-title">Kerala</h3>
+                        <p class="tour-card-text">Experience the serene backwaters, lush greenery, and vibrant cultural heritage of God's Own Country.</p>
+                        <div class="tour-card-meta">
+                            <span class="tour-card-price">₹13,999 per person</span>
+                            <span class="tour-card-duration"><i class='bx bx-time'></i> 5 Days / 4 Nights</span>
+                        </div>
+                        
+                        <button class="tour-card-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="tour-card" data-category="north hill">
+                    <img src="../images/img4.avif" alt="Shimla & Manali" class="tour-card-img">
+                    <div class="tour-card-body">
+                        <h3 class="tour-card-title">Shimla & Manali</h3>
+                        <p class="tour-card-text">Explore the Queen of Hill Stations with its colonial charm and breathtaking Himalayan views.</p>
+                        <div class="tour-card-meta">
+                            <span class="tour-card-price">₹15,999 per person</span>
+                            <span class="tour-card-duration"><i class='bx bx-time'></i> 6 Days / 5 Nights</span>
+                        </div>
+                        
+                        <button class="tour-card-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="tour-card" data-category="north hill">
+                    <img src="../images/img5.avif" alt="Jammu & Kashmir" class="tour-card-img">
+                    <div class="tour-card-body">
+                        <h3 class="tour-card-title">Jammu & Kashmir</h3>
+                        <p class="tour-card-text">Discover the paradise on earth with its breathtaking landscapes, lakes, and meadows.</p>
+                        <div class="tour-card-meta">
+                            <span class="tour-card-price">₹16,900 per person</span>
+                            <span class="tour-card-duration"><i class='bx bx-time'></i> 7 Days / 6 Nights</span>
+                        </div>
+                       
+                        <button class="tour-card-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="tour-card" data-category="west beach">
+                    <img src="../images/img6.avif" alt="Goa Beach Holiday" class="tour-card-img">
+                    <div class="tour-card-body">
+                        <h3 class="tour-card-title">Goa</h3>
+                        <p class="tour-card-text">Relax on golden beaches, enjoy water sports, and experience the unique Portuguese-influenced culture.</p>
+                        <div class="tour-card-meta">
+                            <span class="tour-card-price">₹9,999 per person</span>
+                            <span class="tour-card-duration"><i class='bx bx-time'></i> 4 Days / 3 Nights</span>
+                        </div>
+                       
+                        <button class="tour-card-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="tour-card" data-category="south">
+                    <img src="../images/img7.avif" alt="Tamil Nadu" class="tour-card-img">
+                    <div class="tour-card-body">
+                        <h3 class="tour-card-title">Tamil Nadu</h3>
+                        <p class="tour-card-text">Explore ancient temples, colonial architecture, and the rich cultural heritage of southern India.</p>
+                        <div class="tour-card-meta">
+                            <span class="tour-card-price">₹13,999 per person</span>
+                            <span class="tour-card-duration"><i class='bx bx-time'></i> 6 Days / 5 Nights</span>
+                        </div>
+                      
+                        <button class="tour-card-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="tour-card" data-category="islands beach">
+                    <img src="../images/img8.avif" alt="Andaman" class="tour-card-img">
+                    <div class="tour-card-body">
+                        <h3 class="tour-card-title">Andaman</h3>
+                        <p class="tour-card-text">Discover pristine beaches, coral reefs, and the unique history of these beautiful islands.</p>
+                        <div class="tour-card-meta">
+                            <span class="tour-card-price">₹17,999 per person</span>
+                            <span class="tour-card-duration"><i class='bx bx-time'></i> 5 Days / 4 Nights</span>
+                        </div>
+                        
+                        <button class="tour-card-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="domestic-section">
+            <h2 class="domestic-title">Why Choose Our Domestic Tours</h2>
+            <div class="features-section">
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class='bx bx-check-shield'></i>
+                        <h3>Quality Assurance</h3>
+                        <p>Handpicked accommodations, expert guides, and reliable transport for a hassle-free experience.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class='bx bx-customize'></i>
+                        <h3>Customizable Packages</h3>
+                        <p>Flexibility to tailor your itinerary based on your preferences, budget, and time constraints.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class='bx bx-money-withdraw'></i>
+                        <h3>Value for Money</h3>
+                        <p>Competitive prices without compromising on the quality of services and experiences.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class='bx bx-support'></i>
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock assistance from our team throughout your journey for a worry-free vacation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="domestic-section">
+            <h2 class="domestic-title" id="domestic-booking-inquiry">Plan Your Domestic Tour</h2>
+            <div class="tour-form-container">
+                <h3 class="tour-form-title">Enquiry Form</h3>
+                <form class="tour-form" action="/api/submissions/tour" method="POST" data-submit="ajax">
+                    <div class="tour-form-header">
+                        <h3>Enquire Now</h3>
+                        <p>Interested in this tour? Fill out the form to get started!</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Preferred Travel Date</label>
+                        <input type="date" id="date" name="departureDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="persons">Number of Travelers</label>
+                        <select id="persons" name="travelers" required>
+                            <option value="">Select</option>
+                            <option value="1">1 Person</option>
+                            <option value="2">2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5+">5+ People</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="tourType" value="domestic">
+                    <input type="hidden" name="destination" value="Kerala">
+                    <div class="form-group">
+                        <label for="message">Additional Requirements</label>
+                        <textarea id="message" name="message" placeholder="Tell us about any special requirements or questions"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Submit Enquiry</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-contact-form-container">
+                <div class="footer-contact-form">
+                    <h3>Contact Us</h3>
+                    <p>Have questions or ready to plan your next adventure? Send us a message and we'll get back to you shortly.</p>
+                    <form action="/api/submissions/contact" method="POST" data-submit="ajax">
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="text" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="footer-form-group">
+                                <input type="email" name="email" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="tel" name="phone" placeholder="Your Phone" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="text" name="subject" placeholder="Subject" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <textarea name="message" placeholder="Your Message" required></textarea>
+                            </div>
+                        </div>
+                        <div class="footer-form-submit">
+                            <button type="submit">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-container">
+                <div class="footer-logo-section">
+                    <img src="../images/WhatsApp_Image_2025-03-17_at_19.38.53_85a826c5-removebg-preview.png" alt="Abhi Tours & Travels Logo">
+                    <p class="footer-tagline">Time to Travel - Your gateway to extraordinary experiences and unforgettable adventures.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                        <a href="#"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-pinterest'></i></a>
+                        <a href="#"><i class='bx bxl-youtube'></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class='bx bx-chevron-right'></i> Home</a></li>
+                        <li><a href="aboutus.html"><i class='bx bx-chevron-right'></i> About Us</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Our Services</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Tour Packages</a></li>
+                        <li><a href="contactus.html"><i class='bx bx-chevron-right'></i> Contact Us</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class='bx bx-map'></i> 1st Floor, Above SBI ATM,<br>Beside Srikanth Honda Show Room,<br>Mankammathota, Karimnagar, TS - 505001</p>
+                    <p><i class='bx bx-phone'></i> 8886226565, 9885531674</p>
+                    <p><i class='bx bx-envelope'></i> info@abhitoursandtravels.com</p>
+                    <p><i class='bx bx-time-five'></i> Monday - Saturday: 9:00 AM - 8:00 PM</p>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive special offers and updates on new travel destinations.</p>
+                    <form class="footer-form" action="/api/submissions/newsletter" method="POST" data-submit="ajax">
+                        <input type="email" name="email" placeholder="Your Email Address" required>
+                        <button type="submit"><i class='bx bx-paper-plane'></i></button>
+                    </form>
+                    <p class="footer-disclaimer">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Abhi Tours & Travels. All rights reserved.</p>
+                <p>Designed with <i class='bx bx-heart' style="color: #e74c3c;"></i> for travelers around the world</p>
+            </div>
+        </footer>
+    </div>
+    <a href="#" class="contact-float" id="contactBtn">
+        <i class='bx bxs-envelope'></i>
+    </a>
+
+    <!-- Contact Form Popup -->
+    <div class="contact-popup" id="contactPopup">
+        <div class="contact-popup-content">
+            <div class="popup-header">
+                <h3>Contact Us</h3>
+                <button class="close-btn" id="closeContactPopup">&times;</button>
+            </div>
+            <form id="contactForm" action="/api/submissions/contact" method="POST" data-submit="ajax">
+                <div class="form-group">
+                    <input type="text" id="popup-name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="popup-phone" name="phone" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="popup-email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="popup-subject" name="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="popup-message" name="message" placeholder="Tell us about your tour requirements" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Booking Form Popup -->
+    <div class="contact-popup" id="bookingPopup">
+        <div class="contact-popup-content booking-popup-content">
+            <div class="popup-header">
+                <h3>Book Tour Package</h3>
+                <button class="close-btn" id="closeBookingPopup">&times;</button>
+            </div>
+            <form id="bookingForm" action="/api/submissions/tour" method="POST" data-submit="ajax">
+                <div class="form-group">
+                    <label for="booking-name">Full Name</label>
+                    <input type="text" id="booking-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="booking-email">Email Address</label>
+                    <input type="email" id="booking-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="booking-phone">Phone Number</label>
+                    <input type="tel" id="booking-phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="booking-tour">Tour Package</label>
+                    <select id="booking-tour" name="destination" required>
+                        <option value="">Select a package</option>
+                        <option value="Kerala">Kerala - God's Own Country</option>
+                        <option value="Goa">Goa - Beach Paradise</option>
+                        <option value="Rajasthan">Rajasthan Heritage Tour</option>
+                        <option value="Himachal">Himachal Pradesh Adventure</option>
+                        <option value="Andaman">Andaman & Nicobar Islands</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="booking-date">Departure Date</label>
+                    <input type="date" id="booking-date" name="departureDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="booking-travelers">Number of Travelers</label>
+                    <select id="booking-travelers" name="travelers" required>
+                        <option value="">Select</option>
+                        <option value="1">1 Person</option>
+                        <option value="2">2 People</option>
+                        <option value="3">3 People</option>
+                        <option value="4">4 People</option>
+                        <option value="5+">5+ People</option>
+                    </select>
+                </div>
+                <input type="hidden" name="tourType" value="domestic">
+                <input type="hidden" name="formType" value="tour">
+                <div class="form-group">
+                    <label for="booking-message">Special Requirements</label>
+                    <textarea id="booking-message" name="message"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Book Now</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="../js/script.js"></script>
+    
+    <!-- Booking popup handling script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookingPopup = document.getElementById('bookingPopup');
+            const closeBookingPopup = document.getElementById('closeBookingPopup');
+            const tourButtons = document.querySelectorAll('.tour-card-btn');
+            
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.category-btn');
+            const tourCards = document.querySelectorAll('.tour-card');
+            
+            // Ensure "All Destinations" button is active on page load
+            const allButton = document.querySelector('.category-btn[data-filter="all"]');
+            if (allButton) {
+                allButton.classList.add('active');
+                // Show all tour cards initially
+                tourCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get filter value
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Show/hide tours based on filter
+                    tourCards.forEach(card => {
+                        if (filterValue === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            const categories = card.getAttribute('data-category').split(' ');
+                            if (categories.includes(filterValue)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Set minimum date for travel date input to tomorrow
+            const bookingDate = document.getElementById('booking-date');
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            bookingDate.min = tomorrow.toISOString().split('T')[0];
+            
+            // Close booking popup
+            closeBookingPopup.addEventListener('click', function() {
+                bookingPopup.style.display = 'none';
+            });
+            
+            // Close popup when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === bookingPopup) {
+                    bookingPopup.style.display = 'none';
+                }
+            });
+            
+            // Add click event to all "Book Now" buttons
+            tourButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    
+                    // Get tour details from the card
+                    const tourCard = this.closest('.tour-card');
+                    const tourTitle = tourCard.querySelector('.tour-card-title').textContent;
+                    const tourPrice = tourCard.querySelector('.tour-card-price').textContent;
+                    const tourDuration = tourCard.querySelector('.tour-card-duration').textContent.replace(/[^\d\/\s]+/g, '').trim();
+                    
+                    // Set values in the booking form
+                    const tourSelect = document.getElementById('booking-tour');
+                    if (tourSelect) {
+                        // Find matching option or create one
+                        let foundMatch = false;
+                        for (let i = 0; i < tourSelect.options.length; i++) {
+                            if (tourSelect.options[i].value === tourTitle || 
+                                tourSelect.options[i].value === tourTitle.trim() ||
+                                tourTitle.includes(tourSelect.options[i].value)) {
+                                tourSelect.selectedIndex = i;
+                                foundMatch = true;
+                                break;
+                            }
+                        }
+                        
+                        if (!foundMatch && tourTitle) {
+                            for (let i = 0; i < tourSelect.options.length; i++) {
+                                // Look for partial matches in the option text
+                                if (tourSelect.options[i].text.includes(tourTitle) || 
+                                    tourTitle.includes(tourSelect.options[i].text) || 
+                                    tourTitle.includes(tourSelect.options[i].value)) {
+                                    tourSelect.selectedIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Check if price and duration fields exist before setting values
+                    const priceField = document.getElementById('booking-price');
+                    if (priceField) {
+                        priceField.value = tourPrice;
+                    }
+                    
+                    const durationField = document.getElementById('booking-duration');
+                    if (durationField) {
+                        durationField.value = tourDuration;
+                    }
+                    
+                    // Add hidden info to form if not set above
+                    const form = document.getElementById('bookingForm');
+                    if (form) {
+                        // Check if we need to add hidden price field
+                        if (!priceField) {
+                            const hiddenPrice = document.createElement('input');
+                            hiddenPrice.type = 'hidden';
+                            hiddenPrice.name = 'price';
+                            hiddenPrice.value = tourPrice;
+                            form.appendChild(hiddenPrice);
+                        }
+                        
+                        // Check if we need to add hidden duration field
+                        if (!durationField) {
+                            const hiddenDuration = document.createElement('input');
+                            hiddenDuration.type = 'hidden';
+                            hiddenDuration.name = 'duration';
+                            hiddenDuration.value = tourDuration;
+                            form.appendChild(hiddenDuration);
+                        }
+                    }
+                    
+                    // Show the booking popup
+                    bookingPopup.style.display = 'flex';
+                });
+            });
+            
+            // Handle form submission
+            bookingForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+               
+                
+                // Close the popup
+                bookingPopup.style.display = 'none';
+                
+                // Reset the form
+                bookingForm.reset();
+            });
+        });
+    </script>
+</body>
+</html> 

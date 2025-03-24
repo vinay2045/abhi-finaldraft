@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Application - Abhi Tours & Travels</title>
+    
+    <!-- Advanced page loader script - must be at the top -->
+    <script src="../js/page-loader.js"></script>
+    
+    <!-- Theme handler script to prevent theme flash -->
+    <script src="../js/theme-handler.js"></script>
+    
+    <!-- Critical CSS - inlined for fastest rendering -->
+    <link rel="stylesheet" href="../css/critical.css">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="../css/main.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../css/passport.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../css/components.css" media="print" onload="this.media='all'">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <!-- Fallback for browsers that don't support JS loading -->
+    <noscript>
+        <link rel="stylesheet" href="../css/main.css">`
+        <link rel="stylesheet" href="../css/passport.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    </noscript>
+    
+    <!-- Enhanced lazy loading script -->
+    <script src="../js/lazy-load.js" defer></script>
+    
+    <!-- Script loader for deferred JavaScript loading -->
+    <script src="../js/script-loader.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div id="nav-part1" style="display: none;">
+                <i class="ri-menu-3-line"></i>
+            </div>
+            <div id="nav-part2">
+                <img src="../images/WhatsApp_Image_2025-03-17_at_19.38.53_85a826c5-removebg-preview.png" alt="Abhi Tours & Travels Logo">
+            </div>
+            <div id="nav-part3">
+                <a href="index.html"><h3><span>Home</span> <span><i class='bx bxs-home-alt-2'></i></span></h3></a>
+                <a href="aboutus.html"><h3><span>About Us</span> <span><i class='bx bxs-invader'></i></span></h3></a>
+                <h3 id="ourservices"><span>Our Services</span> <span><i class='bx bxs-invader'></i></span></h3>
+                <h3 id="trips"><span>Trips</span> <span><i class='bx bxl-airbnb'></i></span></h3>
+                <a href="contactus.html"><h3>Contact Us <span><i class='bx bx-mail-send'></i></span></h3></a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" title="Toggles light & dark" aria-label="auto" aria-live="polite">
+                <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                    <mask class="moon" id="moon-mask">
+                        <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                        <circle cx="24" cy="10" r="6" fill="black" />
+                    </mask>
+                    <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
+                    <g class="sun-beams" stroke="currentColor">
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </g>
+                </svg>
+            </button>
+        </nav>
+        
+        <div class="passport-hero" style="background-image: url('../images/img9.avif');">
+            <div class="passport-hero-content">
+                <h1>Passport Application Services</h1>
+                <p>We provide end-to-end assistance for new passport applications, renewals, and other passport-related services.</p>
+                <button class="cta-btn" onclick="document.querySelector('#passport-booking-inquiry').scrollIntoView({ behavior: 'smooth' });">Book now</button>
+            </div>
+        </div>
+        
+        <div class="passport-section">
+            <h2 class="passport-title">Our Passport Services</h2>
+            <p>At Abhi Tours & Travels, we simplify the passport application process by providing expert guidance and assistance at every step. Our experienced team ensures a smooth and hassle-free experience for all your passport needs.</p>
+            
+            <div class="service-cards">
+                <div class="service-card">
+                    <div class="service-card-icon">
+                        <i class='bx bx-book-open'></i>
+                    </div>
+                    <h3>New Passport</h3>
+                    <p>Complete assistance for first-time passport applicants with document verification and application submission.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon">
+                        <i class='bx bx-refresh'></i>
+                    </div>
+                    <h3>Passport Renewal</h3>
+                    <p>Quick and easy renewal process for expired or expiring passports with minimal documentation.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon">
+                        <i class='bx bx-edit'></i>
+                    </div>
+                    <h3>Name/Address Change</h3>
+                    <p>Update your personal details in your passport following marriage, divorce, or relocation.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon">
+                        <i class='bx bx-book-add'></i>
+                    </div>
+                    <h3>Additional Booklet</h3>
+                    <p>Add extra pages to your existing passport for frequent travelers with limited space.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="passport-section">
+            <h2 class="passport-title">Passport Types</h2>
+            <div class="passport-types">
+                <div class="passport-type">
+                    <h3>Regular Passport</h3>
+                    <p>Standard passport issued to most citizens for regular international travel for tourism, business, education, employment, etc.</p>
+                    <div class="processing-time">
+                        <i class='bx bx-time'></i>
+                        <span>Processing Time: 30-45 days</span>
+                    </div>
+                    <div class="processing-time">
+                        <i class='bx bx-calendar'></i>
+                        <span>Validity: 10 years (Adults), 5 years (Minors)</span>
+                    </div>
+                    <div class="fee">Fee: ₹1,500 - ₹2,500</div>
+                </div>
+                
+                <div class="passport-type">
+                    <h3>Tatkal Passport</h3>
+                    <p>Expedited processing for those who need a passport urgently. Requires the same documents as regular passport with additional proof of urgency.</p>
+                    <div class="processing-time">
+                        <i class='bx bx-time'></i>
+                        <span>Processing Time: 1-3 working days</span>
+                    </div>
+                    <div class="processing-time">
+                        <i class='bx bx-calendar'></i>
+                        <span>Validity: Same as regular passport</span>
+                    </div>
+                    <div class="fee">Fee: ₹3,500 - ₹4,500</div>
+                </div>
+                
+                <div class="passport-type">
+                    <h3>Child Passport</h3>
+                    <p>Special passports issued to minors under 18 years of age with additional requirements for parental consent and documentation.</p>
+                    <div class="processing-time">
+                        <i class='bx bx-time'></i>
+                        <span>Processing Time: 30-45 days</span>
+                    </div>
+                    <div class="processing-time">
+                        <i class='bx bx-calendar'></i>
+                        <span>Validity: 5 years or until age 18</span>
+                    </div>
+                    <div class="fee">Fee: ₹1,000 - ₹2,000</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="passport-section">
+            <h2 class="passport-title">Application Process</h2>
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Document Collection</h3>
+                        <p>Gather all required documents including proof of identity, address proof, birth certificate, and photographs according to passport specifications.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Application Submission</h3>
+                        <p>Complete the online application form and submit it with the required documents and fees. We'll help you throughout this process.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Appointment Scheduling</h3>
+                        <p>Schedule an appointment at the nearest Passport Seva Kendra for document verification and biometric data collection.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Police Verification</h3>
+                        <p>After application processing, police verification will be conducted at your residence to confirm your address and identity.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Passport Issuance</h3>
+                        <p>Once all verifications are complete, your passport will be printed and dispatched to your address by speed post.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="passport-section">
+            <div class="flex-row">
+                <div class="column">
+                    <h2 class="passport-title" id="passport-booking-inquiry">Passport Application Enquiry</h2>
+                    <div class="passport-form-container">
+                        <form action="/api/submissions/passport" method="POST" data-submit="ajax">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" name="name" placeholder="Enter your full name as per documents" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="passport-type">Passport Type</label>
+                                    <select id="passport-type" name="applicationType" required>
+                                        <option value="">Select Passport Type</option>
+                                        <option value="new">New Passport</option>
+                                        <option value="renewal">Passport Renewal</option>
+                                        <option value="lost">Lost/Damaged Passport Replacement</option>
+                                        <option value="tatkal">Tatkal Passport Service</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City of Residence</label>
+                                    <input type="text" id="city" name="city" placeholder="Enter your current city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date">Preferred Appointment Date</label>
+                                    <input type="date" id="date" name="expectedDate" required>
+                                </div>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="message">Additional Information</label>
+                                <textarea id="message" name="message" placeholder="Any specific requirements or questions about your passport application?"></textarea>
+                            </div>
+                            <input type="hidden" name="urgency" value="Normal">
+                            <input type="hidden" name="numberOfApplicants" value="1">
+                            <input type="hidden" name="formType" value="passport">
+                            <button type="submit" class="btn-primary">Submit Enquiry</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-contact-form-container">
+                <div class="footer-contact-form">
+                    <h3>Contact Us</h3>
+                    <p>Have questions or ready to plan your next adventure? Send us a message and we'll get back to you shortly.</p>
+                    <form action="/api/submissions/contact" method="POST" data-submit="ajax">
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="text" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="footer-form-group">
+                                <input type="email" name="email" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="tel" name="phone" placeholder="Your Phone" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="text" name="subject" placeholder="Subject" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <textarea name="message" placeholder="Your Message" required></textarea>
+                            </div>
+                        </div>
+                        <div class="footer-form-submit">
+                            <button type="submit">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-container">
+                <div class="footer-logo-section">
+                    <img src="../images/WhatsApp_Image_2025-03-17_at_19.38.53_85a826c5-removebg-preview.png" alt="Abhi Tours & Travels Logo">
+                    <p class="footer-tagline">Time to Travel - Your gateway to extraordinary experiences and unforgettable adventures.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                        <a href="#"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-pinterest'></i></a>
+                        <a href="#"><i class='bx bxl-youtube'></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class='bx bx-chevron-right'></i> Home</a></li>
+                        <li><a href="aboutus.html"><i class='bx bx-chevron-right'></i> About Us</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Our Services</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Tour Packages</a></li>
+                        <li><a href="contactus.html"><i class='bx bx-chevron-right'></i> Contact Us</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class='bx bx-map'></i> 1st Floor, Above SBI ATM,<br>Beside Srikanth Honda Show Room,<br>Mankammathota, Karimnagar, TS - 505001</p>
+                    <p><i class='bx bx-phone'></i> 8886226565, 9885531674</p>
+                    <p><i class='bx bx-envelope'></i> info@abhitoursandtravels.com</p>
+                    <p><i class='bx bx-time-five'></i> Monday - Saturday: 9:00 AM - 8:00 PM</p>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive special offers and updates on new travel destinations.</p>
+                    <form class="footer-form">
+                        <input type="email" placeholder="Your Email Address" required>
+                        <button type="submit"><i class='bx bx-paper-plane'></i></button>
+                    </form>
+                    <p class="footer-disclaimer">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Abhi Tours & Travels. All rights reserved.</p>
+                <p>Designed with <i class='bx bx-heart' style="color: #e74c3c;"></i> for travelers around the world</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="../js/script.js" defer></script>
+    
+    <!-- Contact Icon and Form -->
+    <a href="#" class="contact-float" id="contactBtn">
+        <i class='bx bxs-envelope'></i>
+    </a>
+    
+    <div class="contact-popup" id="contactPopup">
+        <div class="contact-popup-content">
+            <div class="popup-header">
+                <h3>Contact Us</h3>
+                <button class="close-btn" id="closeContactPopup">&times;</button>
+            </div>
+            <form id="contactForm" action="/api/submissions/contact" method="POST" data-submit="ajax">
+                <div class="form-group">
+                    <input type="text" id="popup-name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="popup-phone" name="phone" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="popup-email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="popup-subject" name="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="popup-message" name="message" placeholder="Tell us about your passport application requirements" required></textarea>
+                </div>
+                <input type="hidden" name="formType" value="contact">
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 

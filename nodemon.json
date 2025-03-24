@@ -1,0 +1,29 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    "uploads/*",
+    "admin/*",
+    "frontend/*"
+  ],
+  "verbose": true,
+  "execMap": {
+    "js": "node --unhandled-rejections=strict"
+  },
+  "events": {
+    "restart": "echo \"App restarted due to changes\""
+  },
+  "watch": [
+    "server.js",
+    "routes/",
+    "models/",
+    "middleware/",
+    "config/"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "delay": "1000",
+  "ext": "js,json"
+} 

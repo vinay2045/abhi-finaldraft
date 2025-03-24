@@ -1,0 +1,52 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--bg-color);
+    font-family: "Roboto", sans-serif;
+}
+
+/* Blog Grid */
+.blog-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+}
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+/* Page layout for other pages */
+.page-container {
+    padding: 40px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.flex-row {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Team Grid */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 35px;
+}
+
+/* Trip Grid */
+.trip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 35px;
+} 

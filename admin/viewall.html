@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Submissions - Travel Agency Admin</title>
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="css/admin-style.css">
+    <!-- ViewAll CSS -->
+    <link rel="stylesheet" href="css/viewall.css">
+    <style>
+        /* Make status badges clickable */
+        .status-badge {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .status-badge:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .status-badge:active {
+            transform: scale(0.95);
+        }
+        
+        .highlight-match {
+            background-color: #ffff00;
+            font-weight: bold;
+            padding: 0 2px;
+        }
+        
+        #searchTerm {
+            min-width: 250px;
+            padding-right: 40px; /* Make room for the search icon */
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            position: relative; /* For absolute positioning of search button */
+        }
+        
+        /* Position search button inside the input */
+        .search-button-container {
+            position: relative;
+        }
+        
+        .search-button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        /* Add loading indicator styles */
+        .search-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            position: absolute;
+            right: 35px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+        
+        /* Dropdown suggestions styling */
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .search-suggestion {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        
+        .search-suggestion:hover {
+            background-color: #f5f5f5;
+        }
+        
+        /* Add style for highlighting date/time cells */
+        .highlight-background {
+            background-color: #fff3cd;
+            font-weight: bold;
+        }
+        
+        /* Ensure the time column is wide enough */
+        #submissionsTable th:nth-child(9),
+        #submissionsTable td:nth-child(9) {
+            min-width: 80px;
+        }
+        
+        /* Modal styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            color: white;
+        }
+        
+        .custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            max-height: calc(90vh - 130px);
+            overflow-y: auto;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            text-align: right;
+        }
+        
+        .submission-detail {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .submission-detail:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .submission-detail h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .detail-label {
+            font-weight: 500;
+            width: 150px;
+            flex-shrink: 0;
+            color: #555;
+        }
+        
+        .detail-value {
+            flex: 1;
+        }
+        
+        .detail-message {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #3498db;
+            margin-top: 5px;
+            white-space: pre-line;
+        }
+        
+        /* Improve pagination styling */
+        .pagination-button {
+            min-width: 36px;
+            height: 36px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            color: #333;
+            margin: 0 4px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .pagination-button:hover {
+            background-color: #f8f9fa;
+            border-color: #adb5bd;
+        }
+        
+        .pagination-button.active {
+            background-color: #3f51b5;
+            color: #fff;
+            border-color: #3f51b5;
+        }
+        
+        .pagination-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-button i {
+            font-size: 18px;
+        }
+        
+        .pagination-ellipsis {
+            margin: 0 4px;
+            align-self: flex-end;
+        }
+        
+        .items-count {
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        
+        .pagination-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        /* Ensure pagination is responsive */
+        @media (max-width: 768px) {
+            .pagination-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .pagination {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Travel Agency</h3>
+                <div class="sidebar-toggler">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </div>
+            
+            <div class="sidebar-user">
+                <div class="user-avatar">
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+                <div class="user-info">
+                    <h5>Admin User</h5>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-header">MAIN MENU</div>
+                
+                <ul>
+                    <li class="menu-item">
+                        <a href="dashboard.html">
+                            <i class='bx bxs-dashboard'></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="carousel.html">
+                            <i class='bx bx-carousel'></i>
+                            <span>Carousel Items</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="content.html">
+                            <i class='bx bx-edit'></i>
+                            <span>Page Content</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item has-submenu">
+                        <a href="#">
+                            <i class='bx bxs-plane-take-off'></i>
+                            <span>Tours</span>
+                            <i class='bx bx-chevron-right'></i>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item">
+                                <a href="domestic-tours.html">Domestic Tours</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="international-tours.html">International Tours</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="menu-item has-submenu">
+                        <a href="#">
+                            <i class='bx bxs-message-dots'></i>
+                            <span>Submissions</span>
+                            <i class='bx bx-chevron-right'></i>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item">
+                                <a href="contacts.html">Contact Submissions</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="flight-inquiries.html">Flight Inquiries</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="domestic-tour-bookings.html">Domestic Tour Bookings</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="international-tour-bookings.html">International Tour Bookings</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="visa-applications.html">Visa Applications</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="passport-applications.html">Passport Applications</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="forex-inquiries.html">Forex Inquiries</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="honeymoon-bookings.html">Honeymoon Packages</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="menu-header">ACCOUNT</div>
+                
+                <ul>
+                    <li class="menu-item">
+                        <a href="profile.html">
+                            <i class='bx bxs-user'></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#" id="logoutBtn">
+                            <i class='bx bx-log-out'></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <div class="navbar">
+                <div class="navbar-left">
+                    <h4>All Submissions</h4>
+                </div>
+                
+                <div class="navbar-right">
+                    <div class="user-dropdown">
+                        <a href="profile.html">
+                            <i class='bx bxs-user-circle'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Title and Actions -->
+                <div class="page-title-box">
+                    <h4>All Submissions</h4>
+                    <p>Manage all form submissions from customers</p>
+                    
+                    <div class="action-buttons">
+                        <button id="exportBtn" class="action-button export">
+                            <i class='bx bx-export'></i>
+                            <span>Export</span>
+                        </button>
+                        <button id="markAsReadBtn" class="action-button mark-read">
+                            <i class='bx bx-check-double'></i>
+                            <span>Mark as Read</span>
+                        </button>
+                        <button id="deleteAllBtn" class="action-button delete-all">
+                            <i class='bx bx-trash-alt'></i>
+                            <span>Delete Selected</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="filter-container">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="typeFilter">Submission Type</label>
+                            <select id="typeFilter">
+                                <option value="all">All Types</option>
+                                <option value="contact">Contact Form</option>
+                                <option value="flight">Flight Inquiry</option>
+                                <option value="domestic">Domestic Tour</option>
+                                <option value="international">International Tour</option>
+                                <option value="visa">Visa Application</option>
+                                <option value="passport">Passport Application</option>
+                                <option value="forex">Forex Inquiry</option>
+                                <option value="honeymoon">Honeymoon Package</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="statusFilter">Status</label>
+                            <select id="statusFilter">
+                                <option value="all">All Statuses</option>
+                                <option value="new">New</option>
+                                <option value="read">Read</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="sortOrder">Sort By</label>
+                            <select id="sortOrder">
+                                <option value="recent">Most Recent</option>
+                                <option value="oldest">Oldest First</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="myInput">Search</label>
+                            <div class="search-button-container">
+                                <input type="text" id="myInput" placeholder="Type at least 2 characters to search..." 
+                                       title="Type at least 2 characters to search">
+                                <button class="search-button" id="searchBtn">
+                                    <i class='bx bx-search'></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-buttons">
+                        <button id="resetFiltersBtn" class="filter-button secondary">
+                            <i class='bx bx-reset'></i>
+                            <span>Reset</span>
+                        </button>
+                        <button id="applyFiltersBtn" class="filter-button primary">
+                            <i class='bx bx-filter'></i>
+                            <span>Apply Filters</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Submissions Table -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="submissions-table" id="submissionsTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" id="selectAllCheckbox" title="Select All">
+                                        </th>
+                                        <th>S.No.</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="submissionsTableBody">
+                                    <tr>
+                                        <td colspan="10" class="text-center">
+                                            <div class="loading-container">
+                                                <div class="loading-spinner"></div>
+                                                <p>Loading submissions...</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <div class="pagination-container">
+                            <div class="items-count">Showing 0 of 0 submissions</div>
+                            <div class="items-per-page">
+                                <span>Show:</span>
+                                <select id="itemsPerPage">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <div class="pagination" id="pagination">
+                                <!-- Pagination will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if auth utilities are available
+            if (window.AdminAuth && typeof window.AdminAuth.checkAuth === 'function') {
+                window.AdminAuth.checkAuth();
+            } else {
+                console.error('Auth utilities not found!');
+                window.location.href = '/admin/login.html';
+                return;
+            }
+            
+            // Initialize UI
+            initializeSidebar();
+            
+            // Load submissions with default filters
+            loadSubmissions();
+            
+            // Add event listeners
+            document.getElementById('applyFiltersBtn').addEventListener('click', function() {
+                loadSubmissions(1); // Reset to first page when applying filters
+            });
+            
+            // Add event listeners for each filter to automatically reload when changed
+            document.getElementById('typeFilter').addEventListener('change', function() {
+                loadSubmissions(1); // Reset to first page
+            });
+            
+            document.getElementById('statusFilter').addEventListener('change', function() {
+                loadSubmissions(1); // Reset to first page
+            });
+            
+            document.getElementById('sortOrder').addEventListener('change', function() {
+                loadSubmissions(1); // Reset to first page
+            });
+            
+            // Create a debounced version of the search function
+            const debouncedSearch = debounce(myFunction, 300);
+            
+            // Add search input event handlers
+            const searchInput = document.getElementById('myInput');
+            if (searchInput) {
+                // Real-time search as user types (with debounce)
+                searchInput.addEventListener('keyup', function(e) {
+                    // Don't trigger on navigation keys
+                    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) {
+                        return;
+                    }
+                    debouncedSearch();
+                });
+                
+                // Handle Enter key to search immediately
+                searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                        myFunction(); // Search immediately on Enter
+                    }
+                });
+                
+                // Clear search on Escape key
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        searchInput.value = '';
+                        resetTableHighlighting();
+                loadSubmissions(1);
+                }
+            });
+            }
+            
+            // Add search button click handler
+            const searchBtn = document.getElementById('searchBtn');
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function() {
+                    myFunction(); // Search immediately on button click
+                });
+            }
+            
+            document.getElementById('resetFiltersBtn').addEventListener('click', function() {
+                // Reset all filters
+                document.getElementById('typeFilter').value = 'all';
+                document.getElementById('statusFilter').value = 'all';
+                document.getElementById('sortOrder').value = 'recent';
+                
+                const searchInput = document.getElementById('myInput');
+                if (searchInput) {
+                    searchInput.value = '';
+                }
+                
+                // Reload submissions
+                loadSubmissions(1);
+            });
+            
+            // Add event listener for items per page dropdown
+            const itemsPerPageSelect = document.getElementById('itemsPerPage');
+            if (itemsPerPageSelect) {
+                itemsPerPageSelect.addEventListener('change', function() {
+                    console.log(`Items per page changed to: ${this.value}`);
+                    // Reset to page 1 when changing items per page
+                    loadSubmissions(1);
+                });
+            }
+            
+            // Refresh data when page becomes visible again (after viewing a submission)
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible') {
+                    console.log('Page visible again, reloading submissions');
+                    // Don't trigger a full search if there's a search term
+                    const searchTerm = document.getElementById('myInput')?.value.trim() || '';
+                    if (searchTerm && searchTerm.length >= 2) {
+                        loadSubmissionsWithFullSearch(searchTerm);
+                    } else {
+                        loadSubmissions(getCurrentPage());
+                    }
+                }
+            });
+            
+            // Initialize export and delete all functionality
+            document.getElementById('exportBtn').addEventListener('click', exportSubmissions);
+            document.getElementById('deleteAllBtn').addEventListener('click', deleteSelectedSubmissions);
+            document.getElementById('markAsReadBtn').addEventListener('click', markAsReadSelectedSubmissions);
+            
+            // Initialize select all checkbox
+            document.getElementById('selectAllCheckbox').addEventListener('change', function() {
+                const isChecked = this.checked;
+                document.querySelectorAll('.select-submission').forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+            });
+            
+            // Define global variables with fallbacks
+            window.searchTimeout = null;
+            window.allSubmissionsData = [];
+        });
+        
+        // Function to initialize sidebar functionality
+        function initializeSidebar() {
+            // Toggle sidebar when menu icon is clicked
+            const sidebarToggler = document.querySelector('.sidebar-toggler');
+            const sidebar = document.querySelector('.sidebar');
+            
+            if (sidebarToggler) {
+                sidebarToggler.addEventListener('click', function() {
+                    sidebar.classList.toggle('collapsed');
+                });
+            }
+            
+            // Toggle submenu when parent menu item is clicked
+            const menuItemsWithSubmenu = document.querySelectorAll('.has-submenu');
+            
+            menuItemsWithSubmenu.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (e.target.closest('.submenu')) return; // Don't toggle if clicking on submenu item
+                    
+                    this.classList.toggle('open');
+                    const submenu = this.querySelector('.submenu');
+                    
+                    if (submenu) {
+                        if (this.classList.contains('open')) {
+                            submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                        } else {
+                            submenu.style.maxHeight = '0';
+                        }
+                    }
+                });
+            });
+            
+            // Set active class on current page menu item
+            const currentPath = window.location.pathname;
+            const menuLinks = document.querySelectorAll('.menu-item a, .submenu-item a');
+            
+            menuLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath.split('/').pop()) {
+                    link.parentElement.classList.add('active');
+                    
+                    // If it's a submenu item, also open its parent
+                    const parentMenu = link.closest('.has-submenu');
+                    if (parentMenu) {
+                        parentMenu.classList.add('open');
+                        const submenu = parentMenu.querySelector('.submenu');
+                        if (submenu) {
+                            submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                        }
+                    }
+                }
+            });
+            
+            // Initialize logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (window.AdminAuth && typeof window.AdminAuth.logout === 'function') {
+                        window.AdminAuth.logout();
+                    } else {
+                        console.error('Logout function not available');
+                        alert('Logout functionality is not available. Please try again later.');
+                    }
+                });
+            }
+        }
+        
+        async function loadSubmissions(page = 1) {
+            console.log(`loadSubmissions called with page ${page}`);
+            const tableBody = document.getElementById('submissionsTableBody');
+            const paginationContainer = document.getElementById('pagination');
+            
+            // Get the current search term
+            const searchTerm = document.getElementById('myInput')?.value.trim() || '';
+            
+            // If there's a search term and it's long enough, use the search function
+            if (searchTerm && searchTerm.length >= 2) {
+                console.log(`Search term detected, calling loadSubmissionsWithFullSearch with page ${page}`);
+                loadSubmissionsWithFullSearch(searchTerm, page);
+                return;
+            }
+            
+            // Show loading indicator
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="10" class="text-center">
+                        <div class="loading-container">
+                            <div class="loading-spinner"></div>
+                            <p>Loading submissions... (Page ${page})</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            
+            try {
+                // Get filter values with proper null checks
+                const typeFilter = document.getElementById('typeFilter');
+                const statusFilter = document.getElementById('statusFilter');
+                const itemsPerPageSelect = document.getElementById('itemsPerPage');
+                const sortOrderSelect = document.getElementById('sortOrder');
+                
+                // Use safe values with defaults
+                const type = typeFilter ? typeFilter.value : 'all';
+                const status = statusFilter ? statusFilter.value : 'all';
+                const limit = itemsPerPageSelect ? parseInt(itemsPerPageSelect.value || '10') : 10;
+                const sortOrder = sortOrderSelect ? sortOrderSelect.value : 'recent';
+                
+                // Store current page in localStorage for persistence
+                localStorage.setItem('currentPage', page);
+                localStorage.setItem('itemsPerPage', limit);
+                
+                // Build the request parameters
+                const params = new URLSearchParams();
+                params.append('page', page);
+                params.append('limit', limit);
+                params.append('type', type);
+                params.append('sort', sortOrder);
+                params.append('sortDetails', 'true');
+                
+                if (status !== 'all') {
+                    params.append('status', status);
+                }
+                
+                console.log(`Loading submissions with params: ${params.toString()}`);
+                
+                // Make the API request
+                const data = await window.AdminAuth.apiRequest(`/submissions/all?${params.toString()}`);
+                
+                // Debug the API response
+                console.log(`API response for page ${page}:`, data);
+                
+                // Validate response
+                if (!data || !data.success) {
+                    throw new Error(data?.message || 'Invalid response from server');
+                }
+                
+                // Extract submissions and pagination data
+                let submissions, pagination;
+                
+                if (data.data && data.data.submissions) {
+                    submissions = data.data.submissions || [];
+                    pagination = data.data.pagination || { 
+                        total: data.data.totalCount || 0, 
+                        page: parseInt(page), 
+                        limit, 
+                        pages: Math.ceil((data.data.totalCount || 0) / limit) 
+                    };
+                } else {
+                    submissions = data.submissions || [];
+                    pagination = data.pagination || { 
+                        total: data.totalCount || 0, 
+                        page: parseInt(page), 
+                        limit, 
+                        pages: data.totalPages || Math.ceil((data.totalCount || 0) / limit)
+                    };
+                }
+                
+                // Force pagination to maintain consistency when API returns 0 submissions but total > 0
+                if (submissions.length === 0 && pagination.total > 0 && pagination.page <= pagination.pages) {
+                    console.log(`No submissions returned for page ${page}, but total is ${pagination.total}. Making corrective action...`);
+                    
+                    // Try to fetch all submissions and manually paginate
+                    const allParams = new URLSearchParams();
+                    allParams.append('limit', 100);  // Fetch a larger batch
+                    allParams.append('type', type);
+                    allParams.append('sort', sortOrder);
+                    allParams.append('sortDetails', 'true');
+                    
+                    if (status !== 'all') {
+                        allParams.append('status', status);
+                    }
+                    
+                    // Make a new request for a larger batch of submissions
+                    const allData = await window.AdminAuth.apiRequest(`/submissions/all?${allParams.toString()}`);
+                    
+                    if (allData && allData.success) {
+                        let allSubmissions;
+                        
+                        if (allData.data && allData.data.submissions) {
+                            allSubmissions = allData.data.submissions;
+                        } else {
+                            allSubmissions = allData.submissions || [];
+                        }
+                        
+                        console.log(`Loaded ${allSubmissions.length} submissions in total for manual pagination`);
+                        
+                        // Store all submissions in the global variable for client-side searching and pagination
+                        window.allSubmissionsData = [...allSubmissions];
+                        
+                        // Calculate the subset for the current page
+                        const startIndex = (page - 1) * limit;
+                        const endIndex = Math.min(startIndex + limit, allSubmissions.length);
+                        submissions = allSubmissions.slice(startIndex, endIndex);
+                        
+                        console.log(`Manually paginated to show items ${startIndex+1}-${endIndex} for page ${page}`);
+                        
+                        // Update pagination to reflect actual data
+                        pagination.total = allSubmissions.length;
+                        pagination.pages = Math.ceil(allSubmissions.length / limit);
+                    }
+                }
+                
+                // Ensure we have valid pagination data
+                if (!pagination.pages || pagination.pages < 1) {
+                    pagination.pages = Math.max(1, Math.ceil(pagination.total / pagination.limit) || 1);
+                }
+                
+                // Ensure consistency between total and submissions length
+                if (pagination.total === 0 && submissions.length > 0) {
+                    pagination.total = submissions.length;
+                    pagination.pages = Math.ceil(submissions.length / limit);
+                }
+                
+                console.log(`Loaded ${submissions.length} submissions, pagination:`, pagination);
+                
+                // Enhanced client-side sorting to ensure date/time sorting works correctly
+                if (sortOrder === 'recent' || sortOrder === 'oldest') {
+                    submissions.sort((a, b) => {
+                        // Parse dates ensuring they're valid
+                        const dateA = new Date(a.createdAt);
+                        const dateB = new Date(b.createdAt);
+                        
+                        // Check if dates are valid before comparing
+                        const validA = !isNaN(dateA.getTime());
+                        const validB = !isNaN(dateB.getTime());
+                        
+                        // Handle invalid dates
+                        if (!validA && validB) return 1;
+                        if (validA && !validB) return -1;
+                        if (!validA && !validB) return 0;
+                        
+                        // Compare valid dates based on sort order
+                        return sortOrder === 'recent' ? dateB - dateA : dateA - dateB;
+                    });
+                    
+                    console.log(`Sorted submissions by date: ${sortOrder}`);
+                }
+                
+                // Store all submissions in the global variable for client-side searching
+                if (submissions.length > 0 && !window.allSubmissionsData) {
+                    window.allSubmissionsData = [...submissions];
+                }
+                
+                // Render submissions to the table
+                renderSubmissions(submissions, pagination);
+                
+            } catch (error) {
+                console.error('Error loading submissions:', error);
+                
+                // Show error message in the table
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="10" class="text-center">
+                            <div class="empty-state">
+                                <i class='bx bx-error-circle'></i>
+                                <p>Failed to load submissions: ${error.message || 'Unknown error'}</p>
+                                <button class="filter-button primary" onclick="loadSubmissions(1)">
+                                    <i class='bx bx-refresh'></i>
+                                    <span>Try Again</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                
+                // Clear pagination
+                if (paginationContainer) {
+                    paginationContainer.innerHTML = '';
+                }
+            }
+        }
+        
+        function renderSubmissions(submissions, pagination) {
+            const tableBody = document.getElementById('submissionsTableBody');
+            
+            // Clear the table body
+            tableBody.innerHTML = '';
+            
+            if (submissions.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="10" class="text-center">
+                            <div class="empty-state">
+                                <i class='bx bx-file'></i>
+                                <p>No submissions found.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                
+                // Update the total displayed count
+                const totalCountElement = document.querySelector('.items-count');
+                if (totalCountElement) {
+                    totalCountElement.textContent = `Showing 0 of ${pagination.total} submissions`;
+                }
+                
+                // Render pagination if there should be data on other pages
+                if (pagination.total > 0) {
+                    renderPagination(pagination);
+                } else {
+                    // Render empty pagination if there's truly no data
+                    renderPagination({
+                        total: 0,
+                        page: 1,
+                        limit: 10,
+                        pages: 0
+                    });
+                }
+                
+                return;
+            }
+            
+            const { page, limit, total } = pagination;
+            const startIndex = (page - 1) * limit;
+            
+            // Calculate the correct end index
+            // If we have fewer submissions than expected, use the actual number
+            const actualEndIndex = startIndex + submissions.length;
+            // Display range should never exceed the total
+            const displayEndIndex = Math.min(actualEndIndex, total);
+            
+            // Update the total displayed count with correct range
+            const totalCountElement = document.querySelector('.items-count');
+            if (totalCountElement) {
+                // If we're showing all submissions (unusual case)
+                if (total <= submissions.length && page === 1) {
+                    totalCountElement.textContent = `Showing all ${total} submissions`;
+                } else {
+                    // Show the range with 1-based indexing for display
+                    totalCountElement.textContent = `Showing ${startIndex + 1}-${displayEndIndex} of ${total} submissions`;
+                }
+            }
+            
+            // Render each submission
+            submissions.forEach((submission, index) => {
+                const row = document.createElement('tr');
+                
+                // Format date and time
+                const createdAt = new Date(submission.createdAt);
+                const formattedDate = createdAt.toLocaleDateString();
+                const formattedTime = createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                // Get status class - improve status detection with more robust checks
+                const isRead = (
+                    submission.status === 'read' || 
+                    submission.isRead === true || 
+                    String(submission.isRead).toLowerCase() === 'true' ||
+                    (submission.readAt && submission.readAt !== null)
+                );
+                const statusClass = isRead ? 'read' : 'new';
+                const statusLabel = isRead ? 'Read' : 'New';
+                
+                // Store the status in a data attribute for the click handler
+                const statusDataAttr = isRead ? 'read' : 'new';
+                
+                // Get type badge class
+                let typeBadgeClass = 'bg-primary';
+                if (submission.type === 'contact') typeBadgeClass = 'bg-info';
+                if (submission.type === 'flight') typeBadgeClass = 'bg-warning';
+                if (submission.type === 'domestic') typeBadgeClass = 'bg-success';
+                if (submission.type === 'international') typeBadgeClass = 'bg-secondary';
+                if (submission.type === 'visa') typeBadgeClass = 'bg-danger';
+                if (submission.type === 'passport') typeBadgeClass = 'bg-dark';
+                if (submission.type === 'forex') typeBadgeClass = 'bg-primary';
+                if (submission.type === 'honeymoon') typeBadgeClass = 'bg-info text-dark';
+                
+                // Serial number based on pagination
+                const serialNumber = startIndex + index + 1;
+                
+                row.innerHTML = `
+                    <td>
+                        <input type="checkbox" class="select-submission" data-id="${submission.id}" data-type="${submission.type}">
+                    </td>
+                    <td>${serialNumber}</td>
+                    <td>${submission.name || 'N/A'}</td>
+                    <td>${submission.phone || 'N/A'}</td>
+                    <td>${submission.email || 'N/A'}</td>
+                    <td>
+                        <span class="type-badge ${typeBadgeClass}">${submission.type}</span>
+                    </td>
+                    <td>
+                        <span class="status-badge ${statusClass}" data-status="${statusDataAttr}" data-id="${submission.id}" data-type="${submission.type}">${statusLabel}</span>
+                    </td>
+                    <td>${formattedDate}</td>
+                    <td>${formattedTime}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="view.html?id=${submission.id}&type=${submission.type}" class="action-button view" title="View Details" data-id="${submission.id}" data-type="${submission.type}">
+                                <i class='bx bx-show'></i>
+                            </a>
+                            <button type="button" class="action-button delete" title="Delete" data-id="${submission.id}" data-type="${submission.type}">
+                                <i class='bx bx-trash'></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Add event listeners for action buttons
+            addActionButtonListeners();
+            
+            // Render pagination
+            renderPagination(pagination);
+        }
+        
+        function addActionButtonListeners() {
+            // Find all view buttons and add click event listeners
+            const viewButtons = document.querySelectorAll('.action-button.view');
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const id = this.getAttribute('data-id');
+                    const type = this.getAttribute('data-type');
+                    
+                    if (!id || !type) {
+                        console.error('Missing submission ID or type for view action');
+                        return;
+                    }
+                    
+                    console.log(`Viewing submission: ${id} of type ${type}`);
+                    viewSubmission(id, type);
+                });
+            });
+            
+            // Find all delete buttons and add click event listeners
+            const deleteButtons = document.querySelectorAll('.action-button.delete');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const id = this.getAttribute('data-id');
+                    const type = this.getAttribute('data-type');
+                    
+                    if (!id || !type) {
+                        console.error('Missing submission ID or type for delete action');
+                        return;
+                    }
+                    
+                    if (confirm(`Are you sure you want to delete this ${type} submission? This action cannot be undone.`)) {
+                        console.log(`Deleting submission: ${id} of type ${type}`);
+                        deleteSubmission(id, type);
+                    }
+                });
+            });
+            
+            // Status badge click handlers
+            document.querySelectorAll('.status-badge').forEach(badge => {
+                badge.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    
+                    const row = this.closest('tr');
+                    if (!row) return;
+                    
+                    const viewButton = row.querySelector('.action-button.view');
+                    if (!viewButton) return;
+                    
+                    const id = viewButton.getAttribute('data-id');
+                    const type = viewButton.getAttribute('data-type');
+                    
+                    if (!id || !type) {
+                        console.error('Missing submission ID or type for status toggle');
+                        return;
+                    }
+                    
+                    // Store the status badge element reference
+                    const statusBadge = this;
+                    
+                    // Toggle status for this item
+                    const isCurrentlyRead = statusBadge.getAttribute('data-status') === 'read';
+                    const newStatus = isCurrentlyRead ? 'new' : 'read';
+                    
+                    // Make the API request to update status
+                    const endpoint = newStatus === 'read' 
+                        ? `/submission/${type}/${id}/read` 
+                        : `/submission/${type}/${id}/unread`;
+                        
+                    try {
+                    const response = await window.AdminAuth.apiRequest(
+                        endpoint, 
+                        'POST',
+                        {}, // Empty data object
+                        { 'Content-Type': 'application/json' }
+                    );
+
+                    // If successful, update the UI
+                    if (response && response.success) {
+                        // Update the element immediately without requiring a reload
+                        statusBadge.textContent = newStatus === 'read' ? 'Read' : 'New';
+                        statusBadge.className = `status-badge ${newStatus}`;
+                        
+                        // Update the data attribute for future toggles
+                        statusBadge.setAttribute('data-status', newStatus);
+                        
+                        console.log(`Successfully updated status to ${newStatus}`);
+                        
+                        // Update all references to this submission in the table
+                            updateAllStatusBadgesForSameId(id, type, newStatus);
+                    } else {
+                        // Revert the visual change if the API call failed
+                        console.error('Failed to update status:', response);
+                        alert('Failed to update status. Please try again.');
+                    }
+                    } catch (error) {
+                        console.error('Error updating status:', error);
+                        alert('An error occurred while updating the status. Please try again.');
+                }
+                });
+            });
+        }
+        
+        function updateAllStatusBadgesForSameId(id, type, newStatus) {
+            // Find all status badges for the same submission ID and type
+            const badgesToUpdate = document.querySelectorAll(`.status-badge[data-type="${type}"][data-id="${id}"]`);
+            
+            badgesToUpdate.forEach(badge => {
+                badge.textContent = newStatus === 'read' ? 'Read' : 'New';
+                badge.className = `status-badge ${newStatus}`;
+                badge.setAttribute('data-status', newStatus);
+            });
+        }
+        
+        function renderPagination(pagination) {
+            console.log("Rendering pagination with:", pagination);
+            const paginationContainer = document.getElementById('pagination');
+            if (!paginationContainer) return;
+            
+            // Get current page and total pages from pagination
+            const { page, pages, total, limit } = pagination;
+            
+            // If there is only 1 page or no pages, don't show pagination
+            if (pages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+            
+            // Calculate range of pages to show
+            let startPage = Math.max(1, page - 2);
+            let endPage = Math.min(pages, page + 2);
+            
+            // Ensure at least 5 pages shown if available
+            if (endPage - startPage < 4 && pages > 4) {
+                if (startPage === 1) {
+                    endPage = Math.min(5, pages);
+                } else if (endPage === pages) {
+                    startPage = Math.max(1, pages - 4);
+                }
+            }
+            
+            // Check if we're in search mode
+            const searchTerm = document.getElementById('myInput')?.value.trim() || '';
+            const isSearchMode = searchTerm.length >= 2;
+            
+            console.log(`Pagination: Current page: ${page}, Total pages: ${pages}, Items per page: ${limit}, Total items: ${total}, Search mode: ${isSearchMode}`);
+            
+            let paginationHTML = '';
+            
+            // Previous button
+            paginationHTML += `
+                <button class="pagination-button prev-button ${page <= 1 ? 'disabled' : ''}" 
+                        ${page <= 1 ? 'disabled' : ''} data-page="${Math.max(1, page - 1)}">
+                    <i class='bx bx-chevron-left'></i>
+                </button>
+            `;
+            
+            // First page and ellipsis if needed
+            if (startPage > 1) {
+                paginationHTML += `
+                    <button class="pagination-button" data-page="1">1</button>
+                    ${startPage > 2 ? '<span class="pagination-ellipsis">...</span>' : ''}
+                `;
+            }
+            
+            // Page numbers
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHTML += `
+                    <button class="pagination-button ${i === page ? 'active' : ''}" 
+                            data-page="${i}">
+                        ${i}
+                    </button>
+                `;
+            }
+            
+            // Last page and ellipsis if needed
+            if (endPage < pages) {
+                paginationHTML += `
+                    ${endPage < pages - 1 ? '<span class="pagination-ellipsis">...</span>' : ''}
+                    <button class="pagination-button" data-page="${pages}">${pages}</button>
+                `;
+            }
+            
+            // Next button
+            paginationHTML += `
+                <button class="pagination-button next-button ${page >= pages ? 'disabled' : ''}" 
+                        ${page >= pages ? 'disabled' : ''} data-page="${Math.min(pages, page + 1)}">
+                    <i class='bx bx-chevron-right'></i>
+                </button>
+            `;
+            
+            paginationContainer.innerHTML = paginationHTML;
+            
+            // Add direct event listeners to make pagination buttons work
+            setTimeout(() => {
+                const paginationButtons = document.querySelectorAll('.pagination-button:not(.disabled)');
+                paginationButtons.forEach(button => {
+                    // Remove any existing event listeners
+                    const newButton = button.cloneNode(true);
+                    button.parentNode.replaceChild(newButton, button);
+                    
+                    // Get the page number from data attribute
+                    const pageNum = parseInt(newButton.getAttribute('data-page'));
+                    if (isNaN(pageNum)) return;
+                    
+                    // Add event listener to handle click
+                    newButton.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log(`Pagination button clicked for page ${pageNum}`);
+                        
+                        if (isSearchMode) {
+                            searchNavigate(pageNum);
+                        } else {
+                            loadSubmissions(pageNum);
+                        }
+                    });
+                });
+                
+                console.log("Event listeners added to pagination buttons");
+            }, 0);
+        }
+        
+        function getCurrentPage() {
+            // Extract current page from active pagination button
+            const activeButton = document.querySelector('.pagination-button.active');
+            const currentPage = activeButton ? parseInt(activeButton.getAttribute('data-page')) : 1;
+            console.log(`Current page detected: ${currentPage}`);
+            return currentPage;
+        }
+        
+        function exportSubmissions() {
+            // Get current filters
+            const type = document.getElementById('typeFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            const search = document.getElementById('myInput').value.trim();
+            const sortOrder = document.getElementById('sortOrder').value;
+            
+            // Build export URL with current filters
+            let exportUrl = `/export/submissions?format=csv`;
+            
+            if (type !== 'all') {
+                exportUrl += `&type=${type}`;
+            }
+            
+            if (status !== 'all') {
+                exportUrl += `&status=${status}`;
+            }
+            
+            if (search) {
+                exportUrl += `&search=${encodeURIComponent(search)}`;
+            }
+            
+            // Add sort order to export URL
+            exportUrl += `&sort=${sortOrder}`;
+            
+            console.log(`Exporting submissions with URL: ${exportUrl}`);
+            
+            // Show loading indicator
+            const exportBtn = document.getElementById('exportBtn');
+            const originalBtnText = exportBtn.innerHTML;
+            exportBtn.disabled = true;
+            exportBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Exporting...';
+            
+            // For CSV download, we need to use a different approach to handle binary/text data
+            fetch(`${window.location.origin}/api/export/submissions?format=csv`, {
+                method: 'GET',
+                headers: {
+                    ...window.AdminAuth.getAuthHeaders()
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Export failed with status ${response.status}`);
+                }
+                return response.text(); // Get the raw CSV text
+            })
+            .then(csvContent => {
+                exportBtn.disabled = false;
+                exportBtn.innerHTML = originalBtnText;
+                
+                // Generate and trigger CSV download
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                
+                // Create download link and trigger click
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'submissions-export.csv';
+                document.body.appendChild(a);
+                a.click();
+                
+                // Clean up
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                
+                // Show success message
+                alert('Export successful');
+            })
+            .catch(error => {
+                exportBtn.disabled = false;
+                exportBtn.innerHTML = originalBtnText;
+                alert(`Export error: ${error.message}`);
+                console.error('Export error:', error);
+            });
+        }
+        
+        async function deleteSelectedSubmissions() {
+            // Get all selected checkboxes
+            const selectedCheckboxes = document.querySelectorAll('.select-submission:checked');
+            
+            if (selectedCheckboxes.length === 0) {
+                alert('Please select at least one submission to delete.');
+                return;
+            }
+            
+            if (!confirm(`Are you sure you want to delete ${selectedCheckboxes.length} submission(s)? This action cannot be undone.`)) {
+                return;
+            }
+            
+            // Disable delete button during operation
+            const deleteAllBtn = document.getElementById('deleteAllBtn');
+            const originalButtonText = deleteAllBtn.innerHTML;
+            deleteAllBtn.disabled = true;
+            deleteAllBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Deleting...';
+            
+            // Collect all submissions to delete
+            const deletePromises = [];
+            let successCount = 0;
+            let errorCount = 0;
+            
+            for (const checkbox of selectedCheckboxes) {
+                const id = checkbox.getAttribute('data-id');
+                const type = checkbox.getAttribute('data-type');
+                
+                try {
+                    // Call API to delete
+                    const response = await window.AdminAuth.apiRequest(
+                        `/submission/${type}/${id}`, 
+                        'DELETE'
+                    );
+                    
+                    if (response && response.success) {
+                        successCount++;
+                    } else {
+                        errorCount++;
+                        console.error(`Failed to delete submission ${id} of type ${type}:`, response.message);
+                    }
+                } catch (error) {
+                    errorCount++;
+                    console.error(`Error deleting submission ${id} of type ${type}:`, error);
+                }
+            }
+            
+            // Reset button state
+            deleteAllBtn.disabled = false;
+            deleteAllBtn.innerHTML = originalButtonText;
+            
+            // Show result and reload data
+            if (errorCount === 0) {
+                alert(`Successfully deleted ${successCount} submission(s).`);
+            } else {
+                alert(`Deleted ${successCount} submission(s), but failed to delete ${errorCount} submission(s). Check console for details.`);
+            }
+            
+            // Reload submissions to update the table
+            loadSubmissions(getCurrentPage());
+        }
+        
+        async function markAsReadSelectedSubmissions() {
+            // Get all selected checkboxes
+            const selectedCheckboxes = document.querySelectorAll('.select-submission:checked');
+            
+            if (selectedCheckboxes.length === 0) {
+                alert('Please select at least one submission to mark as read.');
+                return;
+            }
+            
+            // Disable mark as read button during operation
+            const markAsReadBtn = document.getElementById('markAsReadBtn');
+            const originalButtonText = markAsReadBtn.innerHTML;
+            markAsReadBtn.disabled = true;
+            markAsReadBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Updating...';
+            
+            // Collect all submissions to mark as read
+            let successCount = 0;
+            let errorCount = 0;
+            
+            for (const checkbox of selectedCheckboxes) {
+                const id = checkbox.getAttribute('data-id');
+                const type = checkbox.getAttribute('data-type');
+                
+                try {
+                    // Call API to update status
+                    const response = await window.AdminAuth.apiRequest(
+                        `/submission/${type}/${id}/read`, 
+                        'POST',
+                        {}, // Empty data object
+                        { 'Content-Type': 'application/json' }
+                    );
+                    
+                    if (response && response.success) {
+                        successCount++;
+                        // Update the UI to reflect status change
+                        updateAllStatusBadgesForSameId(id, type, 'read');
+                    } else {
+                        errorCount++;
+                        console.error(`Failed to mark submission ${id} of type ${type} as read:`, response.message);
+                    }
+                } catch (error) {
+                    errorCount++;
+                    console.error(`Error marking submission ${id} of type ${type} as read:`, error);
+                }
+            }
+            
+            // Reset button state
+            markAsReadBtn.disabled = false;
+            markAsReadBtn.innerHTML = originalButtonText;
+            
+            // Show result
+            if (errorCount === 0) {
+                alert(`Successfully marked ${successCount} submission(s) as read.`);
+            } else {
+                alert(`Marked ${successCount} submission(s) as read, but failed for ${errorCount} submission(s). Check console for details.`);
+            }
+            
+            // Reload the current page to ensure all UI components are updated
+            loadSubmissions(getCurrentPage());
+        }
+        
+        // Update the loadSubmissionsWithFullSearch function to handle pagination properly
+        function loadSubmissionsWithFullSearch(searchTerm, page = 1) {
+            if (!searchTerm || searchTerm.trim().length === 0) {
+                return loadSubmissions(1);
+            }
+            
+            console.log(`Searching entire database for: ${searchTerm} (page ${page})`);
+            const tableBody = document.getElementById('submissionsTableBody');
+            
+            // Show loading indicator
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="10" class="text-center">
+                        <div class="loading-container">
+                            <div class="loading-spinner"></div>
+                            <p>Searching the entire database...</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            
+            // Build the request parameters - search across ALL submissions regardless of pagination
+            const params = new URLSearchParams();
+            params.append('search', searchTerm);
+            params.append('limit', 1000); // Use a large limit to get all matches
+            params.append('sortDetails', 'true');
+            
+            // Include current filters to refine search but still get all results
+                const typeFilter = document.getElementById('typeFilter');
+                const statusFilter = document.getElementById('statusFilter');
+                const sortOrderSelect = document.getElementById('sortOrder');
+                
+                // Use safe values with defaults
+                const type = typeFilter ? typeFilter.value : 'all';
+                const status = statusFilter ? statusFilter.value : 'all';
+                const sortOrder = sortOrderSelect ? sortOrderSelect.value : 'recent';
+                
+            if (type !== 'all') {
+                params.append('type', type);
+            }
+                
+                if (status !== 'all') {
+                    params.append('status', status);
+                }
+                
+            params.append('sort', sortOrder);
+            
+            console.log(`Searching with sort: ${sortOrder}`);
+            
+            // Make API request to search entire database
+            window.AdminAuth.apiRequest(`/submissions/all?${params.toString()}`)
+                .then(data => {
+                    if (!data || !data.success) {
+                        throw new Error(data?.message || 'Invalid response from server');
+                    }
+                    
+                    // Extract submissions from response
+                    let submissions = [];
+                    
+                    if (data.data && data.data.submissions) {
+                        submissions = data.data.submissions;
+                    } else if (data.submissions) {
+                        submissions = data.submissions;
+                    }
+                    
+                    // Apply client-side sorting to ensure it respects date/time properly
+                    if (sortOrder === 'recent' || sortOrder === 'oldest') {
+                        submissions.sort((a, b) => {
+                            const dateA = new Date(a.createdAt);
+                            const dateB = new Date(b.createdAt);
+                            return sortOrder === 'recent' ? dateB - dateA : dateA - dateB;
+                        });
+                    }
+                    
+                    // Store all search results in memory for client-side pagination
+                    window.searchResults = submissions;
+                    
+                    // Define pagination for rendering - use the current items per page setting
+                    const itemsPerPageSelect = document.getElementById('itemsPerPage');
+                    const itemsPerPage = itemsPerPageSelect ? parseInt(itemsPerPageSelect.value || '10') : 10;
+                    
+                    const pagination = {
+                        total: submissions.length,
+                        page: page,
+                        limit: itemsPerPage,
+                        pages: Math.ceil(submissions.length / itemsPerPage)
+                    };
+                    
+                    console.log(`Found ${submissions.length} submissions matching "${searchTerm}"`);
+                    
+                    // If no results found
+                    if (submissions.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="10" class="text-center">
+                            <div class="empty-state">
+                                        <i class='bx bx-search-alt'></i>
+                                        <p>No submissions found matching "${searchTerm}"</p>
+                                        <button class="filter-button secondary" onclick="document.getElementById('myInput').value=''; loadSubmissions(1);">
+                                            <i class='bx bx-x'></i>
+                                            <span>Clear Search</span>
+                                        </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                        
+                        // Clear pagination
+                        const paginationContainer = document.getElementById('pagination');
+                        if (paginationContainer) {
+                            paginationContainer.innerHTML = '';
+                        }
+                        
+                        return;
+                    }
+                    
+                    // Improved sorting logic for better search relevance
+                    submissions = sortSubmissionsByRelevance(submissions, searchTerm);
+                    
+                    // Additional sort by date/time if needed after relevance sorting
+                    if (sortOrder === 'recent' || sortOrder === 'oldest') {
+                        // First 10 most relevant results stay at top, then sort the rest by date
+                        const topResults = submissions.slice(0, 10);
+                        const restResults = submissions.slice(10);
+                        
+                        restResults.sort((a, b) => {
+                            const dateA = new Date(a.createdAt);
+                            const dateB = new Date(b.createdAt);
+                            return sortOrder === 'recent' ? dateB - dateA : dateA - dateB;
+                        });
+                        
+                        submissions = [...topResults, ...restResults];
+                    }
+                    
+                    // Render the submissions with pagination
+                    renderSubmissions(submissions, pagination);
+                    
+                    // Apply highlighting to show matches
+                    highlightSearchMatches(searchTerm);
+                })
+                .catch(error => {
+                    console.error('Error searching submissions:', error);
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="10" class="text-center">
+                            <div class="empty-state">
+                                <i class='bx bx-error-circle'></i>
+                                    <p>Search failed: ${error.message || 'Unknown error'}</p>
+                                    <button class="filter-button primary" onclick="loadSubmissions(1)">
+                                        <i class='bx bx-refresh'></i>
+                                        <span>Try Again</span>
+                                    </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                });
+        }
+
+        // Update the sortSubmissionsByRelevance function to better handle date/time search
+        function sortSubmissionsByRelevance(submissions, searchTerm) {
+            const term = searchTerm.toLowerCase();
+            
+            // Add relevance score to each submission
+            submissions.forEach(submission => {
+                let score = 0;
+                
+                // Name match (highest priority)
+                if (submission.name && submission.name.toLowerCase().includes(term)) {
+                    // Exact name match gets highest score
+                    if (submission.name.toLowerCase() === term) {
+                        score += 100;
+                    } else {
+                        score += 50;
+                    }
+                }
+                
+                // Email match
+                if (submission.email && submission.email.toLowerCase().includes(term)) {
+                    score += 40;
+                }
+                
+                // Phone match
+                if (submission.phone && submission.phone.toLowerCase().includes(term)) {
+                    score += 40;
+                }
+                
+                // Type match
+                if (submission.type && submission.type.toLowerCase().includes(term)) {
+                    score += 30;
+                }
+                
+                // Status match
+                if (submission.status && submission.status.toLowerCase().includes(term)) {
+                    score += 20;
+                }
+                
+                // Improved date and time matching with multiple formats
+                const createdAt = new Date(submission.createdAt);
+                
+                // Generate multiple date formats for better search matching
+                const formats = [
+                    createdAt.toLocaleDateString(), // e.g., 3/22/2025
+                    createdAt.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }), // e.g., 03/22/2025
+                    createdAt.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }), // e.g., 22/03/2025
+                    `${createdAt.getDate()}/${createdAt.getMonth() + 1}/${createdAt.getFullYear()}`, // e.g., 22/3/2025
+                    `${(createdAt.getMonth() + 1)}/${createdAt.getDate()}/${createdAt.getFullYear()}`, // e.g., 3/22/2025
+                    createdAt.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }), // e.g., March 22, 2025
+                ];
+                
+                // Time formats
+                const timeFormats = [
+                    createdAt.toLocaleTimeString(), // Full time with seconds
+                    createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), // e.g., 23:07
+                    createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }), // e.g., 11:07 PM
+                    `${createdAt.getHours()}:${createdAt.getMinutes() < 10 ? '0' + createdAt.getMinutes() : createdAt.getMinutes()}` // e.g., 23:07
+                ];
+                
+                // Check if search term is found in any date format
+                const dateMatch = formats.some(format => format.toLowerCase().includes(term));
+                // Check if search term is found in any time format
+                const timeMatch = timeFormats.some(format => format.toLowerCase().includes(term));
+                
+                if (dateMatch) {
+                    score += 15; // Higher score for date matches
+                }
+                
+                if (timeMatch) {
+                    score += 15; // Higher score for time matches
+                }
+                
+                // Store score for sorting
+                submission._relevanceScore = score;
+            });
+            
+            // Sort by relevance score (highest first)
+            return submissions.sort((a, b) => {
+                if (b._relevanceScore !== a._relevanceScore) {
+                    return b._relevanceScore - a._relevanceScore;
+                }
+                
+                // If scores are equal, sort by date (newest first)
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            });
+        }
+
+        // Update the highlightMatch function to better handle date/time formats
+        function highlightMatch(cell, filter) {
+            if (!cell) return;
+            
+            try {
+                // Save original content if needed
+                if (!cell.hasAttribute("data-original")) {
+                    cell.setAttribute("data-original", cell.innerHTML);
+                }
+                
+                // Check if this is a date or time cell (column 7 or 8)
+                const isDateOrTimeCell = cell.cellIndex === 7 || cell.cellIndex === 8;
+                
+                // Get the original HTML
+                var originalHtml = cell.getAttribute("data-original");
+                var text = cell.textContent || cell.innerText || "";
+                
+                // Check if this cell contains the search term
+                if (text.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+                    // Special handling for date/time cells to avoid breaking formatting
+                    if (isDateOrTimeCell) {
+                        // For date/time cells, just add a background highlight to the whole cell
+                        cell.innerHTML = originalHtml;
+                        cell.classList.add('highlight-background');
+                    } else {
+                        // For other cells, wrap matching text in highlight span
+                        // Create regex for case-insensitive replacement with proper escaping
+                        var regex = new RegExp('(' + filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+                        
+                        // Escape HTML entities in originalHtml if needed
+                        try {
+                            cell.innerHTML = originalHtml.replace(regex, '<span class="highlight-match">$1</span>');
+                        } catch (e) {
+                            // Fallback to safer approach if regex replace fails
+                            cell.innerHTML = originalHtml;
+                        }
+                    }
+                } else {
+                    // Reset to original content if no match
+                    cell.innerHTML = originalHtml;
+                    cell.classList.remove('highlight-background');
+                }
+            } catch (err) {
+                console.error("Error highlighting match:", err);
+                // Ensure cell content is still visible even if highlighting fails
+                if (cell.hasAttribute("data-original")) {
+                    cell.innerHTML = cell.getAttribute("data-original");
+                }
+            }
+        }
+
+        // Update the myFunction to call loadSubmissionsWithFullSearch for database-wide search
+        function myFunction() {
+            const input = document.getElementById("myInput");
+            const searchTerm = input.value.trim();
+            
+            // Don't search if fewer than 2 characters
+            if (searchTerm.length < 2) {
+                resetTableHighlighting();
+                return;
+            }
+            
+            // Use the full database search function instead of client-side filtering
+            loadSubmissionsWithFullSearch(searchTerm);
+        }
+
+        // Add back the resetTableHighlighting function
+        function resetTableHighlighting() {
+            var table = document.getElementById("submissionsTable");
+            if (!table) return;
+            
+            // Show all rows
+            var rows = table.getElementsByTagName("tr");
+            for (var i = 1; i < rows.length; i++) {
+                // Skip special rows
+                if (rows[i].id === "noResultsRow") continue;
+                
+                rows[i].style.display = "";
+                
+                // Reset all cell highlighting
+                var cells = rows[i].getElementsByTagName("td");
+                for (var j = 0; j < cells.length; j++) {
+                    if (cells[j].hasAttribute("data-original")) {
+                        cells[j].innerHTML = cells[j].getAttribute("data-original");
+                    }
+                }
+            }
+            
+            // Remove any no-results row
+            var noResultsRow = document.getElementById("noResultsRow");
+            if (noResultsRow && noResultsRow.parentNode) {
+                noResultsRow.parentNode.removeChild(noResultsRow);
+            }
+        }
+
+        // Add the debounce function back
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // Update searchNavigate function for better debugging
+        function searchNavigate(page) {
+            console.log(`searchNavigate called with page ${page}`);
+            const searchTerm = document.getElementById('myInput')?.value.trim() || '';
+            if (searchTerm.length >= 2) {
+                console.log(`Searching for "${searchTerm}" on page ${page}`);
+                loadSubmissionsWithFullSearch(searchTerm, page);
+                    } else {
+                console.log(`No search term, loading regular page ${page}`);
+                loadSubmissions(page);
+            }
+        }
+
+        // Add back the highlightSearchMatches function
+        function highlightSearchMatches(searchTerm) {
+            if (!searchTerm || searchTerm.trim().length === 0) return;
+            
+            const term = searchTerm.trim().toUpperCase();
+            const table = document.getElementById('submissionsTable');
+            if (!table) return;
+            
+            const rows = table.getElementsByTagName('tr');
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                
+                // Highlight matches in name, email, phone, type, and now include date/time columns
+                const fieldsToHighlight = [2, 3, 4, 5, 7, 8]; // Name, Phone, Email, Type, Date, Time
+                
+                for (const index of fieldsToHighlight) {
+                    if (cells.length > index) {
+                        highlightMatch(cells[index], term);
+                    }
+                }
+            }
+        }
+
+        // Replace the viewSubmission function with a simpler navigation version
+        function viewSubmission(id, type) {
+            // Navigate to view.html with id and type as parameters
+            window.location.href = `view.html?id=${id}&type=${type}`;
+        }
+
+        // Add function to delete a submission
+        async function deleteSubmission(id, type) {
+            try {
+                // Show loading overlay
+                const loadingOverlay = document.createElement('div');
+                loadingOverlay.className = 'loading-overlay';
+                loadingOverlay.innerHTML = `
+                    <div class="loading-spinner"></div>
+                    <p>Deleting submission...</p>
+                `;
+                document.body.appendChild(loadingOverlay);
+                
+                // Make API request to delete submission
+                const response = await window.AdminAuth.apiRequest(
+                    `/submission/${type}/${id}`,
+                    'DELETE'
+                );
+                
+                // Remove loading overlay
+                document.body.removeChild(loadingOverlay);
+                
+                if (!response || !response.success) {
+                    throw new Error(response?.message || 'Failed to delete submission');
+                }
+                
+                // Show success message
+                alert('Submission deleted successfully.');
+                
+                // Reload submissions to update the table
+                loadSubmissions(getCurrentPage());
+                
+            } catch (error) {
+                console.error('Error deleting submission:', error);
+                alert(`Failed to delete submission: ${error.message}`);
+            }
+        }
+    </script>
+</body>
+</html>

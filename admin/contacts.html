@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Submissions - Travel Agency Admin</title>
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="./css/admin-style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Travel Agency</h3>
+                <div class="sidebar-toggler">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </div>
+            
+            <div class="sidebar-user">
+                <div class="user-avatar">
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+                <div class="user-info">
+                    <h5>Admin User</h5>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-header">MAIN MENU</div>
+                
+                <ul>
+                    <li class="menu-item">
+                        <a href="dashboard.html">
+                            <i class='bx bxs-dashboard'></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="carousel.html">
+                            <i class='bx bx-carousel'></i>
+                            <span>Carousel Items</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="content.html">
+                            <i class='bx bx-edit'></i>
+                            <span>Page Content</span>
+                        </a>
+                    </li>
+                    <li class="menu-item has-submenu">
+                        <a href="#">
+                            <i class='bx bxs-plane-take-off'></i>
+                            <span>Tours</span>
+                            <i class='bx bx-chevron-right'></i>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item">
+                                <a href="domestic-tours.html">Domestic Tours</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="international-tours.html">International Tours</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="menu-item has-submenu">
+                        <a href="#">
+                            <i class='bx bxs-message-dots'></i>
+                            <span>Submissions</span>
+                            <i class='bx bx-chevron-right'></i>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item">
+                                <a href="contacts.html">Contact Submissions</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="flight-inquiries.html">Flight Inquiries</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="domestic-tour-bookings.html">Domestic Tour Bookings</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="international-tour-bookings.html">International Tour Bookings</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="visa-applications.html">Visa Applications</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="passport-applications.html">Passport Applications</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="forex-inquiries.html">Forex Inquiries</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="honeymoon-bookings.html">Honeymoon Packages</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                    
+                    <li class="menu-item">
+                        <a href="#" id="logoutBtn">
+                            <i class='bx bx-log-out'></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <div class="hamburger-menu">
+                        <i class='bx bx-menu'></i>
+                    </div>
+                    <div class="page-title">
+                        <h1>Contact Submissions</h1>
+                    </div>
+                </div>
+                <div class="top-bar-right">
+                    <div class="admin-dropdown">
+                        <div class="admin-dropdown-toggle">
+                            <div class="avatar">
+                                <i class='bx bxs-user-circle'></i>
+                            </div>
+                            <span class="admin-name">Admin</span>
+                            <i class='bx bx-chevron-down'></i>
+                        </div>
+                        <div class="admin-dropdown-menu">
+                            <a href="#" id="profileBtn">
+                                <i class='bx bxs-user'></i>
+                                <span>Profile</span>
+                            </a>
+                            <a href="#" id="settingsBtn">
+                                <i class='bx bxs-cog'></i>
+                                <span>Settings</span>
+                            </a>
+                            <a href="#" id="logoutDropdownBtn">
+                                <i class='bx bxs-log-out'></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <div class="header-text">
+                        <h2>Contact Form Submissions</h2>
+                        <p>Manage and respond to contact form submissions</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="filter-container">
+                            <select id="statusFilter" class="form-control">
+                                <option value="all">All Statuses</option>
+                                <option value="new">New</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                        </div>
+                        <div class="search-container">
+                            <input type="text" placeholder="Search submissions..." id="searchInput" class="search-input">
+                            <i class='bx bx-search'></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="contactSubmissionsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Subject</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Loading state -->
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                <div class="loading-spinner"></div>
+                                                <p>Loading contact submissions...</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="pagination-container">
+                                <div class="items-per-page">
+                                    <span>Show:</span>
+                                    <select id="itemsPerPage">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                                <div class="pagination" id="pagination">
+                                    <!-- Pagination will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Submission Detail Modal -->
+    <div class="modal" id="submissionModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Contact Submission Details</h3>
+                    <button class="close-btn" id="closeModalBtn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="submissionDetails">
+                        <!-- Details will be loaded here -->
+                    </div>
+                    
+                    <div class="status-update-section">
+                        <h4>Update Status</h4>
+                        <div class="form-group">
+                            <label for="statusSelect">Status</label>
+                            <select id="statusSelect" class="form-control">
+                                <option value="new">New</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="notesText">Notes</label>
+                            <textarea id="notesText" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button id="updateStatusBtn" class="btn btn-primary">Update Status</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Auth Script -->
+    <script src="js/auth.js"></script>
+    <!-- Contacts Submissions Script -->
+    <script src="js/contacts.js"></script>
+</body>
+</html> 

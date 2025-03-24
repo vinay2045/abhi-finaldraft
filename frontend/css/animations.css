@@ -1,0 +1,140 @@
+/* Animations CSS for Innovatia Travel Website */
+
+/* Text hover animations for elements with blue borders */
+
+.footer-links h3::after, 
+.footer-contact h3::after, 
+.footer-newsletter h3::after,
+.section-title::after,
+.page-title::after,
+.team-name::after,
+.faq-question::after,
+.content-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #1a8a9e;
+    border-radius: 2px;
+    transition: width 0.3s ease, transform 0.3s ease;
+}
+
+/* Add ::after pseudo-element to elements that don't have it */
+.section-title,
+.page-title,
+.team-name,
+.faq-question,
+.content-card h3 {
+    position: relative;
+    display: inline-block;
+}
+
+/* Hover animations */
+
+.footer-links h3:hover::after, 
+.footer-contact h3:hover::after, 
+.footer-newsletter h3:hover::after,
+.section-title:hover::after,
+.page-title:hover::after,
+.team-name:hover::after,
+.faq-question:hover::after,
+.content-card h3:hover::after {
+    width: 100%;
+    transform: translateY(-2px);
+}
+
+/* Text color transition on hover */
+
+.footer-links h3, 
+.footer-contact h3, 
+.footer-newsletter h3,
+.section-title,
+.page-title,
+.team-name,
+.faq-question,
+.content-card h3,
+.trip-name,
+.blog-title,
+.card-title {
+    transition: color 0.3s ease;
+}
+
+
+.footer-links h3:hover, 
+.footer-contact h3:hover, 
+.footer-newsletter h3:hover,
+.section-title:hover,
+.page-title:hover,
+.team-name:hover,
+.faq-question:hover,
+.content-card h3:hover,
+.trip-name:hover
+
+ {
+    color: #1a8a9e;
+}
+
+
+
+
+/* Special animation for links */
+.footer-links a {
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #1a8a9e;
+    transition: width 0.3s ease;
+}
+
+.footer-links a:hover::after {
+    width: 100%;
+}
+
+/* Subtle scale effect for cards and sections */
+.trip-card,
+.team-member,
+.blog-card,
+.content-card,
+.footer-contact-form {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trip-card:hover,
+.team-member:hover,
+.blog-card:hover,
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Pulse animation for important elements */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.cta-btn:hover {
+    animation: pulse 1.5s infinite;
+}
+
+/* Smooth transition for all elements */
+* {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+} 

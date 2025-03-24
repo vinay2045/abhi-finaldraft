@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Travel Agency</title>
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="css/admin-style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Travel Agency</h3>
+                <div class="sidebar-toggler">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </div>
+            
+            <div class="sidebar-user">
+                <div class="user-avatar">
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+                <div class="user-info">
+                    <h5>Admin User</h5>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-header">MAIN MENU</div>
+                
+                <ul>
+                    <li class="menu-item active">
+                        <a href="dashboard.html">
+                            <i class='bx bxs-dashboard'></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="carousel.html">
+                            <i class='bx bx-carousel'></i>
+                            <span>Carousel Items</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="content.html">
+                            <i class='bx bx-edit'></i>
+                            <span>Page Content</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item has-submenu">
+                        <a href="#">
+                            <i class='bx bxs-plane-take-off'></i>
+                            <span>Tours</span>
+                            <i class='bx bx-chevron-right'></i>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item">
+                                <a href="domestic-tours.html">Domestic Tours</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="international-tours.html">International Tours</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="menu-item has-submenu">
+                        <a href="#">
+                            <i class='bx bxs-message-dots'></i>
+                            <span>Submissions</span>
+                            <i class='bx bx-chevron-right'></i>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item">
+                                <a href="contacts.html">Contact Submissions</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="flight-inquiries.html">Flight Inquiries</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="domestic-tour-bookings.html">Domestic Tour Bookings</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="international-tour-bookings.html">International Tour Bookings</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="visa-applications.html">Visa Applications</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="passport-applications.html">Passport Applications</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="forex-inquiries.html">Forex Inquiries</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="honeymoon-bookings.html">Honeymoon Packages</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="menu-header">ACCOUNT</div>
+                
+                <ul>
+                    <li class="menu-item">
+                        <a href="profile.html">
+                            <i class='bx bxs-user'></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#" id="logoutBtn">
+                            <i class='bx bx-log-out'></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <div class="navbar">
+                <div class="navbar-left">
+                    <h4>Dashboard</h4>
+                </div>
+                
+                <div class="navbar-right">
+                    <div class="user-dropdown">
+                        <a href="profile.html">
+                            <i class='bx bxs-user-circle'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Welcome & Overview -->
+                <div class="page-title-box">
+                    <h4>Welcome to Admin Dashboard</h4>
+                    <p>Overview of your travel agency system</p>
+                </div>
+                
+                <!-- Statistics -->
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="stat-icon blue">
+                                    <i class='bx bxs-contact'></i>
+                                </div>
+                                <div class="stat-details">
+                                    <h3 id="contactsCount">0</h3>
+                                    <p>Contact Submissions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="stat-icon purple">
+                                    <i class='bx bxs-plane'></i>
+                                </div>
+                                <div class="stat-details">
+                                    <h3 id="flightsCount">0</h3>
+                                    <p>Flight Inquiries</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="stat-icon orange">
+                                    <i class='bx bxs-map'></i>
+                                </div>
+                                <div class="stat-details">
+                                    <h3 id="domesticToursCount">0</h3>
+                                    <p>Domestic Tours</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="stat-icon green">
+                                    <i class='bx bxs-plane-alt'></i>
+                                </div>
+                                <div class="stat-details">
+                                    <h3 id="internationalToursCount">0</h3>
+                                    <p>International Tours</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add the second row of statistics for new submission types -->
+                <div class="row mt-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="stat-icon red">
+                                    <i class='bx bxs-id-card'></i>
+                                </div>
+                                <div class="stat-details">
+                                    <h3 id="visaCount">0</h3>
+                                    <p>Visa Applications</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="stat-icon dark">
+                                    <i class='bx bxs-passport'></i>
+                                </div>
+                                <div class="stat-details">
+                                    <h3 id="passportCount">0</h3>
+                                    <p>Passport Applications</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="stat-icon blue">
+                                    <i class='bx bx-money'></i>
+                                </div>
+                                <div class="stat-details">
+                                    <h3 id="forexCount">0</h3>
+                                    <p>Forex Inquiries</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <div class="stat-icon pink">
+                                    <i class='bx bxs-heart'></i>
+                                </div>
+                                <div class="stat-details">
+                                    <h3 id="honeymoonCount">0</h3>
+                                    <p>Honeymoon Packages</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Submissions -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="action-header">
+                            <h5>Recent Submissions</h5>
+                            <a href="viewall.html" class="btn btn-primary">
+                                <i class='bx bx-list-ul'></i>
+                                <span>View All</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" id="recentSubmissionsTable">
+                                <thead>
+                                    <tr>
+                                        <th>S.No.</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Type</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="8" class="text-center">
+                                            <div class="loading-spinner" style="margin: 20px auto;"></div>
+                                            <p>Loading recent submissions...</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 

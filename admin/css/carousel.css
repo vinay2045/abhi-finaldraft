@@ -1,0 +1,468 @@
+/* Admin Carousel Management Styles */
+
+/* Table Styles */
+.carousel-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.carousel-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.carousel-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+}
+
+.carousel-table tr:last-child td {
+    border-bottom: none;
+}
+
+.carousel-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.table-image {
+    width: 80px;
+    height: 45px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.table-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-buttons button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.action-buttons button i {
+    font-size: 1rem;
+}
+
+/* Form Styles */
+.carousel-form {
+    max-width: 100%;
+}
+
+.carousel-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.carousel-form label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.carousel-form input[type="text"],
+.carousel-form input[type="number"],
+.carousel-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 1rem;
+}
+
+.carousel-form .form-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.carousel-form .form-switch input {
+    margin: 0;
+}
+
+/* Image Upload Styles */
+.image-upload {
+    margin-bottom: 1.5rem;
+}
+
+.drag-drop-area {
+    border: 2px dashed #ced4da;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.drag-drop-area.active {
+    border-color: #4361ee;
+    background-color: rgba(67, 97, 238, 0.05);
+}
+
+.drag-drop-area i {
+    font-size: 2.5rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.drag-drop-area h4 {
+    margin-bottom: 0.5rem;
+    color: #343a40;
+}
+
+.drag-drop-area p {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.image-preview {
+    margin-top: 1rem;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.image-preview img {
+    max-width: 100%;
+    display: block;
+}
+
+.image-size-controls {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.image-size-controls .control-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.image-size-controls .control-row:last-child {
+    margin-bottom: 0;
+}
+
+.image-size-controls label {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.image-size-controls input {
+    padding: 0.5rem;
+    max-width: 100px;
+}
+
+.image-size-controls button {
+    margin-right: 0.5rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    overflow-y: auto;
+    padding: 2rem 1rem;
+}
+
+.modal.show {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.modal-body {
+    padding: 1.5rem;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: #6c757d;
+}
+
+.close-modal:hover {
+    color: #343a40;
+}
+
+/* Reorder Modal Styles */
+.sortable-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sortable-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    cursor: grab;
+}
+
+.sortable-item:last-child {
+    margin-bottom: 0;
+}
+
+.sortable-item .handle {
+    margin-right: 1rem;
+    color: #6c757d;
+    cursor: grab;
+}
+
+.sortable-item .item-image {
+    width: 60px;
+    height: 34px;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-right: 1rem;
+}
+
+.sortable-item .item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sortable-item .item-info {
+    flex-grow: 1;
+}
+
+.sortable-item .item-info h5 {
+    margin: 0 0 0.25rem;
+    font-size: 0.875rem;
+}
+
+.sortable-item .item-info p {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+.sortable-item .item-status {
+    margin-left: auto;
+}
+
+.sortable-item.dragging {
+    opacity: 0.7;
+}
+
+.sortable-ghost {
+    background-color: #f1f3f5;
+    border: 1px dashed #4361ee;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    min-width: 300px;
+    max-width: 450px;
+    z-index: 1060;
+    transform: translateY(150%);
+    transition: transform 0.3s ease-out;
+}
+
+.toast.show {
+    transform: translateY(0);
+}
+
+.toast-icon {
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.toast-message {
+    flex-grow: 1;
+    font-size: 0.875rem;
+}
+
+.toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 0 0 8px 8px;
+}
+
+.toast-progress-bar {
+    height: 100%;
+    width: 0%;
+    transition: width 3s linear;
+}
+
+.toast-success {
+    border-left: 4px solid #28a745;
+}
+
+.toast-error {
+    border-left: 4px solid #dc3545;
+}
+
+.toast-warning {
+    border-left: 4px solid #ffc107;
+}
+
+.toast-info {
+    border-left: 4px solid #17a2b8;
+}
+
+.toast-success .toast-icon {
+    color: #28a745;
+}
+
+.toast-error .toast-icon {
+    color: #dc3545;
+}
+
+.toast-warning .toast-icon {
+    color: #ffc107;
+}
+
+.toast-info .toast-icon {
+    color: #17a2b8;
+}
+
+.toast-success .toast-progress-bar {
+    background-color: #28a745;
+}
+
+.toast-error .toast-progress-bar {
+    background-color: #dc3545;
+}
+
+.toast-warning .toast-progress-bar {
+    background-color: #ffc107;
+}
+
+.toast-info .toast-progress-bar {
+    background-color: #17a2b8;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #4361ee;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .table-image {
+        width: 60px;
+        height: 34px;
+    }
+    
+    .carousel-table th:nth-child(3),
+    .carousel-table td:nth-child(3) {
+        display: none;
+    }
+    
+    .modal-content {
+        max-width: 100%;
+    }
+    
+    .toast {
+        left: 1rem;
+        right: 1rem;
+        width: calc(100% - 2rem);
+        max-width: none;
+    }
+} 

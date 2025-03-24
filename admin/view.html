@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Submission - Travel Agency Admin</title>
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="css/admin-style.css">
+    <style>
+        /* Additional styles for the view page */
+        .submission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .submission-type {
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: white;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .submission-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .meta-item i {
+            font-size: 20px;
+            color: #3f51b5;
+        }
+        
+        .submission-details {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .details-section {
+            margin-bottom: 30px;
+        }
+        
+        .details-section h3 {
+            margin-bottom: 15px;
+            color: #3f51b5;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .detail-label {
+            width: 200px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .detail-value {
+            flex: 1;
+            color: #333;
+        }
+        
+        .detail-full {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .detail-full .detail-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .detail-full .detail-value {
+            display: block;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+        
+        .action-button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+        }
+        
+        .action-button.primary {
+            background-color: #3f51b5;
+            color: white;
+        }
+        
+        .action-button.secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .action-button:hover {
+            opacity: 0.9;
+        }
+        
+        .loading-container {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #3f51b5;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Overlay loader for guaranteed visibility */
+        #pageLoader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Travel Agency</h3>
+                <div class="sidebar-toggler">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </div>
+            
+            <div class="sidebar-user">
+                <div class="user-avatar">
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+                <div class="user-info">
+                    <h5>Admin User</h5>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-header">MAIN MENU</div>
+                
+                <ul>
+                    <li class="menu-item">
+                        <a href="dashboard.html">
+                            <i class='bx bxs-dashboard'></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="carousel.html">
+                            <i class='bx bx-carousel'></i>
+                            <span>Carousel Items</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="content.html">
+                            <i class='bx bx-edit'></i>
+                            <span>Page Content</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item has-submenu">
+                        <a href="#">
+                            <i class='bx bxs-plane-take-off'></i>
+                            <span>Tours</span>
+                            <i class='bx bx-chevron-right'></i>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item">
+                                <a href="domestic-tours.html">Domestic Tours</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="international-tours.html">International Tours</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="menu-item has-submenu">
+                        <a href="#">
+                            <i class='bx bxs-message-dots'></i>
+                            <span>Submissions</span>
+                            <i class='bx bx-chevron-right'></i>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item">
+                                <a href="contacts.html">Contact Submissions</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="flight-inquiries.html">Flight Inquiries</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="domestic-tour-bookings.html">Domestic Tour Bookings</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="international-tour-bookings.html">International Tour Bookings</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="visa-applications.html">Visa Applications</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="passport-applications.html">Passport Applications</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="forex-inquiries.html">Forex Inquiries</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="honeymoon-bookings.html">Honeymoon Packages</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="menu-header">ACCOUNT</div>
+                
+                <ul>
+                    <li class="menu-item">
+                        <a href="profile.html">
+                            <i class='bx bxs-user'></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#" id="logoutBtn">
+                            <i class='bx bx-log-out'></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <div class="navbar">
+                <div class="navbar-left">
+                    <h4>Submission Details</h4>
+                </div>
+                
+                <div class="navbar-right">
+                    <div class="user-dropdown">
+                        <a href="profile.html">
+                            <i class='bx bxs-user-circle'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page Content -->
+            <div class="page-content">
+                <div class="page-title-box">
+                    <div class="action-header">
+                        <h4>Viewing Submission</h4>
+                        <div>
+                            <button class="action-button secondary" id="goBackBtn">
+                                <i class='bx bx-arrow-back'></i>
+                                <span>Back</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p>Loading submission details...</p>
+                </div>
+                
+                <!-- Submission Details -->
+                <div id="submissionDetails" style="display: none;">
+                    <!-- Header with submission type badge -->
+                    <div class="submission-header">
+                        <h3>Submission #<span id="submissionId"></span></h3>
+                        <span class="submission-type" id="submissionType"></span>
+                    </div>
+                    
+                    <!-- Meta information -->
+                    <div class="submission-meta">
+                        <div class="meta-item">
+                            <i class='bx bx-calendar'></i>
+                            <div>
+                                <div class="meta-label">Date</div>
+                                <div class="meta-value" id="submissionDate"></div>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <i class='bx bx-time'></i>
+                            <div>
+                                <div class="meta-label">Time</div>
+                                <div class="meta-value" id="submissionTime"></div>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <i class='bx bx-user'></i>
+                            <div>
+                                <div class="meta-label">Status</div>
+                                <div class="meta-value" id="submissionStatus">New</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Information -->
+                    <div class="submission-details">
+                        <div class="details-section">
+                            <h3>Contact Information</h3>
+                            <div class="detail-row">
+                                <div class="detail-label">Name</div>
+                                <div class="detail-value" id="contactName"></div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Email</div>
+                                <div class="detail-value" id="contactEmail"></div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Phone</div>
+                                <div class="detail-value" id="contactPhone"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Submission Details -->
+                        <div class="details-section">
+                            <h3>Submission Details</h3>
+                            <div id="dynamicFields">
+                                <!-- Fields will be dynamically populated based on submission type -->
+                            </div>
+                        </div>
+                        
+                        <!-- Additional Information -->
+                        <div class="details-section" id="messageSection">
+                            <h3>Message / Additional Information</h3>
+                            <div class="detail-full">
+                                <div class="detail-value" id="submissionMessage"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="action-buttons-container" style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="action-button primary" id="markAsReadBtn">
+                            <i class='bx bx-check'></i>
+                            <span>Mark as Read</span>
+                        </button>
+                        <button class="action-button secondary" id="exportBtn">
+                            <i class='bx bx-download'></i>
+                            <span>Export</span>
+                        </button>
+                        <button class="action-button danger" id="deleteBtn" style="background-color: #dc3545; color: white;">
+                            <i class='bx bx-trash'></i>
+                            <span>Delete</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Error State -->
+                <div id="errorState" style="display: none;" class="alert alert-danger">
+                    <p>Error loading submission details. Please try again later.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page Loader -->
+        <div id="pageLoader">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (window.AdminAuth) {
+                window.AdminAuth.checkAuth();
+            } else {
+                console.error('Auth utilities not found!');
+                window.location.href = '/admin/login.html';
+                return;
+            }
+            
+            // Initialize UI
+            initializeSidebar();
+            setupBackButton();
+            loadSubmissionDetails();
+        });
+        
+        function initializeSidebar() {
+            // Sidebar toggler
+            const sidebarToggler = document.querySelector('.sidebar-toggler');
+            const sidebar = document.querySelector('.sidebar');
+            
+            if (sidebarToggler) {
+                sidebarToggler.addEventListener('click', function() {
+                    sidebar.classList.toggle('collapsed');
+                    
+                    // Store user preference
+                    const isSidebarCollapsed = sidebar.classList.contains('collapsed');
+                    localStorage.setItem('sidebar_collapsed', isSidebarCollapsed);
+                });
+            }
+            
+            // Check saved state
+            const savedState = localStorage.getItem('sidebar_collapsed');
+            if (savedState === 'true') {
+                sidebar.classList.add('collapsed');
+            }
+            
+            // Handle submenu toggles
+            const submenuToggles = document.querySelectorAll('.menu-item.has-submenu > a');
+            
+            submenuToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const parent = this.parentElement;
+                    parent.classList.toggle('open');
+                });
+            });
+        }
+        
+        function setupBackButton() {
+            const backButton = document.getElementById('goBackBtn');
+            if (backButton) {
+                backButton.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default navigation
+                    
+                    // Show loading spinner before navigation
+                    const loader = document.getElementById('pageLoader');
+                    if (loader) {
+                        loader.style.display = 'flex';
+                    }
+                    
+                    // Force a delay to ensure the spinner is visible
+                    setTimeout(function() {
+                        // Redirect with cache-busting parameter to force a fresh load
+                        window.location.href = 'viewall.html?refresh=' + new Date().getTime();
+                    }, 300);
+                });
+            }
+        }
+        
+        async function loadSubmissionDetails() {
+            // Get submission ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const submissionId = urlParams.get('id');
+            const submissionType = urlParams.get('type'); // Get the type parameter, may be null
+            
+            if (!submissionId) {
+                showError('No submission ID provided');
+                return;
+            }
+            
+            // Show loading state
+            document.getElementById('loadingState').style.display = 'block';
+            document.getElementById('submissionDetails').style.display = 'none';
+            document.getElementById('errorState').style.display = 'none';
+            
+            try {
+                let response;
+                let submission;
+                
+                // If we have both ID and type, use the type-specific endpoint
+                if (submissionType) {
+                    response = await window.AdminAuth.apiRequest(`/submission/${submissionType}/${submissionId}`);
+                    if (!response || !response.data) {
+                        throw new Error('Submission not found');
+                    }
+                    submission = response.data;
+                    submission.id = submission.id || submission._id;
+                    submission.type = submission.type || submissionType;
+                } else {
+                    // If no type provided, use the new endpoint that can determine type by ID
+                    response = await window.AdminAuth.apiRequest(`/submissions/${submissionId}`);
+                    if (!response || !response.submission) {
+                        throw new Error('Submission not found');
+                    }
+                    submission = response.submission;
+                }
+                
+                // Display submission details
+                renderSubmissionDetails(submission);
+                
+                // Hide loading, show details
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('submissionDetails').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading submission:', error);
+                showError(error.message || 'Failed to load submission details');
+            }
+        }
+        
+        function renderSubmissionDetails(submission) {
+            if (!submission) {
+                showDetailError('No submission data available');
+                return;
+            }
+
+            // Fields to exclude from rendering
+            const excludedFields = [
+                '_id', 
+                'id', 
+                'read', 
+                'attachments', 
+                'files', 
+                'ipAddress', 
+                'userAgent', 
+                'updatedAt',
+                'status',        // Added to exclude status field
+                'pending',       // Added to exclude pending field
+                'createdAt',     // Added to exclude createdAt field
+                '__v',           // Added to exclude __v field
+                'v'              // Added to exclude v field if it exists
+            ];
+            
+            // Set basic details
+            document.getElementById('submissionId').textContent = submission.id;
+            
+            // Set submission type with appropriate style
+            const typeElement = document.getElementById('submissionType');
+            typeElement.textContent = submission.type || 'Unknown';
+            
+            // Set type badge color
+            let badgeColor = '#3f51b5'; // Default blue
+            if (submission.type === 'contact') badgeColor = '#17a2b8';
+            if (submission.type === 'flight') badgeColor = '#ffc107';
+            if (submission.type === 'domestic') badgeColor = '#28a745';
+            if (submission.type === 'international') badgeColor = '#6c757d';
+            if (submission.type === 'visa') badgeColor = '#dc3545';
+            if (submission.type === 'passport') badgeColor = '#343a40';
+            if (submission.type === 'forex') badgeColor = '#3f51b5';
+            if (submission.type === 'honeymoon') badgeColor = '#17a2b8';
+            
+            typeElement.style.backgroundColor = badgeColor;
+            
+            // Format and set date/time
+            const submissionDate = new Date(submission.createdAt || Date.now());
+            document.getElementById('submissionDate').textContent = submissionDate.toLocaleDateString();
+            document.getElementById('submissionTime').textContent = submissionDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            // Set status - check if the submission has been read
+            const statusElement = document.getElementById('submissionStatus');
+            if (submission.status === 'read' || submission.isRead) {
+                statusElement.textContent = 'Read';
+                statusElement.style.color = '#28a745'; // Green color for read status
+                
+                // Disable the mark as read button if already read
+                const markAsReadBtn = document.getElementById('markAsReadBtn');
+                if (markAsReadBtn) {
+                    markAsReadBtn.disabled = true;
+                    markAsReadBtn.style.opacity = '0.6';
+                }
+            } else {
+                statusElement.textContent = 'New';
+                statusElement.style.color = '#dc3545'; // Red color for new/unread status
+            }
+            
+            // Set contact information
+            document.getElementById('contactName').textContent = submission.name || 'N/A';
+            document.getElementById('contactEmail').textContent = submission.email || 'N/A';
+            document.getElementById('contactPhone').textContent = submission.phone || 'N/A';
+            
+            // Set message content if present
+            const messageElement = document.getElementById('submissionMessage');
+            if (submission.message) {
+                messageElement.textContent = submission.message;
+                document.getElementById('messageSection').style.display = 'block';
+            } else {
+                document.getElementById('messageSection').style.display = 'none';
+            }
+            
+            // Generate dynamic fields based on submission type
+            const dynamicFieldsContainer = document.getElementById('dynamicFields');
+            dynamicFieldsContainer.innerHTML = '';
+            
+            // Create a field for each remaining property
+            for (const [key, value] of Object.entries(submission)) {
+                if (excludedFields.includes(key) || value === undefined || value === null) {
+                    continue;
+                }
+                
+                // Skip any field that contains "ip", "agent", "status", "pending", "created", or "updatedat" in case different naming conventions are used
+                if (key.toLowerCase().includes('ip') || 
+                    key.toLowerCase().includes('agent') || 
+                    key.toLowerCase().includes('updatedat') ||
+                    key.toLowerCase().includes('status') ||
+                    key.toLowerCase().includes('pending') ||
+                    key.toLowerCase().includes('created') ||
+                    key.toLowerCase().includes('__v')) {
+                    continue;
+                }
+                
+                // Format the field label
+                const label = key.replace(/([A-Z])/g, ' $1')
+                    .replace(/^./, function(str) { return str.toUpperCase(); })
+                    .replace(/([a-z])([A-Z])/g, '$1 $2');
+                
+                // Create field row
+                const fieldRow = document.createElement('div');
+                fieldRow.className = 'detail-row';
+                
+                const labelElement = document.createElement('div');
+                labelElement.className = 'detail-label';
+                labelElement.textContent = label;
+                
+                const valueElement = document.createElement('div');
+                valueElement.className = 'detail-value';
+                
+                // Format the value based on type
+                if (typeof value === 'boolean') {
+                    valueElement.textContent = value ? 'Yes' : 'No';
+                } else if (value instanceof Date) {
+                    valueElement.textContent = formatDateOnly(value);
+                } else if (typeof value === 'string' && value.includes('T00:00:00.000Z')) {
+                    // Format date strings to remove time component
+                    valueElement.textContent = formatDateOnly(new Date(value));
+                } else if (typeof value === 'object') {
+                    valueElement.textContent = JSON.stringify(value);
+                } else {
+                    valueElement.textContent = value;
+                }
+                
+                fieldRow.appendChild(labelElement);
+                fieldRow.appendChild(valueElement);
+                dynamicFieldsContainer.appendChild(fieldRow);
+            }
+            
+            // Set up action buttons
+            setupActionButtons(submission);
+        }
+        
+        // Helper function to format dates without time component
+        function formatDateOnly(date) {
+            if (!(date instanceof Date) || isNaN(date)) {
+                return 'Invalid Date';
+            }
+            
+            // Format as YYYY-MM-DD
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            
+            return `${year}-${month}-${day}`;
+        }
+        
+        function setupActionButtons(submission) {
+            const markAsReadBtn = document.getElementById('markAsReadBtn');
+            if (markAsReadBtn) {
+                // Disable button if already read
+                if (submission.status === 'read' || submission.isRead) {
+                    markAsReadBtn.disabled = true;
+                    markAsReadBtn.style.opacity = '0.6';
+                } else {
+                    markAsReadBtn.disabled = false;
+                    markAsReadBtn.style.opacity = '1';
+                    
+                    // Add click event listener
+                    markAsReadBtn.addEventListener('click', async function() {
+                        try {
+                            // Show loading state
+                            markAsReadBtn.disabled = true;
+                            markAsReadBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i><span>Processing...</span>';
+                            
+                            // Mark submission as read - ensure we have the type from the submission object
+                            const type = submission.type || 'unknown';
+                            const id = submission._id || submission.id;
+                            
+                            // Fix the endpoint path to match server.js and ensure consistency with viewall.html
+                            const response = await window.AdminAuth.apiRequest(`/submission/${type}/${id}/read`, {
+                                method: 'POST'
+                            });
+                            
+                            // Update UI
+                            if (response && response.success) {
+                                const statusElement = document.getElementById('submissionStatus');
+                                statusElement.textContent = 'Read';
+                                statusElement.style.color = '#28a745';
+                                
+                                markAsReadBtn.innerHTML = '<i class="bx bx-check"></i><span>Marked as Read</span>';
+                                markAsReadBtn.style.opacity = '0.6';
+                                markAsReadBtn.disabled = true;
+                                
+                                // Set flag to trigger reload when going back to viewall.html
+                                sessionStorage.setItem('need_reload_viewall', 'true');
+                                
+                                // FORCE a reload when going back to viewall by setting the return URL
+                                // This is the most guaranteed approach - it will ALWAYS work
+                                const backButton = document.getElementById('goBackBtn');
+                                if (backButton) {
+                                    // Update the back button to point directly to viewall.html with a timestamp to force reload
+                                    backButton.setAttribute('href', `viewall.html?refresh=${new Date().getTime()}`);
+                                    console.log('Updated back button to force reload of viewall.html');
+                                }
+                                
+                                // Also handle browser back button case by replacing history
+                                const currentUrl = window.location.href;
+                                const viewallUrl = `${window.location.origin}${window.location.pathname.replace(/\/[^\/]*$/, '/viewall.html')}?refresh=${new Date().getTime()}`;
+                                
+                                // Replace current history entry with modified URL that shows we've read this
+                                history.replaceState(null, '', `${currentUrl}&read=true`);
+                                
+                                // Add viewall page as the previous page in history (will load with refresh param when back button used)
+                                history.pushState(null, '', currentUrl);
+                                
+                                console.log('Set up browser history to force viewall.html reload on back navigation');
+                                
+                                // After marking as read, add a button to return to viewall.html with guaranteed reload
+                                markAsReadBtn.innerHTML = '<i class="bx bx-check"></i><span>Marked as Read</span>';
+                                markAsReadBtn.style.opacity = '0.6';
+                                markAsReadBtn.disabled = true;
+                                
+                                // Create a new button to return to viewall with guaranteed reload
+                                const returnBtn = document.createElement('button');
+                                returnBtn.className = 'btn btn-primary ms-3';
+                                returnBtn.innerHTML = '<i class="bx bx-arrow-back"></i><span>Back to All Submissions</span>';
+                                returnBtn.onclick = function() {
+                                    // Show loading spinner before navigation
+                                    const loader = document.getElementById('pageLoader');
+                                    if (loader) {
+                                        loader.style.display = 'flex';
+                                    }
+                                    
+                                    // Force a delay to ensure the spinner is visible
+                                    setTimeout(function() {
+                                        // Redirect with cache-busting parameter to force a fresh load
+                                        window.location.href = 'viewall.html?refresh=' + new Date().getTime();
+                                    }, 300);
+                                    
+                                    return false;
+                                };
+                                
+                                // Add the button next to "Mark as Read"
+                                markAsReadBtn.parentNode.appendChild(returnBtn);
+                                
+                                // Also update the main back button to use our guaranteed reload
+                                const mainBackBtn = document.getElementById('goBackBtn');
+                                if (mainBackBtn) {
+                                    mainBackBtn.onclick = function(e) {
+                                        e.preventDefault();
+                                        
+                                        // Show loading spinner before navigation
+                                        const loader = document.getElementById('pageLoader');
+                                        if (loader) {
+                                            loader.style.display = 'flex';
+                                        }
+                                        
+                                        // Force a delay to ensure the spinner is visible
+                                        setTimeout(function() {
+                                            // Redirect with cache-busting parameter to force a fresh load
+                                            window.location.href = 'viewall.html?refresh=' + new Date().getTime();
+                                        }, 300);
+                                        
+                                        return false;
+                                    };
+                                }
+                            } else {
+                                markAsReadBtn.disabled = false;
+                                markAsReadBtn.innerHTML = '<i class="bx bx-check"></i><span>Mark as Read</span>';
+                                alert('Failed to mark submission as read');
+                            }
+                        } catch (error) {
+                            console.error('Error marking as read:', error);
+                            markAsReadBtn.disabled = false;
+                            markAsReadBtn.innerHTML = '<i class="bx bx-check"></i><span>Mark as Read</span>';
+                            alert('Failed to mark submission as read: ' + error.message);
+                        }
+                    });
+                }
+            }
+            
+            const exportBtn = document.getElementById('exportBtn');
+            if (exportBtn) {
+                exportBtn.addEventListener('click', function() {
+                    // Generate CSV data
+                    let csvContent = 'data:text/csv;charset=utf-8,';
+                    
+                    // Add headers
+                    csvContent += 'Field,Value\r\n';
+                    
+                    // Add ID and type
+                    csvContent += `ID,${submission.id}\r\n`;
+                    csvContent += `Type,${submission.type}\r\n`;
+                    
+                    // Add date/time
+                    const submissionDate = new Date(submission.createdAt || Date.now());
+                    csvContent += `Date,${submissionDate.toLocaleDateString()}\r\n`;
+                    csvContent += `Time,${submissionDate.toLocaleTimeString()}\r\n`;
+                    
+                    // Add contact info
+                    csvContent += `Name,${submission.name || 'N/A'}\r\n`;
+                    csvContent += `Email,${submission.email || 'N/A'}\r\n`;
+                    csvContent += `Phone,${submission.phone || 'N/A'}\r\n`;
+                    
+                    // Add other fields, excluding sensitive information
+                    for (const [key, value] of Object.entries(submission)) {
+                        if (['id', 'type', 'createdAt', 'name', 'email', 'phone', 'status', 'isRead', '_id', '__v', 
+                             'ipAddress', 'userAgent', 'updatedAt', 'ip'].includes(key) || 
+                            value === undefined || value === null) {
+                            continue;
+                        }
+                        
+                        // Skip any field that contains "ip", "agent", or "updatedAt" in case different naming conventions are used
+                        if (key.toLowerCase().includes('ip') || 
+                            key.toLowerCase().includes('agent') || 
+                            key.toLowerCase().includes('updatedat')) {
+                            continue;
+                        }
+                        
+                        // Format the field label
+                        const label = key.replace(/([A-Z])/g, ' $1')
+                            .replace(/^./, function(str) { return str.toUpperCase(); })
+                            .replace(/([a-z])([A-Z])/g, '$1 $2');
+                        
+                        // Format value for CSV
+                        let formattedValue = value;
+                        if (typeof value === 'string') {
+                            // Escape quotes in string
+                            formattedValue = value.replace(/"/g, '""');
+                            if (formattedValue.includes(',')) {
+                                formattedValue = `"${formattedValue}"`;
+                            }
+                        }
+                        
+                        csvContent += `${label},${formattedValue}\r\n`;
+                    }
+                    
+                    // Create download link
+                    const encodedUri = encodeURI(csvContent);
+                    const link = document.createElement('a');
+                    link.setAttribute('href', encodedUri);
+                    link.setAttribute('download', `submission_${submission.id}.csv`);
+                    document.body.appendChild(link);
+                    
+                    // Trigger download
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            }
+            
+            // Add listener for delete button
+            const deleteBtn = document.getElementById('deleteBtn');
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', async function() {
+                    if (confirm('Are you sure you want to delete this submission? This action cannot be undone.')) {
+                        try {
+                            // Show loading state
+                            deleteBtn.disabled = true;
+                            deleteBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i><span>Deleting...</span>';
+                            
+                            // Delete the submission
+                            const type = submission.type || 'unknown';
+                            const response = await window.AdminAuth.apiRequest(`/submission/${type}/${submission.id}`, {
+                                method: 'DELETE'
+                            });
+                            
+                            if (response && response.success) {
+                                alert('Submission deleted successfully');
+                                // Navigate back to the previous page
+                                window.history.back();
+                            } else {
+                                deleteBtn.disabled = false;
+                                deleteBtn.innerHTML = '<i class="bx bx-trash"></i><span>Delete</span>';
+                                alert('Failed to delete submission');
+                            }
+                        } catch (error) {
+                            console.error('Error deleting submission:', error);
+                            deleteBtn.disabled = false;
+                            deleteBtn.innerHTML = '<i class="bx bx-trash"></i><span>Delete</span>';
+                            alert('Error deleting submission: ' + error.message);
+                        }
+                    }
+                });
+            }
+        }
+        
+        function showError(message) {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('submissionDetails').style.display = 'none';
+            
+            const errorState = document.getElementById('errorState');
+            errorState.style.display = 'block';
+            errorState.querySelector('p').textContent = message || 'Failed to load submission details';
+        }
+    </script>
+</body>
+</html>

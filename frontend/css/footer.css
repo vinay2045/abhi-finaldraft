@@ -1,0 +1,409 @@
+/* Footer */
+.footer {
+    text-align: right;
+    padding: 30px 0;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+.footer-logo {
+    font-weight: 600;
+    font-family: "JetBrains Mono", monospace;
+}
+
+/* Enhanced Footer Styles */
+.main-footer {
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 60px 0 30px;
+    margin-top: 50px;
+    color: var(--text-color);
+    width: 100%;
+}
+
+/* Footer Contact Form - Full Width */
+.footer-contact-form-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto 50px;
+    padding: 0 20px;
+}
+
+.footer-contact-form {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.footer-contact-form:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+.footer-contact-form h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-color);
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    margin: 0 auto 25px;
+}
+
+.footer-contact-form h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #1a8a9e;
+    border-radius: 2px;
+}
+
+.footer-contact-form p {
+    text-align: center;
+    margin-bottom: 25px;
+    opacity: 0.8;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.footer-form-group {
+    flex: 1;
+}
+
+.footer-form-group input,
+.footer-form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.footer-form-group input:focus,
+.footer-form-group textarea:focus {
+    outline: none;
+    border-color: #1a8a9e;
+    box-shadow: 0 0 0 3px rgba(26, 138, 158, 0.1);
+}
+
+.footer-form-group input:hover,
+.footer-form-group textarea:hover {
+    border-color: #1a8a9e;
+}
+
+.footer-form-group textarea {
+    height: 100px;
+    resize: none;
+}
+
+.footer-form-submit {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer-form-submit button {
+    background-color: #1a8a9e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(26, 138, 158, 0.2);
+}
+
+.footer-form-submit button:hover {
+    background-color: #156d7d;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(26, 138, 158, 0.3);
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 40px;
+}
+
+.footer-logo-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-logo {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.footer-tagline {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.footer-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(26, 138, 158, 0.1);
+    border-radius: 50%;
+    color: #1a8a9e;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+    background-color: #1a8a9e;
+    color: white;
+    transform: translateY(-5px);
+}
+
+.footer-links h3, .footer-contact h3, .footer-newsletter h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+}
+
+.footer-links h3::after, .footer-contact h3::after, .footer-newsletter h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #1a8a9e;
+    border-radius: 2px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-links a i {
+    color: #1a8a9e;
+    font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    color: #1a8a9e;
+    transform: translateX(5px);
+}
+
+.footer-contact p {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.footer-contact i {
+    color: #1a8a9e;
+    font-size: 1.2rem;
+    margin-top: 3px;
+}
+
+.footer-newsletter p {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+.footer-disclaimer {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 10px;
+}
+
+.footer-form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.footer-form input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px 0 0 8px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.footer-form input:focus {
+    outline: none;
+    border-color: #1a8a9e;
+}
+
+.footer-form button {
+    background-color: #1a8a9e;
+    color: white;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.footer-form button:hover {
+    background-color: #156d7d;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 40px;
+    border-top: 1px solid var(--border-color);
+    opacity: 0.7;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.footer-bottom p {
+    margin-bottom: 10px;
+}
+
+.footer-bottom a {
+    color: #1a8a9e;
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+/* Quick Contact Form in Footer */
+.quick-contact {
+    margin-top: 20px;
+}
+
+.quick-contact .form-group {
+    margin-bottom: 15px;
+}
+
+.quick-contact input, 
+.quick-contact textarea {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+}
+
+.quick-contact input:focus, 
+.quick-contact textarea:focus {
+    outline: none;
+    border-color: #1a8a9e;
+}
+
+.quick-contact textarea {
+    height: 80px;
+    resize: none;
+}
+
+.quick-contact button {
+    background-color: #1a8a9e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quick-contact button:hover {
+    background-color: #156d7d;
+    transform: translateY(-3px);
+}
+
+/* Dark theme specific footer adjustments */
+[data-theme="dark"] .footer-social a {
+    background-color: rgba(26, 138, 158, 0.2);
+}
+
+[data-theme="dark"] .footer-form input,
+[data-theme="dark"] .footer-form-group input,
+[data-theme="dark"] .footer-form-group textarea {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .footer-bottom {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .footer-container {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .footer-contact-form {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+} 

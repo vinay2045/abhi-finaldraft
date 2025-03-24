@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honeymoon Packages - Abhi Tours & Travels</title>
+    
+    <!-- Advanced page loader script - must be at the top -->
+    <script src="../js/page-loader.js"></script>
+    
+    <!-- Theme handler script to prevent theme flash -->
+    <script src="../js/theme-handler.js"></script>
+    
+    <!-- Critical CSS - inlined for fastest rendering -->
+    <link rel="stylesheet" href="../css/critical.css">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="../css/main.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../css/honeymoon.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../css/components.css" media="print" onload="this.media='all'">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <!-- Fallback for browsers that don't support JS loading -->
+    <noscript>
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/honeymoon.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    </noscript>
+    
+    <!-- Enhanced lazy loading script -->
+    <script src="../js/lazy-load.js" defer></script>
+    
+    <!-- Script loader for deferred JavaScript loading -->
+    <script src="../js/script-loader.js" defer></script>
+   
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div id="nav-part1" style="display: none;">
+                <i class="ri-menu-3-line"></i>
+            </div>
+            <div id="nav-part2">
+                <img src="../images/WhatsApp_Image_2025-03-17_at_19.38.53_85a826c5-removebg-preview.png" alt="Abhi Tours & Travels Logo">
+            </div>
+            <div id="nav-part3">
+                <a href="index.html"><h3><span>Home</span> <span><i class='bx bxs-home-alt-2'></i></span></h3></a>
+                <a href="aboutus.html"><h3><span>About Us</span> <span><i class='bx bxs-invader'></i></span></h3></a>
+                <h3 id="ourservices"><span>Our Services</span> <span><i class='bx bxs-invader'></i></span></h3>
+                <h3 id="trips"><span>Trips</span> <span><i class='bx bxl-airbnb'></i></span></h3>
+                <a href="contactus.html"><h3>Contact Us <span><i class='bx bx-mail-send'></i></span></h3></a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" title="Toggles light & dark" aria-label="auto" aria-live="polite">
+                <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                    <mask class="moon" id="moon-mask">
+                        <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                        <circle cx="24" cy="10" r="6" fill="black" />
+                    </mask>
+                    <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
+                    <g class="sun-beams" stroke="currentColor">
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </g>
+                </svg>
+            </button>
+        </nav>
+        
+        <div class="honeymoon-hero" style="background-image: url('../images/photo-1510414842594-a61c69b5ae57.avif');">
+            <div class="honeymoon-hero-content">
+                <h1>Honeymoon Packages</h1>
+                <p>Begin your journey of love with our specially crafted honeymoon packages to the world's most romantic destinations.</p>
+                <button class="cta-btn" onclick="document.querySelector('#honeymoon-booking-inquiry').scrollIntoView({ behavior: 'smooth' });">Book now</button>
+            </div>
+        </div>
+        
+        <div class="honeymoon-section">
+            <h2 class="honeymoon-title">Popular Honeymoon Destinations</h2>
+            <p>At Abhi Tours & Travels, we specialize in creating unforgettable honeymoon experiences. Our carefully curated packages combine luxury, romance, and adventure to make your first trip as a married couple truly special.</p>
+            
+            <div class="honeymoon-grid">
+                <div class="honeymoon-card">
+                    <img src="../images/photo-1510414842594-a61c69b5ae57.avif" alt="Maldives" class="honeymoon-card-img">
+                    <div class="honeymoon-card-body">
+                        <h3 class="honeymoon-card-title">Maldives Paradise</h3>
+                        <p class="honeymoon-card-text">Experience the crystal clear waters and overwater villas in the Maldives. Perfect for couples seeking privacy and luxury.</p>
+                        <div class="honeymoon-card-meta">
+                            <span class="honeymoon-card-price">₹65,999 per couple</span>
+                            <span class="honeymoon-card-duration"><i class='bx bx-time'></i> 5 Nights / 6 Days</span>
+                        </div>
+                        <button class="honeymoon-card-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="honeymoon-card">
+                    <img src="../images/photo-1589983846997-04788035bc83.avif" alt="Bali" class="honeymoon-card-img">
+                    <div class="honeymoon-card-body">
+                        <h3 class="honeymoon-card-title">Bali Bliss</h3>
+                        <p class="honeymoon-card-text">Discover the perfect blend of culture, beaches, and luxury in the Island of Gods. Includes private villa stay and couples spa.</p>
+                        <div class="honeymoon-card-meta">
+                            <span class="honeymoon-card-price">₹48,999 per couple</span>
+                            <span class="honeymoon-card-duration"><i class='bx bx-time'></i> 6 Nights / 7 Days</span>
+                        </div>
+                        <button class="honeymoon-card-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="honeymoon-card">
+                    <img src="../images/photo-1530870110042-98b2cb110834.avif" alt="Santorini" class="honeymoon-card-img">
+                    <div class="honeymoon-card-body">
+                        <h3 class="honeymoon-card-title">Santorini Romance</h3>
+                        <p class="honeymoon-card-text">Watch breathtaking sunsets from your cliffside suite in Santorini. Includes wine tasting and private yacht cruise.</p>
+                        <div class="honeymoon-card-meta">
+                            <span class="honeymoon-card-price">₹85,999 per couple</span>
+                            <span class="honeymoon-card-duration"><i class='bx bx-time'></i> 7 Nights / 8 Days</span>
+                        </div>
+                        <button class="honeymoon-card-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                <div class="honeymoon-card">
+                    <img src="../images/photo-1551918120-9739cb430c6d.avif" alt="Switzerland" class="honeymoon-card-img">
+                    <div class="honeymoon-card-body">
+                        <h3 class="honeymoon-card-title">Swiss Alps Retreat</h3>
+                        <p class="honeymoon-card-text">Cozy mountain chalets and scenic train journeys through the Swiss Alps. Perfect for couples who love nature and adventure.</p>
+                        <div class="honeymoon-card-meta">
+                            <span class="honeymoon-card-price">₹92,999 per couple</span>
+                            <span class="honeymoon-card-duration"><i class='bx bx-time'></i> 8 Nights / 9 Days</span>
+                        </div>
+                        <button class="honeymoon-card-btn">Book Now</button>
+                    </div>
+                </div>
+                
+                
+                
+               
+            </div>
+        </div>
+        
+        <div class="honeymoon-section">
+            <h2 class="honeymoon-title">Why Choose Our Honeymoon Packages</h2>
+            <div class="honeymoon-features">
+                <div class="honeymoon-feature">
+                    <i class='bx bx-heart'></i>
+                    <h3>Personalized Itineraries</h3>
+                    <p>Custom-designed honeymoon plans that reflect your preferences and create memories that last a lifetime.</p>
+                </div>
+                <div class="honeymoon-feature">
+                    <i class='bx bx-hotel'></i>
+                    <h3>Luxury Accommodations</h3>
+                    <p>Handpicked romantic resorts and hotels with special honeymoon amenities and upgrades.</p>
+                </div>
+                <div class="honeymoon-feature">
+                    <i class='bx bx-gift'></i>
+                    <h3>Special Surprises</h3>
+                    <p>Romantic dinners, couples spa treatments, and special honeymoon perks included in every package.</p>
+                </div>
+                <div class="honeymoon-feature">
+                    <i class='bx bx-support'></i>
+                    <h3>24/7 Assistance</h3>
+                    <p>Round-the-clock support throughout your honeymoon to ensure a smooth and stress-free experience.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="honeymoon-section">
+            <h2 class="honeymoon-title">Testimonials</h2>
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Our Maldives honeymoon was absolutely perfect! Abhi Tours arranged everything from our water villa to surprise sunset cruise. We couldn't have asked for a better start to our married life. Highly recommended!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya & Rahul" class="testimonial-author-img">
+                        <div class="testimonial-author-info">
+                            <div class="testimonial-author-name">Priya & Rahul</div>
+                            <div class="testimonial-author-destination">Maldives Package</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The Switzerland package was beyond our expectations. The scenic train rides, mountain views, and chocolate tasting tours were all perfectly organized. Thank you for the meticulous planning and attention to detail!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aditya & Neha" class="testimonial-author-img">
+                        <div class="testimonial-author-info">
+                            <div class="testimonial-author-name">Aditya & Neha</div>
+                            <div class="testimonial-author-destination">Swiss Alps Package</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="honeymoon-section">
+            <h2 class="honeymoon-title" id="honeymoon-booking-inquiry">Plan Your Dream Honeymoon</h2>
+            <div class="honeymoon-form-container">
+                <form class="honeymoon-form" action="/api/submissions/honeymoon" method="POST" data-submit="ajax">
+                    <div class="honeymoon-form-row">
+                        <div class="honeymoon-form-group">
+                            <label for="name">Couple's Full Names</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your names" required>
+                        </div>
+                        <div class="honeymoon-form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                        </div>
+                    </div>
+                    <div class="honeymoon-form-row">
+                        <div class="honeymoon-form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+                        <div class="honeymoon-form-group">
+                            <label for="wedding-date">Wedding Date</label>
+                            <input type="date" id="wedding-date" name="weddingDate">
+                        </div>
+                    </div>
+                    <div class="honeymoon-form-row">
+                        <div class="honeymoon-form-group">
+                            <label for="destination">Preferred Destination</label>
+                            <select id="destination" name="destination" required>
+                                <option value="">Select Destination</option>
+                                <option value="maldives">Maldives</option>
+                                <option value="bali">Bali</option>
+                                <option value="santorini">Santorini, Greece</option>
+                                <option value="switzerland">Switzerland</option>
+                                <option value="seychelles">Seychelles</option>
+                                <option value="kashmir">Kashmir</option>
+                                <option value="other">Other (Please specify)</option>
+                            </select>
+                        </div>
+                        <div class="honeymoon-form-group">
+                            <label for="other-destination">If Other, Please Specify</label>
+                            <input type="text" id="other-destination" name="otherDestination" placeholder="Enter your preferred destination">
+                        </div>
+                    </div>
+                    <div class="honeymoon-form-row">
+                        <div class="honeymoon-form-group">
+                            <label for="travel-dates">Expected Travel Dates</label>
+                            <input type="date" id="travel-dates" name="travelDates" required>
+                        </div>
+                        <div class="honeymoon-form-group">
+                            <label for="duration">Duration</label>
+                            <select id="duration" name="duration" required>
+                                <option value="">Select Duration</option>
+                                <option value="3-5">3-5 Days</option>
+                                <option value="6-8">6-8 Days</option>
+                                <option value="9-12">9-12 Days</option>
+                                <option value="13+">13+ Days</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="honeymoon-form-row">
+                        <div class="honeymoon-form-group">
+                            <label for="budget">Budget Range (Per Couple)</label>
+                            <select id="budget" name="budget" required>
+                                <option value="">Select Budget Range</option>
+                                <option value="below-50k">Below ₹50,000</option>
+                                <option value="50k-75k">₹50,000 - ₹75,000</option>
+                                <option value="75k-100k">₹75,000 - ₹1,00,000</option>
+                                <option value="100k-150k">₹1,00,000 - ₹1,50,000</option>
+                                <option value="above-150k">Above ₹1,50,000</option>
+                            </select>
+                        </div>
+                        <div class="honeymoon-form-group">
+                            <label for="accommodation">Preferred Accommodation</label>
+                            <select id="accommodation" name="accommodation">
+                                <option value="">Select Preference</option>
+                                <option value="3-star">3-Star Hotels</option>
+                                <option value="4-star">4-Star Hotels</option>
+                                <option value="5-star">5-Star Hotels & Resorts</option>
+                                <option value="luxury">Luxury Villas & Suites</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="honeymoon-form-group">
+                        <label for="message">Special Requirements or Interests</label>
+                        <textarea id="message" name="message" placeholder="Tell us about any special requirements, interests, or activities you'd like to include in your honeymoon package"></textarea>
+                    </div>
+                    <input type="hidden" name="formType" value="honeymoon">
+                    <button type="submit" class="honeymoon-submit-btn">Submit Enquiry</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-contact-form-container">
+                <div class="footer-contact-form">
+                    <h3>Contact Us</h3>
+                    <p>Have questions or ready to plan your next adventure? Send us a message and we'll get back to you shortly.</p>
+                    <form action="/api/submissions/contact" method="POST" data-submit="ajax">
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="text" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="footer-form-group">
+                                <input type="email" name="email" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="tel" name="phone" placeholder="Your Phone" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="text" name="subject" placeholder="Subject" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <textarea name="message" placeholder="Your Message" required></textarea>
+                            </div>
+                        </div>
+                        <div class="footer-form-submit">
+                            <button type="submit">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-container">
+                <div class="footer-logo-section">
+                    <img src="../images/WhatsApp_Image_2025-03-17_at_19.38.53_85a826c5-removebg-preview.png" alt="Abhi Tours & Travels Logo">
+                    <p class="footer-tagline">Time to Travel - Your gateway to extraordinary experiences and unforgettable adventures.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                        <a href="#"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-pinterest'></i></a>
+                        <a href="#"><i class='bx bxl-youtube'></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class='bx bx-chevron-right'></i> Home</a></li>
+                        <li><a href="aboutus.html"><i class='bx bx-chevron-right'></i> About Us</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Our Services</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Tour Packages</a></li>
+                        <li><a href="contactus.html"><i class='bx bx-chevron-right'></i> Contact Us</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class='bx bx-map'></i> 1st Floor, Above SBI ATM,<br>Beside Srikanth Honda Show Room,<br>Mankammathota, Karimnagar, TS - 505001</p>
+                    <p><i class='bx bx-phone'></i> 8886226565, 9885531674</p>
+                    <p><i class='bx bx-envelope'></i> info@abhitoursandtravels.com</p>
+                    <p><i class='bx bx-time-five'></i> Monday - Saturday: 9:00 AM - 8:00 PM</p>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive special offers and updates on new travel destinations.</p>
+                    <form class="footer-form" action="/api/submissions/newsletter" method="POST" data-submit="ajax">
+                        <input type="email" name="email" placeholder="Your Email Address" required>
+                        <button type="submit"><i class='bx bx-paper-plane'></i></button>
+                    </form>
+                    <p class="footer-disclaimer">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Abhi Tours & Travels. All rights reserved.</p>
+                <p>Designed with <i class='bx bx-heart' style="color: #e74c3c;"></i> for travelers around the world</p>
+            </div>
+        </footer>
+    </div>
+    <a href="#" class="contact-float" id="contactBtn">
+        <i class='bx bxs-envelope'></i>
+    </a>
+
+    <!-- Contact Form Popup -->
+    <div class="contact-popup" id="contactPopup">
+        <div class="contact-popup-content">
+            <div class="popup-header">
+                <h3>Contact Us</h3>
+                <button class="close-btn" id="closeContactPopup">&times;</button>
+            </div>
+            <form id="contactForm" action="/api/submissions/contact" method="POST" data-submit="ajax">
+                <div class="form-group">
+                    <input type="text" id="popup-name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="popup-phone" name="phone" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="popup-email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="popup-subject" name="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="popup-message" name="message" placeholder="Tell us about your requirements" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Booking Modal -->
+    <div class="contact-popup" id="bookingModal">
+        <div class="contact-popup-content booking-popup-content">
+            <div class="popup-header">
+                <h3>Book Your Honeymoon Package</h3>
+                <button class="close-btn" id="closeBookingPopup">&times;</button>
+            </div>
+            <form id="bookingForm" action="/api/submissions/honeymoon" method="POST" data-submit="ajax">
+                <div class="form-group">
+                    <label for="booking-name">Your Names</label>
+                    <input type="text" id="booking-name" name="name" placeholder="Couple's Names" required>
+                </div>
+                <div class="form-group">
+                    <label for="booking-email">Email Address</label>
+                    <input type="email" id="booking-email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="booking-phone">Phone Number</label>
+                    <input type="tel" id="booking-phone" name="phone" placeholder="Your Phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <select id="destination" name="destination" required>
+                        <option value="">Select Destination</option>
+                        <option value="Maldives Paradise">Maldives Paradise</option>
+                        <option value="Bali Bliss">Bali Bliss</option>
+                        <option value="Santorini Romance">Santorini Romance</option>
+                        <option value="Swiss Alps Retreat">Swiss Alps Retreat</option>
+                        <option value="Bali">Bali</option>
+                        <option value="Maldives">Maldives</option>
+                        <option value="Santorini">Santorini</option>
+                        <option value="Swiss Alps">Swiss Alps</option>
+                        <option value="Paris">Paris</option>
+                        <option value="Goa">Goa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="travel-date">Travel Date</label>
+                    <input type="date" id="travel-date" name="travelDates" required>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duration</label>
+                    <select id="duration" name="duration" required>
+                        <option value="">Select Duration</option>
+                        <option value="3-5 days">3-5 Days</option>
+                        <option value="6-8 days">6-8 Days</option>
+                        <option value="9-12 days">9-12 Days</option>
+                        <option value="13+ days">13+ Days</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget">Budget Range</label>
+                    <select id="budget" name="budget" required>
+                        <option value="">Select Budget Range</option>
+                        <option value="₹50,000-₹75,000">₹50,000-₹75,000</option>
+                        <option value="₹75,000-₹1,00,000">₹75,000-₹1,00,000</option>
+                        <option value="₹1,00,000-₹1,50,000">₹1,00,000-₹1,50,000</option>
+                        <option value="₹1,50,000+">₹1,50,000+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="booking-message">Special Requests</label>
+                    <textarea id="booking-message" name="message" placeholder="Any special requests or preferences?"></textarea>
+                </div>
+                <input type="hidden" name="formType" value="honeymoon">
+                <button type="submit" class="submit-btn">Book Now</button>
+            </form>
+        </div>
+    </div>
+    <script src="../js/script.js"></script>
+    
+    <!-- Booking popup handling script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up booking modal
+            const bookingPopup = document.getElementById('bookingModal');
+            const closeBookingPopup = document.getElementById('closeBookingPopup');
+            const bookNowButtons = document.querySelectorAll('.honeymoon-card-btn');
+            
+            // Set minimum date for travel date to tomorrow
+            const travelDateInput = document.getElementById('travel-date');
+            if (travelDateInput) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                travelDateInput.min = tomorrow.toISOString().split('T')[0];
+            }
+            
+            // Handle book now button clicks
+            bookNowButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Honeymoon book now button clicked');
+                    
+                    // Get package details
+                    const packageCard = this.closest('.honeymoon-card');
+                    let destination = '';
+                    let price = '';
+                    
+                    if (packageCard) {
+                        destination = packageCard.querySelector('.honeymoon-card-title').textContent;
+                        price = packageCard.querySelector('.honeymoon-card-price').textContent;
+                        console.log('Package details:', { destination, price });
+                        
+                        // Set destination in form if it exists
+                        const destinationSelect = document.getElementById('destination');
+                        if (destinationSelect) {
+                            // Try to find matching option
+                            let found = false;
+                            for (let i = 0; i < destinationSelect.options.length; i++) {
+                                if (destinationSelect.options[i].value === destination || 
+                                    destination.includes(destinationSelect.options[i].value) ||
+                                    destinationSelect.options[i].value.includes(destination.split(' ')[0])) {
+                                    destinationSelect.selectedIndex = i;
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            
+                            // If no match found, select first non-empty option
+                            if (!found) {
+                                for (let i = 0; i < destinationSelect.options.length; i++) {
+                                    if (destinationSelect.options[i].value) {
+                                        destinationSelect.selectedIndex = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Ensure the hidden formType is set
+                    let formTypeField = document.querySelector('#bookingForm input[name="formType"]');
+                    if (!formTypeField) {
+                        const form = document.querySelector('#bookingForm');
+                        if (form) {
+                            formTypeField = document.createElement('input');
+                            formTypeField.type = 'hidden';
+                            formTypeField.name = 'formType';
+                            formTypeField.value = 'honeymoon';
+                            form.appendChild(formTypeField);
+                        }
+                    } else {
+                        formTypeField.value = 'honeymoon';
+                    }
+                    
+                    // Show booking popup with flex display like domestic tour page
+                    if (bookingPopup) {
+                        bookingPopup.style.display = 'flex';
+                    }
+                });
+            });
+            
+            // Also handle the main CTA button
+            const ctaBtn = document.querySelector('.cta-btn');
+            if (ctaBtn) {
+                ctaBtn.addEventListener('click', function(e) {
+                    // We'll keep the default scroll behavior for this button
+                    console.log('CTA button clicked - scrolling to form');
+                });
+            }
+            
+            // Close modal when clicking X
+            if (closeBookingPopup) {
+                closeBookingPopup.addEventListener('click', function() {
+                    bookingPopup.style.display = 'none';
+                });
+            }
+            
+            // Close popup when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === bookingPopup) {
+                    bookingPopup.style.display = 'none';
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && bookingPopup && bookingPopup.style.display === 'flex') {
+                    bookingPopup.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

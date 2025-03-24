@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Tickets - Abhi Tours & Travels</title>
+    
+    <!-- Advanced page loader script - must be at the top -->
+    <script src="../js/page-loader.js"></script>
+    
+    <!-- Theme handler script to prevent theme flash -->
+    <script src="../js/theme-handler.js"></script>
+    
+    <!-- Critical CSS - inlined for fastest rendering -->
+    <link rel="stylesheet" href="../css/critical.css">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="../css/main.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../css/flight-tickets.css" media="print" onload="this.media='all'">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" media="print" onload="this.media='all'"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <!-- Fallback for browsers that don't support JS loading -->
+    <noscript>
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/flight-tickets.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    </noscript>
+    
+    <!-- Enhanced lazy loading script -->
+    <script src="../js/lazy-load.js" defer></script>
+    
+    <!-- Script loader for deferred JavaScript loading -->
+    <script src="../js/script-loader.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div id="nav-part1" style="display: none;">
+                <i class="ri-menu-3-line"></i>
+            </div>
+            <div id="nav-part2">
+                <img src="../images/WhatsApp_Image_2025-03-17_at_19.38.53_85a826c5-removebg-preview.png" alt="Abhi Tours & Travels Logo">
+            </div>
+            <div id="nav-part3">
+                <a href="index.html"><h3><span>Home</span> <span><i class='bx bxs-home-alt-2'></i></span></h3></a>
+                <a href="aboutus.html"><h3><span>About Us</span> <span><i class='bx bxs-invader'></i></span></h3></a>
+                <h3 id="ourservices"><span>Our Services</span> <span><i class='bx bxs-invader'></i></span></h3>
+                <h3 id="trips"><span>Trips</span> <span><i class='bx bxl-airbnb'></i></span></h3>
+                <a href="contactus.html"><h3>Contact Us <span><i class='bx bx-mail-send'></i></span></h3></a>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" title="Toggles light & dark" aria-label="auto" aria-live="polite">
+                <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                    <mask class="moon" id="moon-mask">
+                        <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                        <circle cx="24" cy="10" r="6" fill="black" />
+                    </mask>
+                    <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
+                    <g class="sun-beams" stroke="currentColor">
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </g>
+                </svg>
+            </button>
+        </nav>
+        
+        <div class="flight-hero" style="background-image: url('../images/img1.avif');">
+            <div class="flight-hero-content">
+                <h1>Flight Tickets</h1>
+                <p>Book domestic and international flights at the best prices with our hassle-free booking service.</p>
+                <button class="cta-btn" onclick="document.querySelector('#flight-booking-inquiry').scrollIntoView({ behavior: 'smooth' });">Book now</button>
+
+            </div>
+        </div>
+        
+        <div class="flight-section">
+            <h2 class="flight-title">Our Flight Booking Services</h2>
+            <p>At Abhi Tours & Travels, we offer comprehensive flight booking services for domestic and international travel. With access to all major airlines and competitive prices, we ensure you get the best deals and a smooth travel experience.</p>
+            
+            <div class="flight-cards">
+                <div class="flight-card">
+                    <div class="flight-card-icon">
+                        <i class='bx bx-globe'></i>
+                    </div>
+                    <h3>International Flights</h3>
+                    <p>Book flights to international destinations with the best airlines at competitive rates. We offer special deals on popular routes.</p>
+                </div>
+                
+                <div class="flight-card">
+                    <div class="flight-card-icon">
+                        <i class='bx bx-map'></i>
+                    </div>
+                    <h3>Domestic Flights</h3>
+                    <p>Find the best deals on domestic flights across all major cities in India. Easy booking and instant confirmation.</p>
+                </div>
+                
+                <div class="flight-card">
+                    <div class="flight-card-icon">
+                        <i class='bx bx-group'></i>
+                    </div>
+                    <h3>Group Bookings</h3>
+                    <p>Special discounted rates for group travel. Perfect for corporate trips, family vacations, or pilgrimages.</p>
+                </div>
+                
+                <div class="flight-card">
+                    <div class="flight-card-icon">
+                        <i class='bx bx-calendar-check'></i>
+                    </div>
+                    <h3>Last Minute Deals</h3>
+                    <p>Exclusive last-minute flight deals for urgent travel needs. We help you find available seats even during peak seasons.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flight-section">
+            <h2 class="flight-title">Why Book Flights With Us</h2>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class='bx bx-money'></i>
+                    <h3>Best Price Guarantee</h3>
+                    <p>We offer competitive prices and match any lower price you find elsewhere for the same flight.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <i class='bx bx-support'></i>
+                    <h3>24/7 Customer Support</h3>
+                    <p>Our dedicated support team is available round-the-clock to assist with any queries or changes.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <i class='bx bx-check-shield'></i>
+                    <h3>Secure Payments</h3>
+                    <p>Multiple secure payment options to ensure your transaction is safe and protected.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <i class='bx bx-timer'></i>
+                    <h3>Instant Confirmation</h3>
+                    <p>Receive instant confirmation and e-tickets directly to your email after booking.</p>
+                </div>
+            </div>
+        </div>
+<!--         
+        <div class="flight-section">
+            <h2 class="flight-title">Popular Airlines We Work With</h2>
+            
+            <div class="airlines-grid">
+                <div class="airline-logo">
+                    <img src="https://logos-world.net/wp-content/uploads/2023/01/Air-India-Logo-500x281.png" alt="Air India">
+                </div>
+                <div class="airline-logo">
+                    <img src="https://logos-world.net/wp-content/uploads/2020/03/IndiGo-Logo-700x394.png" alt="IndiGo">
+                </div>
+                <div class="airline-logo">
+                    <img src="https://logos-world.net/wp-content/uploads/2021/08/Emirates-Logo-700x394.png" alt="Emirates">
+                </div>
+                <div class="airline-logo">
+                    <img src="https://logos-world.net/wp-content/uploads/2020/11/Qatar-Airways-Logo-700x394.png" alt="Qatar Airways">
+                </div>
+                <div class="airline-logo">
+                    <img src="https://logos-world.net/wp-content/uploads/2020/03/Singapore-Airlines-Logo-700x394.png" alt="Singapore Airlines">
+                </div>
+                <div class="airline-logo">
+                    <img src="https://logos-world.net/wp-content/uploads/2021/08/Lufthansa-Logo-700x394.png" alt="Lufthansa">
+                </div>
+            </div>
+        </div> -->
+        
+        <div class="flight-section">
+            <h2 class="flight-title" id="flight-booking-inquiry">Flight Booking Inquiry</h2>
+            <div class="flight-form-container">
+                <form class="flight-form" action="/api/submissions/flight" method="POST" data-submit="ajax">
+                    <input type="hidden" name="formType" value="flight">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="trip-type">Trip Type</label>
+                            <select id="trip-type" name="tripType" required>
+                                <option value="" disabled selected>Select trip type</option>
+                                <option value="one-way">One Way</option>
+                                <option value="round-trip">Round Trip</option>
+                                <option value="multi-city">Multi-City</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="from">From (City/Airport)</label>
+                            <input type="text" id="from" name="from" placeholder="Enter departure city or airport" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="to">To (City/Airport)</label>
+                            <input type="text" id="to" name="to" placeholder="Enter destination city or airport" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="departure-date">Departure Date</label>
+                            <input type="date" id="departure-date" name="departureDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="return-date">Return Date (if applicable)</label>
+                            <input type="date" id="return-date" name="returnDate">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="passengers">Number of Passengers</label>
+                            <select id="passengers" name="adults" required>
+                                <option value="" disabled selected>Select number of passengers</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6 or more</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="class">Preferred Class</label>
+                            <select id="class" name="travelClass" required>
+                                <option value="" disabled selected>Select travel class</option>
+                                <option value="economy">Economy</option>
+                                <option value="premium-economy">Premium Economy</option>
+                                <option value="business">Business</option>
+                                <option value="first">First Class</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="additional-info">Additional Information</label>
+                            <textarea id="additional-info" name="additionalInfo" placeholder="Any specific requirements or preferences (meal preferences, wheelchair assistance, etc.)"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <button type="submit" class="submit-btn">Submit Inquiry</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-contact-form-container">
+                <div class="footer-contact-form">
+                    <h3>Contact Us</h3>
+                    <p>Have questions or ready to plan your next adventure? Send us a message and we'll get back to you shortly.</p>
+                    <form action="/api/submissions/contact" method="POST" data-submit="ajax">
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="text" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="footer-form-group">
+                                <input type="email" name="email" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="tel" name="phone" placeholder="Your Phone" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <input type="text" name="subject" placeholder="Subject" required>
+                            </div>
+                        </div>
+                        <div class="footer-form-row">
+                            <div class="footer-form-group">
+                                <textarea name="message" placeholder="Your Message" required></textarea>
+                            </div>
+                        </div>
+                        <div class="footer-form-submit">
+                            <button type="submit">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-container">
+                <div class="footer-logo-section">
+                    <img src="../images/WhatsApp_Image_2025-03-17_at_19.38.53_85a826c5-removebg-preview.png" alt="Abhi Tours & Travels Logo">
+                    <p class="footer-tagline">Time to Travel - Your gateway to extraordinary experiences and unforgettable adventures.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                        <a href="#"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-pinterest'></i></a>
+                        <a href="#"><i class='bx bxl-youtube'></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class='bx bx-chevron-right'></i> Home</a></li>
+                        <li><a href="aboutus.html"><i class='bx bx-chevron-right'></i> About Us</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Our Services</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Tour Packages</a></li>
+                        <li><a href="contactus.html"><i class='bx bx-chevron-right'></i> Contact Us</a></li>
+                        <li><a href="#"><i class='bx bx-chevron-right'></i> Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class='bx bx-map'></i> 1st Floor, Above SBI ATM,<br>Beside Srikanth Honda Show Room,<br>Mankammathota, Karimnagar, TS - 505001</p>
+                    <p><i class='bx bx-phone'></i> 8886226565, 9885531674</p>
+                    <p><i class='bx bx-envelope'></i> info@abhitoursandtravels.com</p>
+                    <p><i class='bx bx-time-five'></i> Monday - Saturday: 9:00 AM - 8:00 PM</p>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive special offers and updates on new travel destinations.</p>
+                    <form class="footer-form" action="/api/submissions/newsletter" method="POST" data-submit="ajax">
+                        <input type="email" name="email" placeholder="Your Email Address" required>
+                        <button type="submit"><i class='bx bx-paper-plane'></i></button>
+                    </form>
+                    <p class="footer-disclaimer">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Abhi Tours & Travels. All rights reserved.</p>
+                <p>Designed with <i class='bx bx-heart' style="color: #e74c3c;"></i> for travelers around the world</p>
+            </div>
+        </footer>
+    </div>
+    <a href="#" class="contact-float" id="contactBtn">
+        <i class='bx bxs-envelope'></i>
+    </a>
+
+    <!-- Contact Form Popup -->
+    <div class="contact-popup" id="contactPopup">
+        <div class="contact-popup-content">
+            <div class="popup-header">
+                <h3>Contact Us</h3>
+                <button class="close-btn" id="closeContactPopup">&times;</button>
+            </div>
+            <form id="contactForm" action="/api/submissions/contact" method="POST" data-submit="ajax">
+                <div class="form-group">
+                    <input type="text" id="popup-name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="popup-phone" name="phone" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="popup-email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="popup-subject" name="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="popup-message" name="message" placeholder="Tell us about your requirements" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+    <!-- Main script file -->
+    <script src="../js/script.js" defer></script>
+    <!-- Add this before the closing body tag -->
+    <script src="../js/form-debug.js"></script>
+</body>
+</html> 

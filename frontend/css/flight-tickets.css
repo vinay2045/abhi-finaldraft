@@ -1,0 +1,395 @@
+/* Flight Tickets Page Styles */
+.flight-hero {
+    position: relative;
+    min-height: 400px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.flight-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.1));
+   
+}
+
+
+.flight-hero-content {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  color: white;
+  padding: 0 20px;
+  max-width: 600px;
+}
+
+.flight-hero-content h1 {
+   font-family: monospace;
+   font-size: 2.5rem;
+   margin-bottom: 15px;
+   font-weight: 700;
+   z-index: 2;
+}
+
+.flight-hero-content p {
+    font-family: monospace;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    z-index: 2;
+}
+
+.flight-section {
+    margin-bottom: 60px;
+    padding: 0 20px;
+}
+
+.flight-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+}
+
+.flight-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: #1a8a9e;
+}
+
+/* Flight Cards */
+.flight-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.flight-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.flight-card:hover {
+    transform: translateY(-5px);
+}
+
+.flight-card-icon {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(26, 138, 158, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.flight-card-icon i {
+    font-size: 2rem;
+    color: #1a8a9e;
+}
+
+.flight-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.flight-card p {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+}
+
+.feature-item i {
+    font-size: 2.5rem;
+    color: #1a8a9e;
+    margin-bottom: 15px;
+}
+
+.feature-item h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.feature-item p {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Airlines Grid */
+.airlines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.airline-logo {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.airline-logo:hover {
+    transform: translateY(-5px);
+}
+
+.airline-logo img {
+    max-width: 100%;
+    max-height: 60px;
+    object-fit: contain;
+}
+
+/* Flight Form */
+.flight-form-container {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #1a8a9e;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.submit-btn {
+    background-color: #1a8a9e;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    background-color: #157a8d;
+}
+
+/* Why Choose Us section */
+.flight-benefits {
+    margin-top: 20px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.benefit-item i {
+    color: #1a8a9e;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.benefit-item span {
+    color: var(--text-color);
+}
+
+.assistance-box {
+    margin-top: 30px;
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #1a8a9e;
+}
+
+.assistance-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.assistance-box p {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.contact-item i {
+    color: #1a8a9e;
+    margin-right: 10px;
+}
+
+/* Enhanced responsive image styles for flight tickets page */
+.flight-hero {
+    background-size: cover;
+    background-position: center;
+}
+
+.flight-card-icon img,
+.feature-item img,
+.airline-logo img {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.airline-logo img {
+    max-height: 60px;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .flight-hero {
+        height: 400px;
+        background-position: center;
+    }
+    
+    .flight-hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+    
+    .airline-logo img {
+        max-height: 50px;
+    }
+}
+
+@media (max-width: 576px) {
+   
+    
+    .flight-hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .flight-hero-content p {
+        font-size: 1rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .flight-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .airline-logo img {
+        max-height: 40px;
+    }
+    
+    .flight-card-icon {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 375px) {
+    .flight-hero {
+        max-height: 600px;
+    }
+} 

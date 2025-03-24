@@ -1,0 +1,308 @@
+/* Services Pages Shared Styles */
+.service-hero {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.service-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+    z-index: 1;
+}
+
+.service-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+    max-width: 800px;
+}
+
+.service-hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.service-hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.service-section {
+    margin-bottom: 60px;
+    padding: 0 20px;
+}
+
+.service-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+}
+
+.service-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: #1a8a9e;
+}
+
+.service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.service-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-card-img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.service-card-content {
+    padding: 20px;
+}
+
+.service-card-title {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.service-card-text {
+    color: var(--text-color);
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.service-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.service-price {
+    color: #1a8a9e;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.service-duration {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.service-duration i {
+    color: #1a8a9e;
+}
+
+.service-book-btn {
+    display: inline-block;
+    background-color: #1a8a9e;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.service-book-btn:hover {
+    background-color: #157a8d;
+}
+
+/* Service Form Styles */
+.service-form-container {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.service-form-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.service-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.service-form-group {
+    margin-bottom: 15px;
+}
+
+.service-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.service-form-group input,
+.service-form-group select,
+.service-form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.service-form-group input:focus,
+.service-form-group select:focus,
+.service-form-group textarea:focus {
+    outline: none;
+    border-color: #1a8a9e;
+}
+
+.service-form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.service-submit-btn {
+    background-color: #1a8a9e;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.service-submit-btn:hover {
+    background-color: #157a8d;
+}
+
+.service-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.service-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.service-feature:hover {
+    transform: translateY(-5px);
+}
+
+.service-feature i {
+    font-size: 2.5rem;
+    color: #1a8a9e;
+    margin-bottom: 15px;
+}
+
+.service-feature h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.service-feature p {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .service-hero {
+        height: 350px;
+    }
+    
+    .service-hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .service-form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .service-hero {
+        height: 300px;
+    }
+    
+    .service-hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .service-hero-content p {
+        font-size: 1rem;
+    }
+    
+    .service-features {
+        grid-template-columns: 1fr;
+    }
+} 
