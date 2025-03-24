@@ -126,6 +126,121 @@ app.use('/api/submissions', submissionsRoutes);
 app.use('/api/page-content', pageContentRoutes);
 app.use('/api/domestic-tours', domesticToursRoutes);
 
+// Direct fallback route for carousel/active (in case the routes file doesn't properly handle it)
+app.get('/api/carousel/active', async (req, res) => {
+    try {
+        if (mongoose.connection.readyState !== 1) {
+            // If database is not connected, return fallback data
+            return res.json({
+                success: true,
+                count: 4,
+                data: [
+                    {
+                        _id: "fallback1",
+                        title: "Manali & Kashmir - ₹16,999",
+                        heading: "Explore the Paradise",
+                        subheading: "Experience the serene beauty of north India",
+                        image: "../images/photo-1739606944848-97662c0430f0 (1).avif",
+                        tags: ["Mountains", "Nature", "Adventure"],
+                        order: 0,
+                        active: true
+                    },
+                    {
+                        _id: "fallback2",
+                        title: "Maldives - ₹65,999",
+                        heading: "Discover Hidden Gems",
+                        subheading: "Sun-kissed beaches await you",
+                        image: "../images/photo-1590001155093-a3c66ab0c3ff.avif",
+                        tags: ["Beach", "Luxury", "Island"],
+                        order: 1,
+                        active: true
+                    },
+                    {
+                        _id: "fallback3",
+                        title: "Thailand - ₹31,999",
+                        heading: "Explore Exotic Thailand",
+                        subheading: "Experience vibrant culture and pristine beaches",
+                        image: "../images/premium_photo-1661929242720-140374d97c94.avif",
+                        tags: ["Culture", "Beach", "Adventure"],
+                        order: 2,
+                        active: true
+                    },
+                    {
+                        _id: "fallback4",
+                        title: "Dubai - ₹49,999",
+                        heading: "Luxury in the Desert",
+                        subheading: "Experience modern marvels and traditional charm",
+                        image: "../images/photo-1510414842594-a61c69b5ae57.avif",
+                        tags: ["Luxury", "Shopping", "Adventure"],
+                        order: 3,
+                        active: true
+                    }
+                ]
+            });
+        }
+
+        const CarouselItem = mongoose.model('CarouselItem');
+        const carouselItems = await CarouselItem.find({ active: true })
+            .sort({ order: 1 })
+            .select('-__v');
+
+        res.json({
+            success: true,
+            count: carouselItems.length,
+            data: carouselItems
+        });
+    } catch (err) {
+        console.error('Error in direct carousel/active route:', err.message);
+        // Return fallback data on error
+        res.json({
+            success: true,
+            count: 4,
+            data: [
+                {
+                    _id: "fallback1",
+                    title: "Manali & Kashmir - ₹16,999",
+                    heading: "Explore the Paradise",
+                    subheading: "Experience the serene beauty of north India",
+                    image: "../images/photo-1739606944848-97662c0430f0 (1).avif",
+                    tags: ["Mountains", "Nature", "Adventure"],
+                    order: 0,
+                    active: true
+                },
+                {
+                    _id: "fallback2",
+                    title: "Maldives - ₹65,999",
+                    heading: "Discover Hidden Gems",
+                    subheading: "Sun-kissed beaches await you",
+                    image: "../images/photo-1590001155093-a3c66ab0c3ff.avif",
+                    tags: ["Beach", "Luxury", "Island"],
+                    order: 1,
+                    active: true
+                },
+                {
+                    _id: "fallback3",
+                    title: "Thailand - ₹31,999",
+                    heading: "Explore Exotic Thailand",
+                    subheading: "Experience vibrant culture and pristine beaches",
+                    image: "../images/premium_photo-1661929242720-140374d97c94.avif",
+                    tags: ["Culture", "Beach", "Adventure"],
+                    order: 2,
+                    active: true
+                },
+                {
+                    _id: "fallback4",
+                    title: "Dubai - ₹49,999",
+                    heading: "Luxury in the Desert",
+                    subheading: "Experience modern marvels and traditional charm",
+                    image: "../images/photo-1510414842594-a61c69b5ae57.avif",
+                    tags: ["Luxury", "Shopping", "Adventure"],
+                    order: 3,
+                    active: true
+                }
+            ]
+        });
+    }
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
     const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';

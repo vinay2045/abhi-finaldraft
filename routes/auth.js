@@ -165,9 +165,19 @@ router.get('/admin', isAdmin, sanitizeAdmin, (req, res) => {
 router.post('/admin-login', async (req, res) => {
     const { username, password } = req.body;
 
+    // Set a 10-second timeout for this route
+    req.setTimeout(10000);
+
     try {
-        // Check if admin exists
-        const admin = await Admin.findOne({ username });
+        if (!username || !password) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Username and password are required' 
+            });
+        }
+
+        // Check if admin exists with a timeout
+        const admin = await Admin.findOne({ username }).maxTimeMS(5000).exec();
         if (!admin) {
             return res.status(400).json({ 
                 success: false, 
@@ -175,8 +185,27 @@ router.post('/admin-login', async (req, res) => {
             });
         }
 
-        // Check password
-        const isMatch = await admin.comparePassword(password);
+        // Check password - with a timeout to prevent hanging
+        let isMatch = false;
+        try {
+            // Set timeout for password comparison
+            const passwordTimeout = new Promise((resolve, reject) => {
+                setTimeout(() => reject(new Error('Password verification timeout')), 3000);
+            });
+            
+            // Race password comparison with timeout
+            isMatch = await Promise.race([
+                admin.comparePassword(password),
+                passwordTimeout
+            ]);
+        } catch (error) {
+            console.error('Password comparison error or timeout:', error.message);
+            return res.status(500).json({ 
+                success: false, 
+                message: 'Authentication service unavailable, please try again later' 
+            });
+        }
+
         if (!isMatch) {
             return res.status(400).json({ 
                 success: false, 
@@ -192,33 +221,53 @@ router.post('/admin-login', async (req, res) => {
             }
         };
 
-        // Update last login time
+        // Update last login time (but don't await to prevent timeout)
         admin.lastLogin = Date.now();
-        await admin.save();
+        admin.save().catch(err => console.error('Failed to update last login:', err));
 
-        jwt.sign(
-            payload,
-            process.env.JWT_SECRET,
-            { expiresIn: '1d' },
-            (err, token) => {
-                if (err) throw err;
-                res.json({
-                    success: true,
-                    token,
-                    user: {
-                        id: admin._id,
-                        username: admin.username,
-                        email: admin.email,
-                        name: admin.name || 'Administrator'
+        // Use a faster signing method with timeout
+        try {
+            const tokenPromise = new Promise((resolve, reject) => {
+                jwt.sign(
+                    payload,
+                    process.env.JWT_SECRET || 'fallback_secret_do_not_use_in_production',
+                    { expiresIn: '1d' },
+                    (err, token) => {
+                        if (err) reject(err);
+                        else resolve(token);
                     }
-                });
-            }
-        );
+                );
+            });
+            
+            // Add timeout to token signing
+            const tokenTimeout = new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('Token generation timeout')), 2000)
+            );
+            
+            const token = await Promise.race([tokenPromise, tokenTimeout]);
+            
+            return res.json({
+                success: true,
+                token,
+                user: {
+                    id: admin._id,
+                    username: admin.username,
+                    email: admin.email,
+                    name: admin.name || 'Administrator'
+                }
+            });
+        } catch (error) {
+            console.error('Token generation error:', error);
+            return res.status(500).json({ 
+                success: false, 
+                message: 'Authentication service error, please try again' 
+            });
+        }
     } catch (error) {
-        console.error(error);
+        console.error('Admin login error:', error);
         res.status(500).json({ 
             success: false, 
-            message: 'Server error' 
+            message: 'Server error, please try again later' 
         });
     }
 });
