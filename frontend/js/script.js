@@ -1368,7 +1368,15 @@ const heroSections = {
 async function loadCarouselData() {
     try {
         console.log('Loading carousel data from API');
-        const response = await fetch('/api/carousel');
+        
+        // First try /api/carousel/active (the endpoint shown in the error message)
+        let response = await fetch('/api/carousel/active');
+        
+        // If it returns 404, try the alternative endpoint
+        if (response.status === 404) {
+            console.log('Carousel active endpoint not found, trying /api/carousel');
+            response = await fetch('/api/carousel');
+        }
         
         if (!response.ok) {
             throw new Error(`HTTP error ${response.status}`);
@@ -1383,11 +1391,12 @@ async function loadCarouselData() {
         // Update carousel items with data from API
         const carouselItems = data.data;
         if (Array.isArray(carouselItems) && carouselItems.length > 0) {
+            console.log('Successfully loaded carousel data:', carouselItems.length, 'items');
             updateHeroCarousel(carouselItems);
         } else {
             console.log('No carousel items found, using fallback data');
             // Use the fallback data defined at the top of the file
-            updateHeroCarousel(window.carouselItems || []);
+            updateHeroCarousel(window.carouselItems || carouselItems);
         }
     } catch (error) {
         console.error('Error fetching carousel data:', error);

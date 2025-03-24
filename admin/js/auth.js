@@ -28,21 +28,46 @@ class AdminAuth {
 
             // Handle non-OK responses first
             if (!response.ok) {
-                const errorText = await response.text();
+                // Special handling for Gateway Timeout
+                if (response.status === 504) {
+                    throw new Error('Server timeout. The request took too long to complete. Please try again later.');
+                }
+                
                 let errorMessage;
                 try {
-                    // Try to parse error as JSON
-                    const errorData = JSON.parse(errorText);
-                    errorMessage = errorData.message || `Login failed (${response.status})`;
-                } catch (e) {
-                    // If not JSON, use status text
+                    // Try to get the error text
+                    const errorText = await response.text();
+                    
+                    // Try to parse as JSON if possible
+                    try {
+                        const errorData = JSON.parse(errorText);
+                        errorMessage = errorData.message || `Login failed (${response.status})`;
+                    } catch (jsonError) {
+                        // Not valid JSON
+                        console.error('JSON parsing error:', jsonError);
+                        errorMessage = errorText || `Login failed: ${response.status} ${response.statusText}`;
+                        
+                        // If errorText contains HTML, it's likely a server error page
+                        if (errorText && (errorText.includes('<!DOCTYPE html>') || errorText.includes('<html>'))) {
+                            errorMessage = `Login failed: ${response.status} ${response.statusText}. Server returned an HTML error page.`;
+                        }
+                    }
+                } catch (textError) {
+                    // Can't even get response text
                     errorMessage = `Login failed: ${response.status} ${response.statusText}`;
                 }
+                
                 throw new Error(errorMessage);
             }
 
             // For successful responses, parse JSON
-            const data = await response.json();
+            let data;
+            try {
+                data = await response.json();
+            } catch (e) {
+                console.error('JSON parsing error:', e);
+                throw new Error('Unable to parse server response. Please try again.');
+            }
             
             if (!data.success) {
                 throw new Error(data.message || 'Login failed');

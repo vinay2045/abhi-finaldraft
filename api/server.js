@@ -16,7 +16,7 @@ app.use(helmet({
 
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
-        ? ['https://abhi-draft3-a8y81juhx-vinays-projects-e655e938.vercel.app', 'https://abhi-draft3.vercel.app']
+        ? ['https://abhi-draft3-2qo0rbh40-vinays-projects-e655e938.vercel.app', 'https://abhi-draft3-a8y81juhx-vinays-projects-e655e938.vercel.app', 'https://abhi-draft3.vercel.app']
         : '*',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
