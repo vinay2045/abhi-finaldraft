@@ -1369,20 +1369,47 @@ async function loadCarouselData() {
     try {
         console.log('Loading carousel data from API');
         
-        // First try /api/carousel/active (the endpoint shown in the error message)
-        let response = await fetch('/api/carousel/active');
+        // Try all possible endpoints with fallbacks
+        let response;
+        let endpoints = [
+            '/api/carousel/active',
+            '/api/carousel',
+            '/api/carousel/'
+        ];
         
-        // If it returns 404, try the alternative endpoint
-        if (response.status === 404) {
-            console.log('Carousel active endpoint not found, trying /api/carousel');
-            response = await fetch('/api/carousel');
+        let success = false;
+        let errorMessage = '';
+        
+        // Try each endpoint until one works
+        for (const endpoint of endpoints) {
+            try {
+                console.log(`Trying endpoint: ${endpoint}`);
+                response = await fetch(endpoint);
+                if (response.ok) {
+                    success = true;
+                    break;
+                } else {
+                    errorMessage += `Endpoint ${endpoint} failed with status ${response.status}. `;
+                }
+            } catch (error) {
+                console.error(`Error fetching from ${endpoint}:`, error);
+                errorMessage += `Endpoint ${endpoint} error: ${error.message}. `;
+            }
         }
         
-        if (!response.ok) {
-            throw new Error(`HTTP error ${response.status}`);
+        if (!success) {
+            console.error('All API endpoints failed:', errorMessage);
+            throw new Error('Failed to fetch carousel data from any endpoint');
         }
         
-        const data = await response.json();
+        // Process the successful response
+        let data;
+        try {
+            data = await response.json();
+        } catch (error) {
+            console.error('Error parsing JSON response:', error);
+            throw new Error('Invalid JSON response from server');
+        }
         
         if (!data.success) {
             throw new Error(data.message || 'Failed to load carousel data');
@@ -1395,15 +1422,61 @@ async function loadCarouselData() {
             updateHeroCarousel(carouselItems);
         } else {
             console.log('No carousel items found, using fallback data');
-            // Use the fallback data defined at the top of the file
-            updateHeroCarousel(window.carouselItems || carouselItems);
+            // Use the fallback data
+            updateHeroCarousel(getFallbackCarouselItems());
         }
     } catch (error) {
         console.error('Error fetching carousel data:', error);
         // Use fallback data on error
         console.log('Using fallback carousel data due to error');
-        updateHeroCarousel(window.carouselItems || []);
+        updateHeroCarousel(getFallbackCarouselItems());
     }
+}
+
+// Function to provide fallback carousel items
+function getFallbackCarouselItems() {
+    return [
+        {
+            _id: "fallback1",
+            title: "Manali & Kashmir - ₹16,999",
+            heading: "Explore the Paradise",
+            subheading: "Experience the serene beauty of north India",
+            image: "/images/photo-1739606944848-97662c0430f0.avif",
+            tags: ["Mountains", "Nature", "Adventure"],
+            order: 0,
+            active: true
+        },
+        {
+            _id: "fallback2",
+            title: "Maldives - ₹65,999",
+            heading: "Discover Hidden Gems",
+            subheading: "Sun-kissed beaches await you",
+            image: "/images/photo-1590001155093-a3c66ab0c3ff.avif",
+            tags: ["Beach", "Luxury", "Island"],
+            order: 1,
+            active: true
+        },
+        {
+            _id: "fallback3",
+            title: "Thailand - ₹31,999",
+            heading: "Explore Exotic Thailand",
+            subheading: "Experience vibrant culture and pristine beaches",
+            image: "/images/premium_photo-1661929242720-140374d97c94.avif",
+            tags: ["Culture", "Beach", "Adventure"],
+            order: 2,
+            active: true
+        },
+        {
+            _id: "fallback4",
+            title: "Dubai - ₹49,999",
+            heading: "Luxury in the Desert",
+            subheading: "Experience modern marvels and traditional charm",
+            image: "/images/photo-1510414842594-a61c69b5ae57.avif",
+            tags: ["Luxury", "Shopping", "Adventure"],
+            order: 3,
+            active: true
+        }
+    ];
 }
 
 // Function to update hero carousel with dynamic data
