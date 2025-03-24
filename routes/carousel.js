@@ -29,6 +29,29 @@ router.get('/', async (req, res) => {
     }
 });
 
+// @route   GET /api/carousel/active
+// @desc    Get active carousel items (alias for the root route)
+// @access  Public
+router.get('/active', async (req, res) => {
+    try {
+        const carouselItems = await CarouselItem.find({ active: true })
+            .sort({ order: 1 })
+            .select('-__v');
+
+        res.json({
+            success: true,
+            count: carouselItems.length,
+            data: carouselItems
+        });
+    } catch (err) {
+        console.error('Error fetching active carousel items:', err.message);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+});
+
 // @route   GET /api/carousel/all
 // @desc    Get all carousel items including inactive ones
 // @access  Private (Admin only)
