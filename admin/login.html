@@ -251,7 +251,7 @@
             }
             
             // Check if we're already logged in
-            if (AdminAuth.isLoggedIn()) {
+            if (AdminAuth.isAuthenticated && !AdminAuth.isTokenExpired()) {
                 window.location.href = 'index.html';
             }
         });
