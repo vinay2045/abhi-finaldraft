@@ -22,21 +22,31 @@ class AdminAuth {
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify({ username, password })
             });
 
-            let data;
-            try {
-                // Safely parse JSON response
-                const text = await response.text();
-                data = text ? JSON.parse(text) : {};
-            } catch (parseError) {
-                console.error('JSON parsing error:', parseError);
-                throw new Error('Unable to parse server response. Please try again.');
+            // First check if response is ok
+            if (!response.ok) {
+                const errorText = await response.text();
+                let errorMessage;
+                try {
+                    const errorData = JSON.parse(errorText);
+                    errorMessage = errorData.message || `Login failed (${response.status})`;
+                } catch (e) {
+                    errorMessage = `Login failed: ${response.status} ${response.statusText}`;
+                }
+                throw new Error(errorMessage);
             }
 
-            if (!response.ok) {
-                throw new Error(data.message || 'Login failed. Server returned: ' + response.status);
+            // Now try to parse the successful response
+            let data;
+            try {
+                const text = await response.text();
+                data = JSON.parse(text);
+            } catch (parseError) {
+                console.error('Response parsing error:', parseError);
+                throw new Error('Unable to parse server response. Please try again.');
             }
 
             if (!data.token) {

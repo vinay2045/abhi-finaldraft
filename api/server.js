@@ -12,9 +12,11 @@ const app = express();
 app.use(helmet());
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
-        ? ['https://your-app.vercel.app', 'https://www.your-app.vercel.app']
+        ? 'https://abhi-draft3-e9rr9a7mf-vinays-projects-e655e938.vercel.app'
         : '*',
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token']
 }));
 
 // Rate limiting
@@ -28,24 +30,59 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// MongoDB connection with retry logic
+// MongoDB connection with enhanced error handling
 const connectDB = async () => {
     try {
+        if (!process.env.MONGODB_URI) {
+            throw new Error('MONGODB_URI environment variable is not defined');
+        }
+
+        console.log('Attempting to connect to MongoDB...');
         await mongoose.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            serverSelectionTimeoutMS: 5000,
+            serverSelectionTimeoutMS: 10000,
             socketTimeoutMS: 45000,
+            heartbeatFrequencyMS: 2000,
+            maxPoolSize: 10,
+            minPoolSize: 2,
+            maxIdleTimeMS: 30000,
+            connectTimeoutMS: 10000,
+            retryWrites: true,
+            w: 'majority'
         });
-        console.log('Connected to MongoDB');
+        console.log('Successfully connected to MongoDB');
     } catch (err) {
         console.error('MongoDB connection error:', err);
-        // Retry connection after 5 seconds
-        setTimeout(connectDB, 5000);
+        if (err.message.includes('MONGODB_URI environment variable is not defined')) {
+            console.error('Please check your environment variables configuration');
+        } else if (err.name === 'MongoServerSelectionError') {
+            console.error('Could not connect to MongoDB server. Please check your connection string and network connectivity');
+            console.error('Current MongoDB URI:', process.env.MONGODB_URI ? 'URI exists' : 'URI is missing');
+        } else if (err.name === 'MongoTimeoutError') {
+            console.error('MongoDB connection timed out. This might be due to network issues or IP restrictions.');
+        }
+        
+        // In production, we might want to retry the connection
+        if (process.env.NODE_ENV === 'production') {
+            console.log('Retrying connection in 5 seconds...');
+            setTimeout(connectDB, 5000);
+        }
     }
 };
 
+// Initial database connection
 connectDB();
+
+// Handle MongoDB connection errors
+mongoose.connection.on('error', (err) => {
+    console.error('MongoDB connection error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+    console.log('MongoDB disconnected. Attempting to reconnect...');
+    connectDB();
+});
 
 // Import routes
 const carouselRoutes = require('../routes/carousel');
@@ -65,7 +102,13 @@ app.use('/api/domestic-tours', domesticToursRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-    res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+    const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+    res.status(200).json({ 
+        status: 'ok', 
+        timestamp: new Date().toISOString(),
+        database: dbStatus,
+        environment: process.env.NODE_ENV
+    });
 });
 
 // 404 handler

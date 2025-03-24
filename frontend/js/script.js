@@ -1365,33 +1365,31 @@ const heroSections = {
 };
 
 // Function to load carousel data from the backend API
-function loadCarouselData() {
-    console.log("Loading carousel data from API");
-    
-    fetch('/api/carousel/active')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Carousel data received:", data);
-            if (data && Array.isArray(data) && data.length > 0) {
-                // Data is directly an array of carousel items
-                updateHeroCarousel(data);
-            } else if (data && data.success && data.data && data.data.length > 0) {
-                // Data is wrapped in a success object
-                updateHeroCarousel(data.data);
-            } else {
-                console.log("No carousel items returned from API, using local data");
-                // Keep using the current carousel setup with static data
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching carousel data:", error);
-            // Keep using the current carousel setup on error
-        });
+async function loadCarouselData() {
+    try {
+        console.log('Loading carousel data from API');
+        const response = await fetch('/api/carousel');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (!data.success) {
+            throw new Error(data.message || 'Failed to load carousel data');
+        }
+        
+        // Update carousel items with data from API
+        const carouselItems = data.data;
+        if (Array.isArray(carouselItems) && carouselItems.length > 0) {
+            updateCarouselContent(carouselItems);
+        } else {
+            console.log('No carousel items found');
+        }
+    } catch (error) {
+        console.error('Error fetching carousel data:', error);
+    }
 }
 
 // Function to update hero carousel with dynamic data
