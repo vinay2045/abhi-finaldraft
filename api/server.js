@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const app = express();
@@ -116,6 +117,33 @@ const authRoutes = require('../routes/auth');
 const submissionsRoutes = require('../routes/submissions');
 const pageContentRoutes = require('../routes/pageContent');
 const domesticToursRoutes = require('../routes/domesticTours');
+
+// Database health check middleware for critical routes
+app.use('/api/auth/admin-login', async (req, res, next) => {
+    // If MongoDB is disconnected, skip this middleware
+    if (mongoose.connection.readyState !== 1) {
+        console.warn('MongoDB is disconnected, skipping database health check');
+        return next();
+    }
+    
+    try {
+        // Ping the database with a timeout
+        const adminRes = await mongoose.connection.db.admin().ping();
+        
+        if (adminRes && adminRes.ok === 1) {
+            console.log('Database health check successful');
+            return next();
+        } else {
+            console.warn('Database health check failed, response:', adminRes);
+            // Continue anyway - the emergency route will handle this
+            return next();
+        }
+    } catch (error) {
+        console.error('Database health check error:', error);
+        // Continue anyway - the emergency route will handle this
+        return next();
+    }
+});
 
 // API routes
 app.use('/api/carousel', carouselRoutes);
@@ -258,6 +286,102 @@ app.get('/', (req, res) => {
 
 // Serve static files from the frontend directory
 app.use(express.static(path.join(__dirname, '../frontend')));
+
+// Direct admin login fallback (emergency route when database is down)
+app.post('/api/auth/admin-login', async (req, res) => {
+    console.log('Emergency admin login fallback endpoint called');
+    
+    try {
+        // Add a slight delay to simulate processing
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const { username, password } = req.body;
+        
+        // Check if MongoDB is connected
+        if (mongoose.connection.readyState === 1) {
+            console.log('MongoDB is connected, trying regular auth flow first');
+            
+            try {
+                // Try to find the admin in the database
+                const Admin = mongoose.model('Admin');
+                const admin = await Admin.findOne({ username }).maxTimeMS(2000).exec();
+                
+                if (admin) {
+                    console.log('Admin found in database, using regular authentication');
+                    // If found, let the regular flow continue
+                    return;
+                }
+                
+                console.log('Admin not found in database, using fallback');
+            } catch (dbError) {
+                console.error('Database error during admin lookup:', dbError);
+                console.log('Using fallback authentication due to database error');
+                // Continue with fallback auth
+            }
+        } else {
+            console.log('MongoDB is not connected (state:', mongoose.connection.readyState, '), using fallback auth');
+        }
+        
+        // If MongoDB is not connected or admin not found, use environment variables or hardcoded fallback
+        const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
+        const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+        
+        // Basic authentication check
+        if (username === 'admin' && password === adminPassword) {
+            console.log('Emergency admin authentication successful');
+            
+            // Create a JWT token with admin flag
+            const payload = {
+                user: {
+                    id: 'emergency-admin',
+                    isAdmin: true
+                }
+            };
+            
+            // Generate token with a fallback secret
+            const jwtSecret = process.env.JWT_SECRET || 'emergency_fallback_secret';
+            
+            jwt.sign(
+                payload,
+                jwtSecret,
+                { expiresIn: '1d' },
+                (err, token) => {
+                    if (err) {
+                        console.error('Emergency token generation error:', err);
+                        return res.status(500).json({
+                            success: false,
+                            message: 'Token generation failed'
+                        });
+                    }
+                    
+                    return res.json({
+                        success: true,
+                        token,
+                        user: {
+                            id: 'emergency-admin',
+                            username: 'admin',
+                            email: adminEmail,
+                            name: 'Emergency Administrator'
+                        },
+                        mode: 'emergency' // Flag to indicate this is emergency mode
+                    });
+                }
+            );
+        } else {
+            console.log('Emergency admin authentication failed');
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid emergency credentials'
+            });
+        }
+    } catch (error) {
+        console.error('Critical error in admin login fallback:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Server error during authentication'
+        });
+    }
+});
 
 // 404 handler
 app.use((req, res) => {

@@ -3,160 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - Travel Agency</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css">
+    <title>Admin Panel | Login</title>
+    <link rel="stylesheet" href="../frontend/css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
     <style>
-        body {
-            background-color: #f8f9fa;
+        .admin-container {
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            padding: 20px;
+            background-color: #f8f9fa;
         }
         
-        .login-container {
-            width: 100%;
-            max-width: 400px;
+        .admin-card {
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-        }
-        
-        .login-header {
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
             text-align: center;
         }
         
-        .login-header h3 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 600;
+        .admin-card h1 {
+            color: #1a8a9e;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
         }
         
-        .login-header p {
-            margin: 10px 0 0;
-            opacity: 0.8;
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
         }
         
-        .login-body {
-            padding: 30px;
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #495057;
         }
         
-        .alert {
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        
+        .form-control:focus {
+            border-color: #1a8a9e;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(26, 138, 158, 0.25);
+        }
+        
+        .btn-login {
+            background-color: #1a8a9e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.15s ease-in-out;
+        }
+        
+        .btn-login:hover {
+            background-color: #167a8e;
+        }
+        
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 0.75rem 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .copyright {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-top: 2rem;
+        }
+        
+        /* Loading state */
+        .btn-login.loading {
+            background-color: #6c757d;
+            cursor: not-allowed;
+            position: relative;
+        }
+        
+        .btn-login.loading:after {
+            content: "";
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid white;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            vertical-align: text-bottom;
+            margin-left: 0.5rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Offline mode banner */
+        .offline-banner {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
             display: none;
-            margin-bottom: 20px;
         }
         
-        .login-footer {
-            padding: 20px 30px;
-            background-color: #f8f9fa;
-            text-align: center;
-            border-top: 1px solid #eee;
-            font-size: 13px;
-            color: var(--gray-600);
+        .offline-banner.visible {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-header">
-            <h3>Admin Panel</h3>
-            <p>Enter your credentials to access the admin area</p>
-        </div>
-        
-        <div class="login-body">
-            <div class="alert alert-danger" id="loginAlert"></div>
+    <div class="admin-container">
+        <div class="admin-card">
+            <h1>Admin Panel</h1>
+            <p class="subtitle">Enter your credentials to access the admin area</p>
+            
+            <div id="offlineBanner" class="offline-banner">
+                Network connectivity issues detected. You can still log in with admin credentials.
+            </div>
+            
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
             
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                    <input type="text" id="username" name="username" class="form-control" value="admin" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                    <input type="password" id="password" name="password" class="form-control" required>
                 </div>
                 
-                <button type="submit" class="btn btn-primary" style="width: 100%;" id="loginButton">
-                    <span>Login</span>
-                    <span id="loadingSpinner" class="loading-spinner" style="display: none;"></span>
-                </button>
+                <button type="submit" id="loginButton" class="btn-login">Login</button>
             </form>
-        </div>
-        
-        <div class="login-footer">
-            &copy; 2023 Travel Agency. All rights reserved.
+            
+            <div class="copyright">
+                © 2023 Travel Agency. All rights reserved.
+            </div>
         </div>
     </div>
-
+    
     <script src="js/auth.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if we should redirect after login
-            const redirectPath = sessionStorage.getItem('redirect_after_login');
+            const loginForm = document.getElementById('loginForm');
+            const loginButton = document.getElementById('loginButton');
+            const errorMessage = document.getElementById('errorMessage');
+            const offlineBanner = document.getElementById('offlineBanner');
             
-            // If already authenticated, redirect to dashboard
-            if (window.AdminAuth.isAuthenticated() && !window.AdminAuth.isTokenExpired()) {
-                window.location.href = redirectPath || 'dashboard.html';
-                return;
+            // Check for online status
+            function updateOnlineStatus() {
+                if (navigator.onLine) {
+                    offlineBanner.classList.remove('visible');
+                } else {
+                    offlineBanner.classList.add('visible');
+                }
             }
             
-            const loginForm = document.getElementById('loginForm');
-            const loginAlert = document.getElementById('loginAlert');
-            const loginButton = document.getElementById('loginButton');
-            const loadingSpinner = document.getElementById('loadingSpinner');
+            // Initial check
+            updateOnlineStatus();
             
+            // Listen for online/offline events
+            window.addEventListener('online', updateOnlineStatus);
+            window.addEventListener('offline', updateOnlineStatus);
+            
+            // Handle form submission
             loginForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
-                // Get form values
-                const username = document.getElementById('username').value.trim();
-                const password = document.getElementById('password').value.trim();
+                // Hide any previous error
+                errorMessage.style.display = 'none';
                 
-                // Basic validation
+                // Get form data
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // Validate input
                 if (!username || !password) {
                     showError('Please enter both username and password');
                     return;
                 }
                 
-                // Show loading
+                // Set loading state
                 setLoading(true);
                 
                 try {
                     // Attempt login
-                    await window.AdminAuth.login(username, password);
+                    await AdminAuth.login(username, password);
                     
-                    // Success - redirect
-                    window.location.href = redirectPath || 'dashboard.html';
+                    // Redirect to dashboard after successful login
+                    window.location.href = 'index.html';
                 } catch (error) {
-                    // Show error
-                    showError(error.message || 'Login failed. Please check your credentials.');
+                    // Show error message
+                    showError(error.message);
+                    console.error('Login error:', error);
+                    
+                    // If this is a timeout or connection issue, show the offline banner
+                    if (error.message.includes('timeout') || 
+                        error.message.includes('Unable to connect') ||
+                        error.message.includes('network') ||
+                        !navigator.onLine) {
+                        offlineBanner.classList.add('visible');
+                    }
+                } finally {
+                    // Reset loading state
                     setLoading(false);
                 }
             });
             
+            // Helper to show error messages
             function showError(message) {
-                loginAlert.textContent = message;
-                loginAlert.style.display = 'block';
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
             }
             
+            // Helper to toggle loading state
             function setLoading(isLoading) {
                 if (isLoading) {
-                    loginButton.querySelector('span:first-child').style.display = 'none';
-                    loadingSpinner.style.display = 'inline-block';
+                    loginButton.classList.add('loading');
+                    loginButton.innerHTML = 'Logging in...';
                     loginButton.disabled = true;
                 } else {
-                    loginButton.querySelector('span:first-child').style.display = 'inline';
-                    loadingSpinner.style.display = 'none';
+                    loginButton.classList.remove('loading');
+                    loginButton.innerHTML = 'Login';
                     loginButton.disabled = false;
                 }
+            }
+            
+            // Check if we're already logged in
+            if (AdminAuth.isLoggedIn()) {
+                window.location.href = 'index.html';
             }
         });
     </script>
