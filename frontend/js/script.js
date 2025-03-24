@@ -1441,7 +1441,7 @@ function getFallbackCarouselItems() {
             title: "Manali & Kashmir - ₹16,999",
             heading: "Explore the Paradise",
             subheading: "Experience the serene beauty of north India",
-            image: "/images/photo-1739606944848-97662c0430f0.avif",
+            image: "/frontend/images/photo-1739606944848-97662c0430f0.avif",
             tags: ["Mountains", "Nature", "Adventure"],
             order: 0,
             active: true
@@ -1451,7 +1451,7 @@ function getFallbackCarouselItems() {
             title: "Maldives - ₹65,999",
             heading: "Discover Hidden Gems",
             subheading: "Sun-kissed beaches await you",
-            image: "/images/photo-1590001155093-a3c66ab0c3ff.avif",
+            image: "/frontend/images/photo-1590001155093-a3c66ab0c3ff.avif",
             tags: ["Beach", "Luxury", "Island"],
             order: 1,
             active: true
@@ -1461,7 +1461,7 @@ function getFallbackCarouselItems() {
             title: "Thailand - ₹31,999",
             heading: "Explore Exotic Thailand",
             subheading: "Experience vibrant culture and pristine beaches",
-            image: "/images/premium_photo-1661929242720-140374d97c94.avif",
+            image: "/frontend/images/premium_photo-1661929242720-140374d97c94.avif",
             tags: ["Culture", "Beach", "Adventure"],
             order: 2,
             active: true
@@ -1471,7 +1471,7 @@ function getFallbackCarouselItems() {
             title: "Dubai - ₹49,999",
             heading: "Luxury in the Desert",
             subheading: "Experience modern marvels and traditional charm",
-            image: "/images/photo-1510414842594-a61c69b5ae57.avif",
+            image: "/frontend/images/photo-1510414842594-a61c69b5ae57.avif",
             tags: ["Luxury", "Shopping", "Adventure"],
             order: 3,
             active: true
